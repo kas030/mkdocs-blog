@@ -1,0 +1,84 @@
+site_name: KAS 的博客
+nav:
+  - 首页: index.md
+  - 编程语言:
+      - Java:
+          - Java 基础: languages/java/java-basic.md
+          - Java 异常: languages/java/java-exception.md
+          - Java 集合: languages/java/java-collection.md
+          - Java 正则表达式: languages/java/java-regex.md
+  - 算法竞赛:
+      - Codeforces 2074D Counting Points: oi/cf-2074d-counting-points.md
+      - Codeforces 2120C Divine Tree: oi/cf-2120c-divine-tree.md
+      - Codeforces 2123E Mex Count: oi/cf-2123e-mex-count.md
+
+theme:
+  name: material
+  favicon: assets/favicon.png
+  language: zh
+  icon:
+    logo: simple/materialformkdocs
+    annotation: material/plus-circle
+  features:
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: blue grey
+      toggle:
+        icon: material/weather-night
+        name: Switch to system preference
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search
+  - tags
+  - glightbox
+
+markdown_extensions:
+  - abbr
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - footnotes
+  - md_in_html
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path:
+        - docs
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
