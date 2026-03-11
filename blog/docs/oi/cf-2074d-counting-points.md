@@ -1,10 +1,13 @@
-# Codeforces 2074D Counting Points
+---
+tags:
+  - 算法
+  - C++
+  - Codeforces
+  - C++20
+  - 计算几何
+---
 
-- 算法
-- C++
-- Codeforces
-- C++20
-- 计算几何
+# Codeforces 2074D Counting Points
 
 ## 题目
 
