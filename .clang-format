@@ -1,0 +1,19 @@
+Language: Cpp
+BasedOnStyle: Google
+AccessModifierOffset: 0
+IndentWidth: 4
+TabWidth: 4
+SpacesBeforeTrailingComments: 1
+ColumnLimit: 120
+MaxEmptyLinesToKeep: 2
+SortIncludes: false
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortCaseLabelsOnASingleLine: false
+AlignTrailingComments:
+  Kind: Leave
+AllowShortBlocksOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: Inline
+SpacesInLineCommentPrefix:
+  Minimum: 0
+  Maximum: 0
+AllowShortLoopsOnASingleLine: false
