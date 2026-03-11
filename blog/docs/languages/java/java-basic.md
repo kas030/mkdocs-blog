@@ -6,7 +6,8 @@
 
 关系：
 
-![JRE 和 JDK 的关系](java-basic-assets/img/p1.svg)
+![JRE 和 JDK 的关系](java-basic-assets/img/p1-light.svg#only-light)
+![JRE 和 JDK 的关系](java-basic-assets/img/p1-dark.svg#only-dark)
 
 ### IDEA 管理 java 程序的结构
 
