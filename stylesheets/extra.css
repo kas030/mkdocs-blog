@@ -1,0 +1,75 @@
+:root {
+    --md-admonition-icon--code: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>');
+    --md-admonition-icon--code-color: #7f50ff;
+}
+
+.md-typeset .admonition.code,
+.md-typeset details.code {
+    border-color: var(--md-admonition-icon--code-color);
+}
+
+.md-typeset .code>.admonition-title,
+.md-typeset .code>summary {
+    background-color: color-mix(in srgb, var(--md-admonition-icon--code-color) 10%, transparent);
+}
+
+.md-typeset .code>.admonition-title::before,
+.md-typeset .code>summary::before {
+    background-color: var(--md-admonition-icon--code-color);
+    -webkit-mask-image: var(--md-admonition-icon--code);
+    mask-image: var(--md-admonition-icon--code);
+}
+
+.md-typeset .code>summary::after {
+    background-color: var(--md-admonition-icon--code-color);
+}
+
+/* Code font size in <details> */
+details .linenos,
+details code {
+    font-size: inherit !important;
+}
+
+/* Code block / tab in details */
+details>summary+.highlight,
+details>summary+.tabbed-set {
+    margin: 0 -0.6rem !important;
+}
+
+details>summary+.highlight>.highlighttable {
+    margin: 0 !important;
+}
+
+/* Table full width */
+.md-typeset__table {
+    display: block !important;
+}
+
+.md-typeset table:not(.highlighttable) {
+    display: table !important;
+}
+
+.md-typeset table:not([class]) th {
+    min-width: 0rem;
+}
+
+blockquote {
+    margin: 20px 0 !important;
+    border-left-color: var(--md-primary-fg-color) !important;
+}
+
+/* Logo title */
+.md-header__topic:first-child {
+    font-weight: initial !important;
+}
+
+/* Table border */
+.md-typeset table:not(.highlighttable) th,
+.md-typeset table:not(.highlighttable) td {
+    border-right: 0.05rem solid var(--md-typeset-table-color);
+}
+
+.md-typeset table:not(.highlighttable) th:last-child,
+.md-typeset table:not(.highlighttable) td:last-child {
+    border-right: none;
+}
