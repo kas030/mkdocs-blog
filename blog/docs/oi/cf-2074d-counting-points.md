@@ -77,8 +77,6 @@
     --8<-- "oi/cf-2074d-counting-points-assets/code/solution.cpp"
     ```
 
-</details>
-
 ## 语法踩坑记录
 
 最开始写的结构体为：
