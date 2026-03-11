@@ -7,6 +7,8 @@ nav:
           - Java 异常: languages/java/java-exception.md
           - Java 集合: languages/java/java-collection.md
           - Java 正则表达式: languages/java/java-regex.md
+  - 课程:
+      - CS61A: courses/cs61a.md
   - 算法竞赛:
       - Codeforces 2074D Counting Points: oi/cf-2074d-counting-points.md
       - Codeforces 2120C Divine Tree: oi/cf-2120c-divine-tree.md
