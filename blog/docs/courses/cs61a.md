@@ -290,10 +290,10 @@ To evaluates the expression `<left> or <right>`:
 
 Python's and and or operators short-circuit. That is, they don't necessarily evaluate every operand.
 
-|Operator|Checks if:|Evaluates from left to right up to:|Example|
-|---|---|---|---|
-|`and`|All values are true|The first false value|`False and 1 / 0` evaluates to False|
-|`or`|At least one value is true|The first true value|`True or 1 / 0` evaluates to True|
+| Operator | Checks if:                 | Evaluates from left to right up to: | Example                              |
+| -------- | -------------------------- | ----------------------------------- | ------------------------------------ |
+| `and`    | All values are true        | The first false value               | `False and 1 / 0` evaluates to False |
+| `or`     | At least one value is true | The first true value                | `True or 1 / 0` evaluates to True    |
 
 #### Assertion
 
@@ -1104,11 +1104,11 @@ def denom(x):
 
 The higher we stay up without crossing these boundaries, the easier it will be to change the program in the future.
 
-|Parts of the program that...|Treat rationals as...|Using...|
-|:---|:---|:---|
-|Use rational numbers to perform computation|whole data values|`add_rational`, `mul_rational`, `equal_rational`, `print_rational`|
-|Create rationals or implement rational operations|numerators and denominators|`rational`, `numer`, `denom`|
-|Implement constructor and selectors for rationals|two-elements lists|list literals and element selection|
+| Parts of the program that...                      | Treat rationals as...       | Using...                                                           |
+| :------------------------------------------------ | :-------------------------- | :----------------------------------------------------------------- |
+| Use rational numbers to perform computation       | whole data values           | `add_rational`, `mul_rational`, `equal_rational`, `print_rational` |
+| Create rationals or implement rational operations | numerators and denominators | `rational`, `numer`, `denom`                                       |
+| Implement constructor and selectors for rationals | two-elements lists          | list literals and element selection                                |
 
 #### Violating Abstraction Barriers
 
@@ -1485,12 +1485,12 @@ For statement can iterate over iterators.
 
 Many built-in Python sequence operations return iterators that compute results **lazily**.
 
-|Name|Depict|
-|---|---|
-|`map(func, iterable)`|Iterate over `func(x)` for `x` in `iterable`|
-|`filter(func, iterable)`|Iterate over `x` in iterable if `func(x)` is `True`|
-|`zip(first_iter, second_iter)`|Iterate over co-indexed `(x, y)` pairs|
-|`reversed(sequence)`|Iterate over `x` in a sequence in reverse order|
+| Name                           | Depict                                              |
+| ------------------------------ | --------------------------------------------------- |
+| `map(func, iterable)`          | Iterate over `func(x)` for `x` in `iterable`        |
+| `filter(func, iterable)`       | Iterate over `x` in iterable if `func(x)` is `True` |
+| `zip(first_iter, second_iter)` | Iterate over co-indexed `(x, y)` pairs              |
+| `reversed(sequence)`           | Iterate over `x` in a sequence in reverse order     |
 
 To view the contents of an iterator, place the resulting elements into a container. We can use `list(iterable)`, `tuple(iterable)` or `sorted(iterable)`.
 
@@ -1912,13 +1912,13 @@ Ratio(1, 2)
 
 Special method names are used to implement the behavior of built-in functions and operators. These names always start and end with double underscores.
 
-|Names|Behaviors|
-|---|---|
-|`__init__`| Method invoked automatically when an object is constructed.|
-|`__repr__`| Method invoked to display an object as a Python expression.|
-|`__str__`| Method invoked to display an object as a string.|
-|`__add__`| Method invoked to add one object to another.|
-|`__bool__`| Method invoked to convert an object to a boolean value.|
+| Names      | Behaviors                                                   |
+| ---------- | ----------------------------------------------------------- |
+| `__init__` | Method invoked automatically when an object is constructed. |
+| `__repr__` | Method invoked to display an object as a Python expression. |
+| `__str__`  | Method invoked to display an object as a string.            |
+| `__add__`  | Method invoked to add one object to another.                |
+| `__bool__` | Method invoked to convert an object to a boolean value.     |
 
 ```python
 >>> a, b = 1, 2
