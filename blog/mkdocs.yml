@@ -8,6 +8,7 @@ nav:
           - Java 集合: languages/java/java-collection.md
           - Java 正则表达式: languages/java/java-regex.md
   - 课程:
+      - GAMES101: courses/games101.md
       - CS61A: courses/cs61a.md
       - 计算机系统: courses/computer-system.md
   - 算法竞赛:
@@ -76,6 +77,7 @@ markdown_extensions:
   - footnotes
   - md_in_html
   - attr_list
+  - pymdownx.blocks.caption
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
