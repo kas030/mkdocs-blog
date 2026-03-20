@@ -8,6 +8,7 @@ nav:
           - Java 集合: languages/java/java-collection.md
           - Java 正则表达式: languages/java/java-regex.md
   - 课程:
+      - "CMU CS15-213: CSAPP": courses/cmu-cs15-213-csapp.md
       - GAMES101: courses/games101.md
       - CS61A: courses/cs61a.md
   - 算法竞赛:
