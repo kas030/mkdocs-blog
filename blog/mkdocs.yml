@@ -11,7 +11,9 @@ nav:
       - "CMU CS15-213: CSAPP": courses/cmu-cs15-213-csapp.md
       - GAMES101: courses/games101.md
       - CS61A: courses/cs61a.md
+      - 计算机系统: courses/computer-system.md
   - 算法竞赛:
+      - LNCPC 2025 E Entering the unknown: oi/lncpc-2025-e-entering-the-unknown.md
       - Codeforces 2074D Counting Points: oi/cf-2074d-counting-points.md
       - Codeforces 2120C Divine Tree: oi/cf-2120c-divine-tree.md
       - Codeforces 2123E Mex Count: oi/cf-2123e-mex-count.md
