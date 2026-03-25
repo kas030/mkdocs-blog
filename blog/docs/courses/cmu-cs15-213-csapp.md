@@ -92,9 +92,9 @@ tags:
 
 !!! note "相互映射"
 
-    $$\operatorname{T2U}_w(X)=\begin{cases}X+2^w,&X<0\\X,&X\geq0\end{cases}$$
+    $$\operatorname{T2U}_w(X)=\begin{cases}X+2^w,&X<0\\X,&X\geqslant0\end{cases}$$
     
-    $$\operatorname{U2T}_w(U)=\begin{cases}U,&U<2^{w-1}\\U-2^w,&U\geq2^{w-1}\end{cases}$$
+    $$\operatorname{U2T}_w(U)=\begin{cases}U,&U<2^{w-1}\\U-2^w,&U\geqslant2^{w-1}\end{cases}$$
 
 #### 移位操作
 
@@ -155,4 +155,38 @@ tags:
 - 实际结果：w + 1 位
 - 舍弃进位：w 位
 
-$s=\operatorname{UAdd}_w(u,v)=(u+v)\bmod 2^w$
+![UAdd](cmu-cs15-213-csappp-assets/img/uadd.png){ width="400" }
+
+$$x +^u_w y=\begin{cases}x+y,&x+y<2^w\\x+y-2^w,&2^w\leqslant x+y<2^{w+1}\end{cases}$$
+
+#### 二进制补码加法
+
+TAdd 和 UAdd 有相同的位级表示。
+
+溢出分为负溢出和正溢出。
+
+![TAdd](cmu-cs15-213-csappp-assets/img/tadd.png){ width="400" }
+
+$$x +^t_w y=\begin{cases}x+y-2^w,&x+y\geqslant2^{w-1}\\x+y,&-2^{w-1}\leqslant x+y<2^{w-1}\\x+y+2^w,&x+y<-2^{w-1}\end{cases}$$
+
+#### 乘法
+
+结果可能多于 w 位：
+
+- 无符号数最大可达 $2w$ 位：$0\leqslant xy \leqslant (2^w-1)^2=2^{2w}-2^{w+1}+1$
+- 补码负的乘积最大可达 $2w-1$ 位：$xy\geqslant(-2^{w-1})\cdot(2^{w-1}-1)=-2^{2w-2}+2^{w-1}$
+- 补码正的乘积最大可达 $2w$ 位，仅对 $(TMin_w)^2$ 成立：$xy\leqslant (-2^{w-1})^2=2^{2w-2}$
+
+对于多于 w 位的结果，高 w 位将被忽略。
+
+$$x *^u_w y=(x\cdot y)\bmod 2^w$$
+
+补码乘法运算的位级表示是一样的。虽然完整乘积的位级表示可能不同，但截断后的乘积位级表示是相同的。
+
+$$x *^u_w y=\operatorname{U2T}_w[(x\cdot y)\bmod 2^w]$$
+
+#### 乘以常数
+
+整数乘法比移位和加法的代价大得多，乘以常数的行为通常被编译器优化为移位和加减法的组合。
+
+#### 除以 2 的幂
