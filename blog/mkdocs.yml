@@ -12,6 +12,7 @@ nav:
       - GAMES101: courses/games101.md
       - CS61A: courses/cs61a.md
       - 计算机系统: courses/computer-system.md
+      - 动手学深度学习: courses/dive-into-deep-learning.md
   - 算法竞赛:
       - LNCPC 2025 E Entering the unknown: oi/lncpc-2025-e-entering-the-unknown.md
       - Codeforces 2074D Counting Points: oi/cf-2074d-counting-points.md
