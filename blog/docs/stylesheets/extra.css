@@ -73,3 +73,7 @@ blockquote {
 .md-typeset table:not(.highlighttable) td:last-child {
     border-right: none;
 }
+
+.center-img {
+    text-align: center;
+}
