@@ -156,6 +156,7 @@ tags:
 - 舍弃进位：w 位
 
 ![UAdd](cmu-cs15-213-csappp-assets/img/uadd.png){ width="400" }
+{ .center-img }
 
 $$x +^u_w y=\begin{cases}x+y,&x+y<2^w\\x+y-2^w,&2^w\leqslant x+y<2^{w+1}\end{cases}$$
 
@@ -166,6 +167,7 @@ TAdd 和 UAdd 有相同的位级表示。
 溢出分为负溢出和正溢出。
 
 ![TAdd](cmu-cs15-213-csappp-assets/img/tadd.png){ width="400" }
+{ .center-img }
 
 $$x +^t_w y=\begin{cases}x+y-2^w,&x+y\geqslant2^{w-1}\\x+y,&-2^{w-1}\leqslant x+y<2^{w-1}\\x+y+2^w,&x+y<-2^{w-1}\end{cases}$$
 
