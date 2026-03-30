@@ -11,5 +11,14 @@
         "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format",
         "tag:yaml.org,2002:python/object/apply:pymdownx.slugs.slugify mapping"
     ],
-    "yaml.disableAdditionalProperties": true
+    "yaml.disableAdditionalProperties": true,
+    "[markdown]": {
+        "editor.quickSuggestions": {
+            "comments": "on",
+            "strings": "on",
+            "other": "on"
+        },
+        "editor.wordBasedSuggestions": "off",
+        "editor.snippetSuggestions": "top",
+    },
 }
