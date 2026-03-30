@@ -1,0 +1,16 @@
+{
+    "img-width": {
+        "prefix": "wi",
+        "body": [
+            "{ width=\"$0\" }",
+        ],
+        "scope": "markdown",
+    },
+    "img-center": {
+        "prefix": "ce",
+        "body": [
+            "{.center-img}"
+        ],
+        "scope": "markdown",
+    }
+}
