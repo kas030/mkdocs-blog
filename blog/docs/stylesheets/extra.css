@@ -1,3 +1,4 @@
+/* code 警告框样式 */
 :root {
     --md-admonition-icon--code: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>');
     --md-admonition-icon--code-color: #7f50ff;
@@ -24,13 +25,13 @@
     background-color: var(--md-admonition-icon--code-color);
 }
 
-/* Code font size in <details> */
+/* 恢复 details 内部具有行号的代码字体大小 */
 details .linenos,
 details code {
     font-size: inherit !important;
 }
 
-/* Code block / tab in details */
+/* 移除 details 内部代码块和 tab 框边距 */
 details>summary+.highlight,
 details>summary+.tabbed-set {
     margin: 0 -0.6rem !important;
@@ -40,40 +41,45 @@ details>summary+.highlight>.highlighttable {
     margin: 0 !important;
 }
 
-/* Table full width */
+/* 表格宽度占满容器 */
 .md-typeset__table {
     display: block !important;
 }
 
+/* 确保非代码块样式的普通表格保持表格布局 */
 .md-typeset table:not(.highlighttable) {
     display: table !important;
 }
 
+/* 取消普通表头的最小宽度限制，允许列宽根据内容自动收缩 */
 .md-typeset table:not([class]) th {
     min-width: 0rem;
 }
 
+/* 引用块样式：增加上下间距，并将左侧边框颜色设为主题色 */
 blockquote {
     margin: 20px 0 !important;
     border-left-color: var(--md-primary-fg-color) !important;
 }
 
-/* Logo title */
+/* 站点标题取消加粗 */
 .md-header__topic:first-child {
     font-weight: initial !important;
 }
 
-/* Table border */
+/* 表格添加列分隔线 */
 .md-typeset table:not(.highlighttable) th,
 .md-typeset table:not(.highlighttable) td {
     border-right: 0.05rem solid var(--md-typeset-table-color);
 }
 
+/* 移除表格最后一列的右侧边框 */
 .md-typeset table:not(.highlighttable) th:last-child,
 .md-typeset table:not(.highlighttable) td:last-child {
     border-right: none;
 }
 
+/* 图片居中 */
 .center-img {
     text-align: center;
 }
