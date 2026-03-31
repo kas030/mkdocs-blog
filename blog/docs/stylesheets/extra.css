@@ -77,3 +77,18 @@ blockquote {
 .center-img {
     text-align: center;
 }
+
+/* 定位在 admonition 内部，且被 .no-border-table 包裹的表格 */
+.admonition .no-border-table table,
+[class^="admonition"] .no-border-table table {
+    border: none !important;
+    box-shadow: none !important;
+    /* 移除某些主题可能存在的阴影边框 */
+}
+
+/* 移除表头和单元格的所有边线 */
+.admonition .no-border-table th,
+.admonition .no-border-table td,
+.admonition .no-border-table tr {
+    border: none !important;
+}
