@@ -587,6 +587,15 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 ![img](./cmu-cs15-213-csappp-assets/img/ieee-exp-alignment.png){ width="400" }
 {.center-img}
 
+!!! tip "左规和右规"
+
+    - 左规（Left Normalization）：当运算结果的尾数绝对值小于 $1$ 时进行，尾数向左移，阶码减小。
+    - 右规（Right Normalization）：当运算结果发生尾数溢出时进行，尾数向右移，阶码增大。右规时，移出的末位通常会进入 G、R、S位，以便后续进行精确的舍入处理。
+
+!!! note "后规格化（postnormalize）"
+
+    在浮点数运算中，当对尾数进行舍入处理时，可能会让原本已经规格化的数字发生进位，需要将尾数右移一位，同时将指数加 1。
+
 **浮点数加法的数学特性**
 
 与阿贝尔群特性的比较：
@@ -630,3 +639,17 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 单调性：
 
 - $a \geqslant b \land c \geqslant 0 \Rightarrow a \times c \geqslant b \times c$：几乎成立，无穷大和 NaN 除外
+
+### C 中的浮点数
+
+**类型转换**
+
+在 `int`、`float` 和 `double` 之间进行强制转换会改变位的表示方式。
+
+- `double` / `float` $\rightarrow$ `int`：
+    - 截断小数部分，类似于向零取整
+    - 当数值超出范围或为 NaN 时未定义，通常会被设置为 $TMin$
+- `int` $\rightarrow$ `double`：
+    - 只要 `int` 的字长 $\leqslant53$ 位，就是精确转换
+- `int` $\rightarrow$ `float`
+    - 可能会发生舍入
