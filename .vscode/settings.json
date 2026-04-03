@@ -21,4 +21,7 @@
         "editor.wordBasedSuggestions": "off",
         "editor.snippetSuggestions": "top",
     },
+    "github.copilot.enable": {
+        "markdown": false
+    },
 }
