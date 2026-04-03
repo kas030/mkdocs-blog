@@ -11,7 +11,6 @@ nav:
       - "CMU CS15-213: CSAPP": courses/cmu-cs15-213-csapp.md
       - GAMES101: courses/games101.md
       - CS61A: courses/cs61a.md
-      - 计算机系统: courses/computer-system.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
   - 算法竞赛:
       - 2025 ICPC Wuhan - G Path Summing Problem: oi/2025-icpc-wuhan-invitational-contest-g.md
