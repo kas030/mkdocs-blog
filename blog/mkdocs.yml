@@ -18,6 +18,8 @@ nav:
       - Codeforces 2074D Counting Points: oi/cf-2074d-counting-points.md
       - Codeforces 2120C Divine Tree: oi/cf-2120c-divine-tree.md
       - Codeforces 2123E Mex Count: oi/cf-2123e-mex-count.md
+  - 工具:
+      - GNU 工具链: tools/gnu-toolchain.md
 
 theme:
   name: material
