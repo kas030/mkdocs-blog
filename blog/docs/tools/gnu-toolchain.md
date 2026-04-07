@@ -98,14 +98,112 @@ ld 是 GNU 工具链中的链接器（Linker），将多个目标文件和库文
 
 ## gdb
 
-**常用参数和指令**
+**常用指令和参数**
 
-启动时参数：
+启动与运行：
 
-- `--args` 调试带参数的可执行程序，如 `gdb --args ./app arg1 arg2`
-- `q` 安静模式，不打印 GDB 的版本信息和版权声明
-- `-p <PID>` 附加到正在运行的进程上
-- `-c <core file>` 用于调试程序崩溃后产生的 core dump 文件
-- `-tui` 启动文本用户界面，可以在上方看到源码，下方输入命令
+- `gdb <program>` 启动 gdb，可以有参数：
+    - `--args` 调试带参数的可执行程序，如 `gdb --args ./program arg1 arg2`
+    - `q` 安静模式，不打印 gdb 的版本信息和版权声明
+    - `-p <pid>` 调试一个正在运行的进程
+    - `-tui` 开启 TUI 模式，可以在上方看到源码，下方输入命令
+- `run (r)` 开始执行程序，可以带参数，例如 `r arg1 arg2`
+- `start` 启动程序并停在 `main` 函数的第一行
+- `quit (q)` 退出 gdb
 
-常用调试指令：
+断点管理：
+
+- `break <loc> (b)` 在指定位置设断点，例如：
+    - `b 15` 第 15 行
+    - `b main` 函数开头
+    - `b file.c:20` 指定文件的行
+- `rbreak <regex>` 通过正则表达式设断点，只匹配函数名，需要有符号信息
+- `tbreak <func>` 临时断点，触发一次后自动删除
+- `break <func> + <offset>` 偏移量断点
+- `break *<addr>` 地址断点
+- `info breakpoints (i b)` 查看所有断点
+- `delete <n> (d)` 删除编号为 n 的断点
+- `disable <n>` 禁用断点
+- `enable <n>` 启用断点
+
+执行控制：
+
+- `continue (c)` 继续运行直到断点
+- `next (n)` 单步步过，不进入函数
+- `step (s)` 单步步入，进入函数
+- `finish` 执行到当前函数返回
+- `until <line> (u)` 运行到指定行，常用于跳出循环
+- `nexti (ni)` 执行下一条汇编指令，不进入函数
+- `stepi (si)` 执行下一条汇编指令，进入函数
+
+查看数据与状态：
+
+- `list (l)` 列出源代码，可加行号或函数名，连续输入 `l` 会继续向下显示
+- `layout src` 开启 TUI 模式
+- `display <expr>` 每次程序停止时都自动显示该表达式
+- `print/<fmt> <expr> (p)` 打印变量或表达式的值，常用格式：
+    - `d` 有符号十进制
+    - `-u` 无符号十进制
+    - `x` 十六进制
+    - `o` 八进制
+    - `t` 二进制
+    - `f` 浮点数
+    - `c` 字符
+    - `a` 地址（符号 + 偏移）
+    - `s` 字符串
+- `x/<n><f><u> <addr>` 查看内存地址内容
+    - `n` 显示多少单元
+    - `f` 格式，比 `p` 多一个格式 `i`，表示指令（反汇编）格式
+    - `u` 单位
+        - `b` 字节
+        - `h` 半字（2 字节）
+        - `w` 字（4 字节）
+        - `g` 双字（8 字节）
+- `info locals` 显示当前函数的所有局部变量
+- `info args` 显示当前函数的参数
+- `info registers (i r)` 查看所有通用寄存器的值
+- `info all-registers` 查看包括浮点、向量（SSE/AVX）在内的所有寄存器
+
+!!! tip "p 和 x 指令中格式的区别"
+
+    `p` 是带类型的表达式求值，格式依赖类型，可以理解为强制类型转换；
+    而 `x` 的本质是内存的位级重新解释。
+
+堆栈：
+
+- `backtrace (bt)` 查看当前的函数调用栈
+- `frame <n> (f)` 切换到第 n 层栈帧
+- `info stack` 查看当前栈帧的详细信息
+
+汇编相关：
+
+- `layout asm` 开启 TUI 模式，上半部分实时显示汇编指令
+- `layout regs` 在汇编模式基础上，再开启一个窗口显示寄存器的实时数值
+- `set disassembly-flavor intel` 将汇编格式设为 Intel 格式
+- `set disassembly-flavor att` 设为 AT&amp;T 格式
+- `disassemble (disas)` 反汇编当前函数
+    - `disas <func_name>` 反汇编指定函数
+    - `disas <start_addr>, <end_addr>` 反汇编特定地址区间
+    - `disas /m <func_name>` 混合模式，同时显示源码和对应的汇编指令
+    - `disas /r <func_name>` 显示十六进制机器码
+
+多线程：
+
+- `info threads` 查看所有线程
+- `thread <id>` 切换到指定线程
+
+调试技巧：
+
+1. gdb 默认执行上一次输入的命令，直接回车可以快速连续执行相同指令。
+2. 通过 `set var <name>=<value>` 在调试过程中直接修改变量的值，可以测试不同路径。
+3. 如果程序崩溃并生成了 core 文件，可以通过
+    ```shell
+    gdb <program> <core_file>
+    bt
+    ```
+    进行 Core Dump 调试。
+4. 快速定位段错误：
+    ```shell
+    run
+    bt
+    ```
