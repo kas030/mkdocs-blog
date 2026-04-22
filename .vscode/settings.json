@@ -51,6 +51,14 @@
                     "settings": {
                         "foreground": "#4597da"
                     }
+                },
+                {
+                    "scope": [
+                        "markup.heading.markdown",
+                    ],
+                    "settings": {
+                        "foreground": "#1f62a5"
+                    }
                 }
             ]
         }
