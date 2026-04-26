@@ -214,7 +214,7 @@ ld 是 GNU 工具链中的链接器（Linker），将多个目标文件和库文
 **常用参数**
 
 - `-d`/ `--disassemble` 反汇编
-- `-D` / `--disassemble-all` 反汇编所有段的内容
+- `-D` / `--disassemble-all` 反汇编所有节的内容
 - `-S` / `--source` 混合显示源码与汇编，前提是编译时加了 `-g` 参数
-- `-h` / `--section-headers` 显示各个段的汇总信息
-- `-j <section_name>` 仅查看特定段
+- `-h` / `--section-headers` 显示各个节的汇总信息
+- `-j <section_name>` 仅查看特定节
