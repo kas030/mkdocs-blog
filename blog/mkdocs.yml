@@ -10,7 +10,10 @@ nav:
       - Rust:
           - Rust 基础: languages/rust/rust-basic.md
   - 课程:
-      - "CMU CS15-213: CSAPP": courses/cmu-cs15-213-csapp.md
+      - "CMU CS15-213: CSAPP":
+          - 信息的表示和处理: courses/cmu-cs15-213-csapp/representing-information.md
+          - 程序的机器级表示: courses/cmu-cs15-213-csapp/machine-level-representation.md
+          - 链接: courses/cmu-cs15-213-csapp/linking.md
       - GAMES101: courses/games101.md
       - CS61A: courses/cs61a.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
@@ -90,8 +93,8 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.tilde
   - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji 
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg 
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span

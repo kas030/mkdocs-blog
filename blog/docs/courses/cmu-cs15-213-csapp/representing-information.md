@@ -1,10 +1,11 @@
 ---
 tags:
   - 计算机系统
+  - CSAPP
   - C
 ---
 
-# CMU CS15-213: CSAPP
+# 信息的表示和处理
 
 ## 位、字节和整数
 
@@ -65,7 +66,7 @@ tags:
 
 举例：4 字节变量 `x` 的值是 `0x01234567`，存放在 `0x100`
 
-![img](./cmu-cs15-213-csappp-assets/img/big-little-endian.png){ width="600" }
+![img](cmu-cs15-213-csappp-assets/img/big-little-endian.png){ width="600" }
 {.center-img}
 
 **字符串表示**
@@ -353,7 +354,7 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 
 **精度类型**
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-precision-options.png){ width="650" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-precision-options.png){ width="650" }
 {.center-img}
 
 **情况 1：规格化值**
@@ -486,19 +487,19 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 
 一个 8 位浮点数表示示例，有 1 位符号位、4 位阶码（偏置为 7）、3 位尾数。
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-eg.png){ width="700" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-eg.png){ width="700" }
 {.center-img}
 
 **取值分布**
 
 一个 6 位浮点数表示，有 3 位阶码（偏置为 3）、2 位尾数。
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-distribution.png){ width="720" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-distribution.png){ width="720" }
 {.center-img}
 
 局部放大：
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-distribution-close-up-view.png){ width="720" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-distribution-close-up-view.png){ width="720" }
 {.center-img}
 
 可以观察到，可表示的数不是均匀分布的，越靠近原点处越稠密。
@@ -592,7 +593,7 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 3. 结果规格化处理，并判断是否溢出
 4. 进行舍入处理
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-exp-alignment.png){ width="400" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-exp-alignment.png){ width="400" }
 {.center-img}
 
 !!! tip "左规和右规"
@@ -661,192 +662,3 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
     - 只要 `int` 的字长 $\leqslant53$ 位，就是精确转换
 - `int` $\rightarrow$ `float`
     - 可能会发生舍入
-
-## 程序的机器级表示 - 基本
-
-### 汇编基础
-
-**汇编程序员视角**
-
-![img](./cmu-cs15-213-csappp-assets/img/assembly-view.png){ width="500" }
-{.center-img}
-
-程序员可见的状态：
-
-- 程序计数器
-- 寄存器文件
-- 条件码
-- 内存
-
-**汇编数据类型**
-
-- 1、2、4、8 字节的整数数据
-    - 数值
-    - 地址（无类型指针）
-- 4、8、10 字节的浮点数据
-- SIMD 向量数据类型
-- 代码：字节序列编码的一系列指令
-
-**IA32 通用寄存器**
-
-![img](cmu-cs15-213-csappp-assets/img/ia32-regs.png){ width="550" }
-{.center-img}
-
-寄存器的细粒度访问如图所示。
-
-**x86-64 通用寄存器**
-
-![img](cmu-cs15-213-csappp-assets/img/x86-64-regs.png){ width="500" }
-{.center-img}
-
-在 x86-64 中，%rbp 通常已不再作为栈底指针，可以当做普通寄存器使用。
-
-!!! note "x86-64 寄存器的细粒度访问"
-
-    1. 传统寄存器（RAX、RBX、RCX、RDX）
-    
-        - 32-bit：EAX、EBX、ECX、EDX
-        - 16-bit：AX、BX、CX、DX
-        - High 8-bit：AH、BH、CH、DH
-        - Low 8-bit：AL、BL、CL、DL
-    
-    2. 指针与变址寄存器（RSI、RDI、RBP、RSP）
-    
-        - 32-bit：ESI、EDI、EBP、ESP
-        - 16-bit：SI、DI、BP、SP
-        - 8-bit：SIL、DIL、BPL、SPL
-    
-    3. 新增寄存器（R8 ~ R15）
-    
-        - 32-bit：R8D ~ R15D
-        - 16-bit：R8W ~ R15W
-        - 8-bit：R8B ~ R15B
-
-**数据长度后缀**
-
-再次注意：在 Intel 术语中，为了保持兼容性，字始终定义为 16 位。
-
-- `b`（byte）：单字节
-- `w`（word）：字，2 字节
-- `l`（long）：双字，4 字节
-- `q`（quad）：四字，8 字节
-
-**AT&T 格式和 Intel 格式**
-
-| 特性           | AT&T                               | Intel                                                     |
-| -------------- | ---------------------------------- | --------------------------------------------------------- |
-| 操作数顺序     | src &rarr; dst                     | dst &larr; src                                            |
-| 寄存器         | 需要加 %                           | 直接写寄存器名称                                          |
-| 立即数         | 需要加 $                           | 直接写数字                                                |
-| 内存寻址       | `disp(base, index, scale)`         | `[base + index*scale + disp]`                             |
-| 操作数大小表示 | 通过指令后缀<br>`b`、`w`、`l`、`q` | 通过关键字或上下文<br>`byte ptr`、`word ptr`、`dword ptr` |
-| 注释           | `#`                                | `;`                                                       |
-
-示例：
-
-```asm
-# AT&T
-movb $1, (%eax)
-
-; Intel
-mov byte ptr [eax], 1
-```
-
-### 数据传送指令
-
-
-## 链接
-
-### 符号
-
-#### ELF 目标文件
-
-**认识 ELF**
-
-ELF（Executable and Linking Format）是 Unix / Linux 中目标文件的统一格式：
-
-- 可重定位目标文件（`.o` 文件）
-    - 包含二进制代码和数据，可以在链接时与其它可重定位目标合并，创建一个可执行目标文件
-    - 每一个 `.o` 文件产生自一个源（`.c`）文件
-- 可执行目标文件
-    - 包含二进制代码和数据，可以被直接复制到存储器并执行
-- 共享目标文件（`.so` file）
-    - 一种特殊类型的可重定位目标文件，可以在加载或运行时被动态加载到存储器并链接
-    - 在 Windows 中称之为动态链接库
-
-**ELF 目标文件格式**
-
-![img](cmu-cs15-213-csappp-assets/img/elf-format.png){ width="300", align=right }
-
-- ELF 头
-    - 字长、字节顺序、文件类型、机器类型等
-- 程序头表（可执行文件特有）
-    - 页大小、虚地址内存段、段大小
-- .text 节
-    - 程序机器代码
-- .rodata 节
-    只读数据：跳转表、字符串常量
-- .data 节
-    - 已初始化的全局变量
-    - 已初始化的静态变量
-- .bss 节
-    - 未初始化的全局变量，所有初始化为 0 的全局 / 静态变量
-    - Block Started by Symbol
-    - Better Save Space
-    - 不占据实际硬盘空间
-- .symtab 节
-    - 符号表
-    - 函数和全局变量名
-    - section 名与位置
-- .rel.text 节
-    - .text 节中待修改的位置的信息（需要重定位）
-    - 执行时需要修改的指令地址
-    - 带修改位置的指令
-- .rel.data 节
-    - .data 中的重定位信息
-    - 被模块引用或定义的已初始化的全局变量的重定位信息
-- .debug 节
-    - 调试符号表
-- 节头部表
-    - 描述不同节的位置和大小
-
-!!! tip "Block Started by Symbol 和 Better Save Space"
-
-    1. Block Started by Symbol
-    
-        这是 .bss 这个名字的历史来源。
-        
-        这个术语最早起源于 1950 年代中期为 IBM 704 计算机编写的汇编程序（UA-SAP）。
-
-        虽然这个名字在今天看来已经过时，但它作为 ELF 格式的标准段名被沿用至今。
-
-    2. Better Save Space
-    
-        这是一个助记词，用来描述 .bss 段最重要的特性：在磁盘上不占用实际空间。
-
-        如果定义一个很大的全局数组并赋值（如 `int arr[1000] = {1, 2, 3...};`），这些数据必须存放在磁盘文件里。
-
-        但如果只是定义 `int arr[1000];` 而不初始化，操作系统知道这些变量默认都要初始化为 0，.bss 节只需要记录一个总长度。只有当程序运行并被加载到内存时，系统才会分配实际的内存并清零，这使得生成的可执行文件体积更小。
-
-???+ note "在 Linux 下使用 readelf 指令查看 ELF 文件"
-
-    `readelf` 常用参数：
-    
-    - `-h` 显示 ELF 文件头
-    - `-l` 显示程序头表
-    - `-S` 显示节头部表
-    - `-s` 显示符号表
-    - `x <number/name>` 以十六进制形式倾倒指定节的内容
-    - `-p <number/name>` 以字符串形式倾倒指定节的内容
-    - `-d` 显示动态节
-    - `-r` 显示重定位信息
-    - `-V` 显示文件中的版本符号信息
-    - `-n` 显示 Notes 节，通常包含编译器的版本信息、ABI 标记或核心转储的详细说明
-    
-    使用 `readelf -h` 查看的 ELF 文件头示例：
-    
-    ![img](cmu-cs15-213-csappp-assets/img/elf-header-example.png){ width="600" }
-    {.center-img}
-
-**符号表**
-
