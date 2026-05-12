@@ -14,6 +14,7 @@ gcc（GNU C Compiler）是 GCC（GNU Compiler Collection）的一部分，实际
 - `-Wall` 启用所有警告
 - `-w` 禁止所有警告
 - `-O0`、`-O1`、`-O2`、`-O3` 优化级别，数字越大优化越激进
+- `-s` 删除所有的符号表和重定位信息
 - `-save-temps` 不删除中间文件
 - `-std=<standard>` 指定 C 标准，如 `c11`、`c17` 等
 - `-I<dir>` 添加头文件搜索路径
