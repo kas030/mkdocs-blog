@@ -115,5 +115,5 @@ $$
 ???+ code "完整代码"
 
     ```cpp linenums="1"
-    --8<-- "oi/2025-icpc-wuhan-invitational-contest-g-assets/solution.cpp"
+    --8<-- "oi/solutions/2025-icpc-wuhan-invitational-contest-g-assets/solution.cpp"
     ```

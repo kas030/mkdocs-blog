@@ -18,11 +18,12 @@ nav:
       - CS61A: courses/cs61a.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
   - 算法竞赛:
-      - 2025 ICPC Wuhan - G Path Summing Problem: oi/2025-icpc-wuhan-invitational-contest-g.md
-      - LNCPC 2025 E Entering the unknown: oi/lncpc-2025-e-entering-the-unknown.md
-      - Codeforces 2074D Counting Points: oi/cf-2074d-counting-points.md
-      - Codeforces 2120C Divine Tree: oi/cf-2120c-divine-tree.md
-      - Codeforces 2123E Mex Count: oi/cf-2123e-mex-count.md
+      - 题解:
+          - 2025 ICPC Wuhan - G Path Summing Problem: oi/solutions/2025-icpc-wuhan-invitational-contest-g.md
+          - LNCPC 2025 E Entering the unknown: oi/solutions/lncpc-2025-e-entering-the-unknown.md
+          - Codeforces 2074D Counting Points: oi/solutions/cf-2074d-counting-points.md
+          - Codeforces 2120C Divine Tree: oi/solutions/cf-2120c-divine-tree.md
+          - Codeforces 2123E Mex Count: oi/solutions/cf-2123e-mex-count.md
   - 工具:
       - GNU 工具链: tools/gnu-toolchain.md
 

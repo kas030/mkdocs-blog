@@ -115,5 +115,5 @@ int u = s1 + r;
 ??? code "完整代码"
 
     ```cpp linenums="1"
-    --8<-- "oi/cf-2123e-mex-count-assets/code/solution.cpp"
+    --8<-- "oi/solutions/cf-2123e-mex-count-assets/code/solution.cpp"
     ```
