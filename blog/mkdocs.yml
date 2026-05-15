@@ -18,6 +18,8 @@ nav:
       - CS61A: courses/cs61a.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
   - 算法竞赛:
+      - 数学:
+          - 卢卡斯定理: oi/math/lucas-theorem.md
       - 题解:
           - 2025 ICPC Wuhan - G Path Summing Problem: oi/solutions/2025-icpc-wuhan-invitational-contest-g.md
           - LNCPC 2025 E Entering the unknown: oi/solutions/lncpc-2025-e-entering-the-unknown.md
