@@ -142,6 +142,125 @@ HTML 元素可以通过 `id` 和 `class` 属性添加标识，方便 CSS 选择�
 
 一般来说，样式复用优先使用 class。只有当某个元素确实需要唯一标识时，才使用 id。
 
+!!! note "Utility class"
+
+    Utility class 是一种只负责单一样式功能的 class，例如 `.text-center` 只负责文字居中，`.mt-2` 只负责设置上边距。
+    
+    它的特点是粒度小、可复用，适合快速组合样式：
+    
+    ```html
+    <p class="text-center highlight">This is important.</p>
+    ```
+
+### CSS 变量
+
+CSS 变量用于保存可以重复使用的样式值，变量名以 `--` 开头，使用时通过 `var()` 读取。常见做法是把全局变量定义在 `:root` 中，这样整个页面都可以使用。
+
+```css
+:root {
+    --main-color: #3366ff;
+    --spacing: 16px;
+}
+
+.button {
+    color: white;
+    background-color: var(--main-color);
+    padding: var(--spacing);
+}
+```
+
+CSS 变量适合存放主题色、间距、字体大小等会反复出现的值。这样如果以后想修改主色，只需要改 `--main-color` 的定义，所有使用它的地方都会一起更新。
+
+!!! note ":root 选择器"
+
+    `:root` 选择器表示文档的根元素，在 HTML 页面中通常就是 `<html>`。把 CSS 变量写在 `:root` 中，相当于定义全局变量，页面中的其他元素都可以通过 `var()` 使用它们。
+
+### 盒子模型
+
+在 CSS 中，每个 HTML 元素都可以看成一个矩形盒子。这个盒子从内到外由四部分组成：
+
+- `content`：内容区域，例如文字、图片本身。
+- `padding`：内边距，位于内容和边框之间。
+- `border`：边框，包围内容和内边距。
+- `margin`：外边距，控制元素和其他元素之间的距离。
+
+![img](./mit-iap-weblab-assets/img/box-model.png){ width="300" }
+
+```css
+.box {
+    width: 200px;
+    padding: 16px;
+    border: 2px solid black;
+    margin: 24px;
+}
+```
+
+上面的 `width` 默认只设置 `content` 的宽度。元素实际占用的横向空间还要加上左右 `padding`、左右 `border` 和左右 `margin`。
+
+!!! tip "box-sizing"
+
+    如果设置 `box-sizing: border-box;`，那么 `width` 会包含 `content`、`padding` 和 `border`，布局时通常更直观。
+
+`padding`、`margin` 和 `border-width` 等是复合属性，可以一次写多个值：
+
+```css
+.box {
+    margin: 10px 20px 30px 40px;
+}
+```
+
+值与盒子边框的对应关系如下：
+
+- 4 个值：上、右、下、左
+- 3 个值：上、左右、下
+- 2 个值：上下、左右
+- 1 个值：四边相同
+
+!!! warning "复合属性的覆盖"
+
+    复合属性会同时设置多个相关属性，因此可能覆盖之前写过的单属性。
+    
+    ```css
+    .box {
+        margin-left: 40px;
+        margin: 10px;
+    }
+    ```
+    
+    上面的 `margin` 会重新设置四个方向的外边距，所以 `margin-left: 40px;` 会被覆盖，最终左外边距也是 `10px`。如果想保留某一边的特殊值，需要把单属性写在复合属性后面。
+    
+    `background` 也有类似问题：
+    
+    ```css
+    .box {
+        background-color: red;
+        background: url("logo.png") no-repeat;
+    }
+    ```
+    
+    第二行 `background` 会重置所有背景相关属性，其中也包括 `background-color`，因此红色背景会消失，背景色变回默认的 `transparent`。
+
+### 8 点网格系统
+
+8 点网格系统（8pt grid system）是一种常见的间距设计方法：页面中的间距、尺寸尽量使用 `8px` 的倍数，这样可以让不同元素之间的距离更统一，页面看起来也更整齐。
+
+在 CSS 中，可以用变量保存基础间距：
+
+```css
+:root {
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+}
+
+.card {
+    padding: var(--space-2);
+    margin-bottom: var(--space-3);
+}
+```
+
+实际使用时不需要所有数值都严格是 `8px` 的倍数，但对于 `margin`、`padding`、组件高度等布局相关属性，使用统一的间距阶梯能减少随手写数值带来的混乱。
+
 ### 标签的默认样式
 
 即使没有写 CSS，浏览器也会给一些 HTML 标签添加默认样式。例如，`<h1>` 通常会显示为更大的粗体文字，`<p>` 段落之间会有默认间距，`<a>` 链接通常是蓝色并带有下划线。
