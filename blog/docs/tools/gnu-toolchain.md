@@ -23,7 +23,8 @@ gcc（GNU C Compiler）是 GCC（GNU Compiler Collection）的一部分，实际
 - `-m32` 生成32位程序
 - `-fPIE`、`-fPIC` 生成位置无关代码
 - `-pie` 生成位置无关可执行文件
-- `-no-pie` 生成非位置无关可执行文件
+- `-fno-pie` 生成非位置无关代码（编译阶段） 
+- `-no-pie` 生成非位置无关可执行文件（链接阶段）
 - `shared` 生成共享库
 - `static` 生成静态库
 
