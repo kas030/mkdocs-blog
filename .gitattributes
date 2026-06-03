@@ -1,2 +1,21 @@
 *.md linguist-documentation=false
 *.md linguist-detectable=true
+
+* text=auto
+
+.gitattributes text eol=lf
+
+*.css text eol=lf
+*.js text eol=lf
+*.md text eol=lf
+*.ps1 text eol=lf
+*.py text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+*.ico binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.svg text eol=lf
