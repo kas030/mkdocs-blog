@@ -10,7 +10,8 @@ nav:
           - Java 集合: languages/java/java-collection.md
           - Java 正则表达式: languages/java/java-regex.md
       - Rust:
-          - Rust 基础: languages/rust/rust-basic.md
+          - Programming Rust:
+              - 基础与内存模型: languages/rust/programming-rust/rust-basic.md
   - 课程:
       - "CMU CS15-213: CSAPP":
           - 信息的表示和处理: courses/cmu-cs15-213-csapp/representing-information.md
