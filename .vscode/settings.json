@@ -22,7 +22,7 @@
         "editor.snippetSuggestions": "top",
     },
     "github.copilot.enable": {
-        "markdown": true
+        "markdown": false
     },
     "editor.tokenColorCustomizations": {
         "[Tomorrow]": {

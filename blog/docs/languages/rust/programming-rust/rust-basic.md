@@ -575,3 +575,416 @@ let mut_null: *mut i32 = std::ptr::null_mut();
 ```
 
 使用裸指针时，程序员需要自己保证指针有效、对齐正确，并且没有违反别名和可变性规则。
+
+### 数组、向量和切片
+
+数组、向量和切片都表示一段连续的同类型元素，但它们的所有权和长度特性不同：
+
+- 数组 `[T; N]`：长度固定，长度是类型的一部分。
+- 向量 `Vec<T>`：长度可变，数据存放在堆上。
+- 切片 `[T]`：一段连续元素的视图，分为共享切片 `&[T]` 和可变切片 `&mut [T]`。
+
+**数组**
+
+数组的类型写作 `[T; N]`，其中 `T` 是元素类型，`N` 是长度。
+
+```rust
+let a = [1, 2, 3, 4, 5];
+let b: [i32; 3] = [10, 20, 30];
+```
+
+如果所有元素相同，可以使用 `[value; len]` 初始化：
+
+```rust
+let zeros = [0; 5];
+
+assert_eq!(zeros, [0, 0, 0, 0, 0]);
+```
+
+Rust 没有定义未初始化数组的写法。
+
+访问元素和获取数组长度：
+
+```rust
+let a = [1, 2, 3];
+
+assert_eq!(a[0], 1);
+assert_eq!(a.len(), 3);
+```
+
+数组下标类型必须是 `usize`，不能使用任何其他整型作为索引。注意，越界访问会在运行时触发 panic。
+
+**向量**
+
+`Vec<T>` 是长度可变的数组类型，可在运行时增删元素。
+
+```rust
+let mut v = Vec::new();
+
+v.push(1);
+v.push(2);
+v.push(3);
+```
+
+可以使用 `vec!` 宏创建向量：
+
+```rust
+let v = vec![1, 2, 3];
+let zeros = vec![0; 5];
+```
+
+可以使用 `Vec::with_capacity` 确定向量的初始容量：
+
+```rust
+let mut v = Vec::with_capacity(5);
+assert_eq!(v.capacity(), 5);
+```
+
+也可以从迭代器生成的值构建一个向量：
+
+```rust
+let v: Vec<i32> = (0..5).collect();
+assert_eq!(v, [0, 1, 2, 3, 4]);
+```
+
+使用 `collect` 时，通常要指定类型，因为它可以构建出不同种类的集合。
+
+常用操作包括访问、追加、弹出和遍历：
+
+```rust
+let mut v = vec![10, 20, 30];
+
+assert_eq!(v[0], 10);
+assert_eq!(v.get(1), Some(&20));
+assert_eq!(v.get(10), None);
+
+v.push(40);
+assert_eq!(v.pop(), Some(40));
+
+for x in &v {
+    println!("{x}");
+}
+```
+
+使用 `v.get(index)` 会返回 `Option<&T>`；使用 `v.pop()` 会返回 `Option<T>`。
+
+**切片**
+
+切片表示数组或向量中的一段连续元素。切片本身大小不固定，通常通过引用使用：
+
+```rust
+let a = [1, 2, 3, 4, 5];
+let s: &[i32] = &a[1..4];
+assert_eq!(s, &[2, 3, 4]);
+```
+
+切片范围使用 `start..end`，左闭右开：
+
+```rust
+let v = vec![1, 2, 3, 4, 5];
+let all = &v[..];
+let from_two = &v[2..];
+let to_three = &v[..3];
+let middle = &v[1..4];
+```
+
+可变切片可以修改原数据：
+
+```rust
+let mut a = [1, 2, 3, 4];
+let s = &mut a[1..3];
+s[0] = 20;
+s[1] = 30;
+assert_eq!(a, [1, 20, 30, 4]);
+```
+
+函数参数中经常使用切片引用，这样同一个函数既能接收数组，也能接收向量：
+
+```rust
+fn sum(values: &[i32]) -> i32 {
+    values.iter().sum()
+}
+
+let a = [1, 2, 3];
+let v = vec![4, 5, 6];
+
+assert_eq!(sum(&a), 6);
+assert_eq!(sum(&v), 15);
+```
+
+**调用切片方法**
+
+数组和向量都可以调用切片方法。原因是数组可以自动借用为切片，`Vec<T>` 也会通过 `Deref` 自动转换为切片。
+
+```rust
+let a = [1, 2, 3, 4, 5];
+let v = vec![1, 2, 3, 4, 5];
+
+assert_eq!(a.first(), Some(&1));
+assert_eq!(v.first(), Some(&1));
+
+assert_eq!(a.last(), Some(&5));
+assert_eq!(v.last(), Some(&5));
+
+assert!(a.contains(&3));
+assert!(v.contains(&3));
+```
+
+!!! note "常量提升"
+
+    `first` 返回的是 `Option<&T>`，所以这里要和 `Some(&1)` 比较。
+
+    `&1` 看起来像是引用了一个临时整数，但 Rust 会在满足条件时进行常量提升，把这个只读常量提升到静态存储位置，因此 `&1` 可以安全地作为引用使用。
+
+    这类提升只适用于不会产生运行时副作用、不会依赖局部变量、也不包含内部可变性的常量表达式。
+
+!!! note "解引用比较"
+
+    `assert_eq!(a.first(), Some(&1))` 比较的是两个 `Option<&i32>`，不是比较引用地址。
+
+    Rust 为引用实现了 `PartialEq`，比较 `&T` 时会比较引用指向的值。因此只要两个引用指向的整数值相同，比较结果就是相等。
+
+    也就是说，`Some(&a[0]) == Some(&1)` 成立，是因为 `a[0] == 1`，而不是因为这两个引用指向同一个内存地址。
+
+只读切片方法示例：
+
+```rust
+let a = [1, 2, 3, 4, 5];
+
+assert_eq!(a.len(), 5);
+assert!(!a.is_empty());
+assert_eq!(a.binary_search(&3), Ok(2));
+```
+
+也可以使用迭代相关的切片方法：
+
+```rust
+let a = [1, 2, 3, 4];
+
+for window in a.windows(2) {
+    println!("{window:?}");
+}
+
+for chunk in a.chunks(2) {
+    println!("{chunk:?}");
+}
+```
+
+可变数组和可变向量可以调用需要 `&mut [T]` 的切片方法：
+
+```rust
+let mut a = [3, 1, 4, 2];
+let mut v = vec![3, 1, 4, 2];
+
+a.sort();
+v.sort();
+
+assert_eq!(a, [1, 2, 3, 4]);
+assert_eq!(v, [1, 2, 3, 4]);
+```
+
+如果需要显式得到切片，可以写成 `&a[..]`、`&v[..]`、`a.as_slice()` 或 `v.as_slice()`：
+
+```rust
+let a = [1, 2, 3];
+let v = vec![4, 5, 6];
+
+let s1: &[i32] = &a[..];
+let s2: &[i32] = v.as_slice();
+
+assert_eq!(s1, &[1, 2, 3]);
+assert_eq!(s2, &[4, 5, 6]);
+```
+
+### 字符串类型
+
+Rust 的字符串使用 UTF-8 编码。常见字符串类型包括 `String` 和 `str`：
+
+- `String`：可增长、可修改、拥有所有权的字符串，数据存放在堆上。
+- `str`：字符串切片类型，大小不固定，通常通过 `&str` 使用。
+
+字符串字面量的类型是 `&'static str`：
+
+```rust
+let s: &str = "hello";
+```
+
+这里的 `&'static str` 表示这个字符串内容存放在程序的静态区域中，引用在整个程序运行期间都有效。
+
+**创建字符串**
+
+可以使用 `String::new` 创建空字符串：
+
+```rust
+let mut s = String::new();
+
+s.push_str("hello");
+```
+
+也可以从字符串字面量创建 `String`：
+
+```rust
+let a = String::from("hello");
+let b = "hello".to_string();
+let c = "hello".to_owned();
+```
+
+`String` 可以自动借用为 `&str`，因此函数参数通常优先写成 `&str`，这样既能接收字符串字面量，也能接收 `String`：
+
+```rust
+fn print_message(message: &str) {
+    println!("{message}");
+}
+
+let s = String::from("hello");
+
+print_message("world");
+print_message(&s);
+```
+
+**修改字符串**
+
+`String` 支持追加字符串和字符：
+
+```rust
+let mut s = String::from("hello");
+
+s.push(' ');
+s.push_str("world");
+
+assert_eq!(s, "hello world");
+```
+
+可以使用 `+` 拼接字符串。需要注意，`+` 会移动左侧的 `String`：
+
+```rust
+let a = String::from("hello");
+let b = String::from(" world");
+let c = a + &b;
+
+assert_eq!(c, "hello world");
+```
+
+如果需要更灵活的拼接，通常使用 `format!`：
+
+```rust
+let name = "Alice";
+let age = 18;
+let message = format!("{name} is {age}");
+```
+
+**长度和索引**
+
+`len` 返回的是字节数，不是字符数：
+
+```rust
+let a = "hello";
+let b = "你好";
+
+assert_eq!(a.len(), 5);
+assert_eq!(b.len(), 6);
+```
+
+Rust 字符串不能使用整数下标访问单个字符：
+
+```rust
+let s = "你好";
+let ch = s[0]; // 编译错误
+```
+
+原因是 Rust 字符串使用 UTF-8 编码，一个 Unicode 字符可能占多个字节。按整数下标访问容易混淆“字节位置”和“字符位置”。
+
+**遍历字符串**
+
+如果需要按字符遍历，可以使用 `chars`：
+
+```rust
+let s = "你好";
+
+for ch in s.chars() {
+    println!("{ch}");
+}
+```
+
+如果需要按字节遍历，可以使用 `bytes`：
+
+```rust
+let s = "abc";
+
+for byte in s.bytes() {
+    println!("{byte}");
+}
+```
+
+**字符串切片**
+
+字符串可以使用范围语法创建 `&str` 切片，但切片边界必须落在合法的 UTF-8 字符边界上：
+
+```rust
+let s = "hello world";
+let hello = &s[0..5];
+
+assert_eq!(hello, "hello");
+```
+
+对中文等多字节字符切片时，需要格外注意字节边界：
+
+```rust
+let s = "你好";
+let first = &s[0..3];
+
+assert_eq!(first, "你");
+```
+
+如果范围没有落在字符边界上，会在运行时触发 panic：
+
+```rust
+let s = "你好";
+let invalid = &s[0..1]; // panic
+```
+
+**原始字符串字面量**
+
+原始字符串字面量以 `r` 开头，不会处理反斜杠转义，适合正则表达式、Windows 路径或包含引号的文本：
+
+```rust
+let path = r"C:\Users\Alice\notes.txt";
+let text = r#"He said: "hello""#;
+```
+
+如果字符串内部也包含 `"#`，可以增加 `#` 的数量：
+
+```rust
+let text = r##"A raw string containing "# inside"##;
+```
+
+**常用方法**
+
+字符串提供了很多常用方法：
+
+```rust
+let s = "  hello rust  ";
+
+assert_eq!(s.trim(), "hello rust");
+assert!(s.contains("rust"));
+assert!(s.starts_with("  hello"));
+assert!(s.ends_with("  "));
+assert_eq!(s.replace("rust", "Rust"), "  hello Rust  ");
+```
+
+按分隔符拆分字符串：
+
+```rust
+let parts: Vec<&str> = "a,b,c".split(',').collect();
+
+assert_eq!(parts, ["a", "b", "c"]);
+```
+
+将多个字符串片段拼接起来：
+
+```rust
+let words = ["hello", "rust"];
+let message = words.join(" ");
+
+assert_eq!(message, "hello rust");
+```
