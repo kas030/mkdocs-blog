@@ -1,10 +1,11 @@
 ---
 tags:
   - 计算机系统
+  - CSAPP
   - C
 ---
 
-# CMU CS15-213: CSAPP
+# 信息的表示和处理
 
 ## 位、字节和整数
 
@@ -65,7 +66,7 @@ tags:
 
 举例：4 字节变量 `x` 的值是 `0x01234567`，存放在 `0x100`
 
-![img](./cmu-cs15-213-csappp-assets/img/big-little-endian.png){ width="600" }
+![img](cmu-cs15-213-csappp-assets/img/big-little-endian.png){ width="600" }
 {.center-img}
 
 **字符串表示**
@@ -353,7 +354,7 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 
 **精度类型**
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-precision-options.png){ width="650" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-precision-options.png){ width="650" }
 {.center-img}
 
 **情况 1：规格化值**
@@ -486,19 +487,19 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 
 一个 8 位浮点数表示示例，有 1 位符号位、4 位阶码（偏置为 7）、3 位尾数。
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-eg.png){ width="700" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-eg.png){ width="700" }
 {.center-img}
 
 **取值分布**
 
 一个 6 位浮点数表示，有 3 位阶码（偏置为 3）、2 位尾数。
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-distribution.png){ width="720" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-distribution.png){ width="720" }
 {.center-img}
 
 局部放大：
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-distribution-close-up-view.png){ width="720" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-distribution-close-up-view.png){ width="720" }
 {.center-img}
 
 可以观察到，可表示的数不是均匀分布的，越靠近原点处越稠密。
@@ -592,7 +593,7 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 3. 结果规格化处理，并判断是否溢出
 4. 进行舍入处理
 
-![img](./cmu-cs15-213-csappp-assets/img/ieee-exp-alignment.png){ width="400" }
+![img](cmu-cs15-213-csappp-assets/img/ieee-exp-alignment.png){ width="400" }
 {.center-img}
 
 !!! tip "左规和右规"

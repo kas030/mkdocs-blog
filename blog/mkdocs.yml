@@ -1,4 +1,6 @@
 site_name: KAS 的笔记
+repo_url: https://github.com/kas030/mkdocs-blog
+repo_name: kas030/mkdocs-blog
 nav:
   - 首页: index.md
   - 编程语言:
@@ -7,17 +9,28 @@ nav:
           - Java 异常: languages/java/java-exception.md
           - Java 集合: languages/java/java-collection.md
           - Java 正则表达式: languages/java/java-regex.md
+      - Rust:
+          - Rust 基础: languages/rust/rust-basic.md
   - 课程:
-      - "CMU CS15-213: CSAPP": courses/cmu-cs15-213-csapp.md
+      - "CMU CS15-213: CSAPP":
+          - 信息的表示和处理: courses/cmu-cs15-213-csapp/representing-information.md
+          - 程序的机器级表示: courses/cmu-cs15-213-csapp/machine-level-representation.md
+          - 链接: courses/cmu-cs15-213-csapp/linking.md
+      - MIT IAP web.lab:
+          - HTML 和 CSS: courses/mit-iap-weblab/html-and-css.md
       - GAMES101: courses/games101.md
       - CS61A: courses/cs61a.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
   - 算法竞赛:
-      - 2025 ICPC Wuhan - G Path Summing Problem: oi/2025-icpc-wuhan-invitational-contest-g.md
-      - LNCPC 2025 E Entering the unknown: oi/lncpc-2025-e-entering-the-unknown.md
-      - Codeforces 2074D Counting Points: oi/cf-2074d-counting-points.md
-      - Codeforces 2120C Divine Tree: oi/cf-2120c-divine-tree.md
-      - Codeforces 2123E Mex Count: oi/cf-2123e-mex-count.md
+      - 数学:
+          - 卢卡斯定理: oi/math/lucas-theorem.md
+          - 卡特兰数: oi/math/catalan-number.md
+      - 题解:
+          - 2025 ICPC Wuhan - G Path Summing Problem: oi/solutions/2025-icpc-wuhan-invitational-contest-g.md
+          - LNCPC 2025 E Entering the unknown: oi/solutions/lncpc-2025-e-entering-the-unknown.md
+          - Codeforces 2074D Counting Points: oi/solutions/cf-2074d-counting-points.md
+          - Codeforces 2120C Divine Tree: oi/solutions/cf-2120c-divine-tree.md
+          - Codeforces 2123E Mex Count: oi/solutions/cf-2123e-mex-count.md
   - 工具:
       - GNU 工具链: tools/gnu-toolchain.md
       - Conda: tools/conda.md

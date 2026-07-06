@@ -14,6 +14,7 @@ gcc（GNU C Compiler）是 GCC（GNU Compiler Collection）的一部分，实际
 - `-Wall` 启用所有警告
 - `-w` 禁止所有警告
 - `-O0`、`-O1`、`-O2`、`-O3` 优化级别，数字越大优化越激进
+- `-s` 删除所有的符号表和重定位信息
 - `-save-temps` 不删除中间文件
 - `-std=<standard>` 指定 C 标准，如 `c11`、`c17` 等
 - `-I<dir>` 添加头文件搜索路径
@@ -22,7 +23,8 @@ gcc（GNU C Compiler）是 GCC（GNU Compiler Collection）的一部分，实际
 - `-m32` 生成32位程序
 - `-fPIE`、`-fPIC` 生成位置无关代码
 - `-pie` 生成位置无关可执行文件
-- `-no-pie` 生成非位置无关可执行文件
+- `-fno-pie` 生成非位置无关代码（编译阶段） 
+- `-no-pie` 生成非位置无关可执行文件（链接阶段）
 - `shared` 生成共享库
 - `static` 生成静态库
 
@@ -143,7 +145,7 @@ ld 是 GNU 工具链中的链接器（Linker），将多个目标文件和库文
 - `display <expr>` 每次程序停止时都自动显示该表达式
 - `print/<fmt> <expr> (p)` 打印变量或表达式的值，常用格式：
     - `d` 有符号十进制
-    - `-u` 无符号十进制
+    - `u` 无符号十进制
     - `x` 十六进制
     - `o` 八进制
     - `t` 二进制
@@ -214,7 +216,9 @@ ld 是 GNU 工具链中的链接器（Linker），将多个目标文件和库文
 **常用参数**
 
 - `-d`/ `--disassemble` 反汇编
-- `-D` / `--disassemble-all` 反汇编所有段的内容
+- `-D` / `--disassemble-all` 反汇编所有节的内容
 - `-S` / `--source` 混合显示源码与汇编，前提是编译时加了 `-g` 参数
-- `-h` / `--section-headers` 显示各个段的汇总信息
-- `-j <section_name>` 仅查看特定段
+- `-h` / `--section-headers` 显示各个节的汇总信息
+- `-j <section_name>` 仅查看特定节
+- `-r` / `--reloc` 显示重定位条目
+- `-rd` / `-r -d` 在查看汇编代码的同时，在对应的指令下方显示重定位信息

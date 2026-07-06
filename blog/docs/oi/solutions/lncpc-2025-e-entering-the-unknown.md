@@ -81,5 +81,5 @@ $$\sum_{r=0}^{d-1}\binom{c_r}{2}=\sum_{r} \frac{c_r(c_r-1)}{2},$$
 ???+ code "完整代码"
 
     ```cpp linenums="1"
-    --8<-- "oi/lncpc-2025-e-entering-the-unknown-assets/code/solution.cpp"
+    --8<-- "oi/solutions/lncpc-2025-e-entering-the-unknown-assets/code/solution.cpp"
     ```

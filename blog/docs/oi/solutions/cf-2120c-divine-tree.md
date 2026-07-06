@@ -91,5 +91,5 @@ tags:
 ??? code "完整代码"
 
     ```cpp linenums="1"
-    --8<-- "oi/cf-2120c-divine-tree-assets/code/solution.cpp"
+    --8<-- "oi/solutions/cf-2120c-divine-tree-assets/code/solution.cpp"
     ```

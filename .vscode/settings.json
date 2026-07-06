@@ -24,4 +24,43 @@
     "github.copilot.enable": {
         "markdown": false
     },
+    "editor.tokenColorCustomizations": {
+        "[Tomorrow]": {
+            "textMateRules": [
+                {
+                    "scope": [
+                        "markup.bold.markdown",
+                        "markup.heading.markdown",
+                    ],
+                    "settings": {
+                        "fontStyle": "bold"
+                    }
+                },
+                {
+                    "scope": [
+                        "markup.italic.markdown",
+                    ],
+                    "settings": {
+                        "fontStyle": "italic"
+                    }
+                },
+                {
+                    "scope": [
+                        "punctuation.definition.list.begin.markdown",
+                    ],
+                    "settings": {
+                        "foreground": "#4597da"
+                    }
+                },
+                {
+                    "scope": [
+                        "markup.heading.markdown",
+                    ],
+                    "settings": {
+                        "foreground": "#1f62a5"
+                    }
+                }
+            ]
+        }
+    }
 }

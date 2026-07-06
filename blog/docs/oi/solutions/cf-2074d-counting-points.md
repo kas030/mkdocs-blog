@@ -77,7 +77,7 @@ tags:
 ??? code "完整代码"
 
     ```cpp linenums="1"
-    --8<-- "oi/cf-2074d-counting-points-assets/code/solution.cpp"
+    --8<-- "oi/solutions/cf-2074d-counting-points-assets/code/solution.cpp"
     ```
 
 ## 语法踩坑记录
