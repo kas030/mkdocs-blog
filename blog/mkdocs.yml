@@ -18,7 +18,8 @@ nav:
           - 链接: courses/cmu-cs15-213-csapp/linking.md
       - MIT IAP web.lab:
           - HTML 和 CSS: courses/mit-iap-weblab/html-and-css.md
-      - GAMES101: courses/games101.md
+      - GAMES101:
+          - 变换: courses/games101/transformations.md
       - CS61A: courses/cs61a.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
   - 算法竞赛:
