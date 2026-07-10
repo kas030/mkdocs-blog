@@ -22,17 +22,17 @@ $$
 写成矩阵形式：
 
 $$
-\begin{bmatrix} x'\\ y' \end{bmatrix} =
-\begin{bmatrix} s & 0 \\ 0 & s \end{bmatrix}
-\begin{bmatrix} x\\ y \end{bmatrix}
+\vctwo{x'}{y'} =
+\mattwo{s}{0}{0}{s}
+\vctwo{x}{y}
 $$
 
 非均匀（non-uniform）缩放：
 
 $$
-\begin{bmatrix} x'\\ y' \end{bmatrix} =
-\begin{bmatrix} s_x & 0 \\ 0 & s_y \end{bmatrix}
-\begin{bmatrix} x\\ y \end{bmatrix}
+\vctwo{x'}{y'} =
+\mattwo{s_x}{0}{0}{s_y}
+\vctwo{x}{y}
 $$
 
 ### 镜像（Reflection）
@@ -40,9 +40,9 @@ $$
 水平镜像：
 
 $$
-\begin{bmatrix} x'\\ y' \end{bmatrix} =
-\begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}
-\begin{bmatrix} x\\ y \end{bmatrix}
+\vctwo{x'}{y'} =
+\mattwo{-1}{0}{0}{1}
+\vctwo{x}{y}
 $$
 
 ### 切变（Shear）
@@ -53,9 +53,9 @@ $$
 矩阵形式：
 
 $$
-\begin{bmatrix} x'\\ y' \end{bmatrix} =
-\begin{bmatrix} 1 & a \\ 0 & 1 \end{bmatrix}
-\begin{bmatrix} x\\ y \end{bmatrix}
+\vctwo{x'}{y'} =
+\mattwo{1}{a}{0}{1}
+\vctwo{x}{y}
 $$
 
 可以理解为基变换为 $[1, 0]^\top$、$[a, 1]^\top$。
@@ -70,9 +70,9 @@ $$
 矩阵形式：
 
 $$
-\begin{bmatrix} x'\\ y' \end{bmatrix} =
-\begin{bmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{bmatrix}
-\begin{bmatrix} x\\ y \end{bmatrix}
+\vctwo{x'}{y'} =
+\mattwo{\ct}{-\st}{\st}{\ct}
+\vctwo{x}{y}
 $$
 
 从基变换的角度理解：
@@ -104,10 +104,10 @@ $$
 这样平移变换的矩阵表示为：
 
 $$
-\begin{bmatrix} x'\\ y'\\ w' \end{bmatrix} =
-\begin{bmatrix} 1 & 0 & t_x \\ 0 & 1 & t_y \\ 0 & 0 & 1 \end{bmatrix}
-\begin{bmatrix} x\\ y\\ 1 \end{bmatrix} =
-\begin{bmatrix} x + t_x\\ y + t_y\\ 1 \end{bmatrix}
+\vcthree{x'}{y'}{w'} =
+\matthree{1 & 0 & t_x}{0 & 1 & t_y}{0 & 0 & 1}
+\vcthree{x}{y}{1} =
+\vcthree{x + t_x}{y + t_y}{1}
 $$
 
 从基变换的角度可以理解为空间切变操作将整个 $z=1$ 平面进行了平移。
@@ -127,18 +127,18 @@ $[x, y, w] ^ \top$ 表示二维点 $[x / w, y / w, 1] ^ \top$，$w \neq 0$，这
 仿射变换（Affine Transformation）可以写成线性变换 + 平移变换的形式：
 
 $$
-\begin{bmatrix} x'\\ y' \end{bmatrix} =
-\begin{bmatrix} a & b \\ c & d \end{bmatrix}
-\begin{bmatrix} x\\ y \end{bmatrix} +
-\begin{bmatrix} t_x\\ t_y \end{bmatrix}
+\vctwo{x'}{y'} =
+\mattwo{a}{b}{c}{d}
+\vctwo{x}{y} +
+\vctwo{t_x}{t_y}
 $$
 
 写成齐次坐标的形式：
 
 $$
-\begin{bmatrix} x'\\ y'\\ 1 \end{bmatrix} =
-\begin{bmatrix} a & b & t_x \\ c & d & t_y \\ 0 & 0 & 1 \end{bmatrix}
-\begin{bmatrix} x\\ y\\ 1 \end{bmatrix}
+\vcthree{x'}{y'}{1} =
+\matthree{a & b & t_x}{c & d & t_y}{0 & 0 & 1}
+\vcthree{x}{y}{1}
 $$
 
 ## 逆变换和复合变换
@@ -157,7 +157,7 @@ $\bm{M} ^ {-1}$ 是 $\bm{M}$ 的逆矩阵，其对应变换互为逆变换。
 对 $\bm{x}$ 应用一个仿射变换序列 $A_1, A_2, A_3, \ldots$，可写为：
 
 $$
-A_n(\ldots A_2(A_1(\bm{x}))) = \bm{A_n} \cdots \bm{A_2} \cdot \bm{A_1} \cdot [x, y, 1] ^ \top 
+A_n(\ldots A_2(A_1(\bm{x}))) = \bm{A_n} \cdots \bm{A_2} \cdot \bm{A_1} \cdot \vcthree{x}{y}{1}
 $$
 
 ## 复杂变换的分解
@@ -181,40 +181,64 @@ $[x, y, z, w] ^ \top$ 表示三维点 $[x / w, y / w, z / w, 1] ^ \top$，$w \ne
 三维下用 $4 \times 4$ 矩阵表示仿射变换：
 
 $$
-\begin{bmatrix} x'\\ y'\\ z'\\ 1 \end{bmatrix} =
-\begin{bmatrix} a & b & c & t_x \\ d & e & f & t_y \\ g & h & i & t_z\\ 0 & 0 & 0 & 1 \end{bmatrix}
-\begin{bmatrix} x\\ y\\ z\\ 1 \end{bmatrix}
+\vcfour{x'}{y'}{z'}{1} =
+\matfour
+  {a & b & c & t_x}
+  {d & e & f & t_y}
+  {g & h & i & t_z}
+  {0 & 0 & 0 & 1}
+\vcfour{x}{y}{z}{1}
 $$
 
 缩放矩阵：
 
 $$
 \bm{S}(s_x, s_y, s_z) =
-\begin{bmatrix} s_x & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s_z & 0\\ 0 & 0 & 0 & 1 \end{bmatrix}
+\matfour
+  {s_x & 0 & 0 & 0}
+  {0 & s_y & 0 & 0}
+  {0 & 0 & s_z & 0}
+  {0 & 0 & 0 & 1}
 $$
 
 平移矩阵：
 
 $$
 \bm{T}(t_x, t_y, t_z) =
-\begin{bmatrix} 1 & 0 & 0 & t_x \\ 0 & 1 & 0 & t_y \\ 0 & 0 & 1 & t_z\\ 0 & 0 & 0 & 1 \end{bmatrix}
+\matfour
+  {1 & 0 & 0 & t_x}
+  {0 & 1 & 0 & t_y}
+  {0 & 0 & 1 & t_z}
+  {0 & 0 & 0 & 1}
 $$
 
 绕 $x$、$y$、$z$ 轴旋转矩阵：
 
 $$
 \bm{R}_x(\alpha) =
-\begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & \cos\alpha & -\sin\alpha & 0 \\ 0 & \sin\alpha & \cos\alpha & 0\\ 0 & 0 & 0 & 1 \end{bmatrix}
+\matfour
+  {1 & 0 & 0 & 0}
+  {0 & \ca & -\sa & 0}
+  {0 & \sa & \ca & 0}
+  {0 & 0 & 0 & 1}
 $$
 
 $$
 \bm{R}_y(\alpha) =
-\begin{bmatrix} \cos\alpha & 0 & \sin\alpha & 0 \\ 0 & 1 & 0 & 0 \\ -\sin\alpha & 0 & \cos\alpha & 0\\ 0 & 0 & 0 & 1 \end{bmatrix}
+\matfour
+  {\ca & 0 & \sa & 0}
+  {0 & 1 & 0 & 0}
+  {-\sa & 0 & \ca & 0}
+  {0 & 0 & 0 & 1}
 $$
 
 $$
 \bm{R}_z(\alpha) =
-\begin{bmatrix} \cos\alpha & -\sin\alpha & 0 & 0 \\ \sin\alpha & \cos\alpha & 0 & 0 \\ 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 1 \end{bmatrix}
+\matfour
+  {\ca & -\sa & 0 & 0}
+  {\sa & \ca & 0 & 0}
+  {0 & 0 & 1 & 0}
+  {0 & 0 & 0 & 1}
 $$
 
 一般三维旋转用基本旋转的复合来处理：
@@ -223,19 +247,20 @@ $$\bm{R}_{xyz}(\alpha, \beta, \gamma) = \bm{R}_x(\alpha) \bm{R}_y(\beta) \bm{R}_
 
 其中 $\alpha, \beta, \gamma$ 被成为欧拉角。
 
-对于绕轴 $\bm{n}$ 旋转角为 $\alpha$ 的旋转，使用罗德里格旋转公式（Rodrigues’ Rotation Formula）处理：
+对于绕轴 $\bm{n}$ 旋转角为 $\alpha$ 的旋转，使用罗德里格斯旋转公式（Rodrigues’ Rotation Formula）处理：
 
 $$
 \bm{R}(\bm{n},\alpha) = 
-\cos(\alpha)\bm{I} +
-(1-\cos(\alpha))\bm{n}\bm{n}^{\top} +
-\sin(\alpha)\bm{N}$$
+\ca\bm{I} +
+(1-\ca)\bm{n}\bm{n}^{\top} +
+\sa\bm{N}
+$$
 
 其中
 
 $$
 \bm{N} =
-\begin{bmatrix} 0 & -n_z & n_y\\ n_z & 0 & -n_x\\ -n_y & n_x & 0 \end{bmatrix}
+\matthree{0 & -n_z & n_y}{n_z & 0 & -n_x}{-n_y & n_x & 0}
 $$
 
 对于轴不过原点的旋转，通过平移和旋转的复合处理。
@@ -244,9 +269,9 @@ $$
 
 观测变换（viewing transformation）是指通过观测获得一张照片的过程：
 
-- 模型变换（model transformation）
-- 视图变换（view / camera transformation）
-- 投影变换（projection transformation）
+- 模型变换（Model transformation）
+- 视图变换（View / Camera transformation）
+- 投影变换（Projection transformation）
 
 简称 MVP 变换。
 
@@ -262,3 +287,84 @@ $$
 
 ![fixed-camera](games101-assets/img/fixed-camera.png){ width="650" }
 {.center-img}
+
+我们需要一个 $\bm{M}_{view}$ 矩阵，将相机变换到标准位置。
+
+$\bm{M}_{view}$ 包含以下变换：
+
+- 将 $\bm{e}$ 移动至原点
+- 将 $\hat{\bm{g}}$ 旋转至 $-z$ 方向
+- 将 $\hat{\bm{t}}$ 旋转至 $y$ 方向
+- 将 $\hat{\bm{g}} \times \hat{\bm{t}}$ 旋转至 $x$ 方向
+
+通过平移和旋转的复合得到 $\bm{M}_{view}$ 矩阵：
+
+$$\bm{M}_{view} = \bm{R}_{view} \bm{T}_{view}$$
+
+其中
+
+$$
+\bm{T}_{view} =
+\matfour
+  {1 & 0 & 0 & -x_{\bm{e}}}
+  {0 & 1 & 0 & -y_{\bm{e}}}
+  {0 & 0 & 1 & -z_{\bm{e}}}
+  {0 & 0 & 0 & 1}
+$$
+
+对于旋转操作，先考虑其逆变换：
+
+$$
+\bm{R}_{view}^{-1} =
+\matfour
+  {x_{\hat{\bm{g}}\times \hat{\bm{t}}} & x_{\hat{\bm{t}}} & x_{-\hat{\bm{g}}} & 0}
+  {y_{\hat{\bm{g}}\times \hat{\bm{t}}} & y_{\hat{\bm{t}}} & y_{-\hat{\bm{g}}} & 0}
+  {z_{\hat{\bm{g}}\times \hat{\bm{t}}} & z_{\hat{\bm{t}}} & z_{-\hat{\bm{g}}} & 0}
+  {0 & 0 & 0 & 1}
+$$
+
+利用正交矩阵的性质，可以得到
+
+$$
+\bm{R}_{view} =
+\matfour
+  {x_{\hat{\bm{g}}\times \hat{\bm{t}}} & y_{\hat{\bm{g}}\times \hat{\bm{t}}} & z_{\hat{\bm{g}}\times \hat{\bm{t}}} & 0}
+  {x_{\hat{\bm{t}}} & y_{\hat{\bm{t}}} & z_{\hat{\bm{t}}} & 0}
+  {x_{-\hat{\bm{g}}} & y_{-\hat{\bm{g}}} & z_{-\hat{\bm{g}}} & 0}
+  {0 & 0 & 0 & 1}
+$$
+
+这整个过程也被称为模型视图变换。
+
+### 投影变换
+
+投影变换分为：
+
+- 正交投影（Orthographic projection）
+- 透视投影（Perspective projection）
+
+![p-o-projection](games101-assets/img/p-o-projection.png){ width="550" }
+{.center-img}
+
+相机在空间中能看到的范围被称为视景体（view volume），通常用 $[l, r] \times [b, t] \times [f, n]$ 描述，我们需要将这个长方体映射到一个正则立方体（canonical cube）$[-1, 1]^3$ 中。
+
+![view-volume](games101-assets/img/view-volume.png){ width="600" }
+{.center-img}
+
+注意 $f$ 和 $n$ 的大小关系，这也是 OpenGL 使用左手系的原因。
+
+变换矩阵：
+
+$$
+\bm{M}_{ortho} =
+\matfour
+  {\frac{2}{r - l} & 0 & 0 & 0}
+  {0 & \frac{2}{t - b} & 0 & 0}
+  {0 & 0 & \frac{2}{n - f} & 0}
+  {0 & 0 & 0 & 1}
+\matfour
+  {1 & 0 & 0 & -\frac{r + l}{2}}
+  {0 & 1 & 0 & -\frac{t + b}{2}}
+  {0 & 0 & 1 & -\frac{n + f}{2}}
+  {0 & 0 & 0 & 1}
+$$
