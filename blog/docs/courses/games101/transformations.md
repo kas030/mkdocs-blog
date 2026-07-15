@@ -122,6 +122,8 @@ $$
 
 $[x, y, w] ^ \top$ 表示二维点 $[x / w, y / w, 1] ^ \top$，$w \neq 0$，这样两个点相加的效果为取两个点的中点。
 
+在此规定下，齐次坐标还有一个重要性质：将所有坐标等比例缩放后表示的点不变。
+
 ### 仿射变换
 
 仿射变换（Affine Transformation）可以写成线性变换 + 平移变换的形式：
@@ -346,6 +348,8 @@ $$
 ![p-o-projection](games101-assets/img/p-o-projection.png){ width="550" }
 {.center-img}
 
+#### 正交投影
+
 相机在空间中能看到的范围被称为视景体（view volume），通常用 $[l, r] \times [b, t] \times [f, n]$ 描述，我们需要将这个长方体映射到一个正则立方体（canonical cube）$[-1, 1]^3$ 中。
 
 ![view-volume](games101-assets/img/view-volume.png){ width="600" }
@@ -367,4 +371,81 @@ $$
   {0 & 1 & 0 & -\frac{t + b}{2}}
   {0 & 0 & 1 & -\frac{n + f}{2}}
   {0 & 0 & 0 & 1}
+$$
+
+#### 透视投影
+
+透视投影分为两个步骤：
+
+1. 将视椎体变换为一个长方体（$\bm{M}_{persp \rightarrow ortho}$）
+2. 对长方体做正交投影（$\bm{M}_{ortho}$）
+
+![frustum-to-cuboid](games101-assets/img/frustum-to-cuboid.png){ width="500" }
+{.center-img}
+
+我们首先寻找挤压前后 $x$、$y$ 坐标的变化，根据相似三角形有：
+
+$$
+x'=\frac{n}{z}x,\quad y'=\frac{n}{z}y
+$$
+
+![squish-similar-triangle](games101-assets/img/squish-similar-triangle.png){ width="500" }
+{.center-img}
+
+在齐次坐标下，我们有：
+
+$$
+\bm{M}_{persp \rightarrow ortho}^{4 \times 4}
+\vcfour{x}{y}{z}{1} =
+\vcfour{nx}{ny}{zz'}{z} \approx
+\vcfour{nx/z}{ny/z}{z'}{1}
+$$
+
+这里利用了齐次坐标的性质，将线性变换无法实现的除法“延后”。
+
+根据此式，我们已经可以填出矩阵的一部分：
+
+$$
+\bm{M}_{persp \rightarrow ortho} =
+\matfour{n & 0 & 0 & 0}{0 & n & 0 & 0}{? & ? & ? & ?}{0 & 0 & 1 & 0}
+$$
+
+我们还有两个附加条件：
+
+- 近平面上的点坐标不会改变
+- 远平面上的点 $z$ 坐标不会改变
+
+我们取近平面和远平面上的两个不动点：
+
+$$
+\vcfour{x}{y}{n}{1} \approx \vcfour{nx}{ny}{n^2}{n},\quad
+\vcfour{0}{0}{f}{1} \approx \vcfour{0}{0}{f^2}{f}
+$$
+
+设矩阵第三行为 $[a,b,c,d]$，则有
+
+$$
+\begin{cases}
+ax+by+cn+d=n^2\\
+cf+d=f^2
+\end{cases}
+$$
+
+这两个等式要恒成立，我们可以得到：
+
+$$
+a=b=0,\quad c=n+f,\quad d=-nf
+$$
+
+最终挤压矩阵为：
+
+$$
+\bm{M}_{persp \rightarrow ortho} =
+\matfour{n & 0 & 0 & 0}{0 & n & 0 & 0}{0 & 0 & n+f & -nf}{0 & 0 & 1 & 0}
+$$
+
+最后，我们只需要做正交投影即可：
+
+$$
+\bm{M}_{persp} = \bm{M}_{ortho} \bm{M}_{persp \rightarrow ortho}
 $$
