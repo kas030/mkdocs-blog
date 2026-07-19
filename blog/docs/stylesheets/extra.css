@@ -110,14 +110,12 @@ blockquote {
     cursor: default;
 }
 
-.md-typeset abbr + .md-tooltip {
+.md-typeset abbr+.md-tooltip {
     position: fixed;
     top: clamp(8px, var(--md-cursor-tooltip-y), calc(100vh - 2rem));
-    left: clamp(
-        8px,
-        var(--md-cursor-tooltip-x),
-        calc(100vw - var(--md-tooltip-width) - 8px)
-    );
+    left: clamp(8px,
+            var(--md-cursor-tooltip-x),
+            calc(100vw - var(--md-tooltip-width) - 8px));
 }
 
 .md-tooltip2[role="tooltip"] {
@@ -127,9 +125,22 @@ blockquote {
 }
 
 .md-tooltip2[role="tooltip"]>.md-tooltip2__inner {
-    left: clamp(
-        8px,
-        var(--md-cursor-tooltip-x),
-        calc(100vw - var(--md-tooltip-width) - 8px)
-    );
+    left: clamp(8px,
+            var(--md-cursor-tooltip-x),
+            calc(100vw - var(--md-tooltip-width) - 8px));
+}
+
+/* 图片组 Flex 布局 */
+.md-img-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.md-img-group img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
 }
