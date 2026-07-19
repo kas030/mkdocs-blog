@@ -261,6 +261,44 @@ CSS 变量适合存放主题色、间距、字体大小等会反复出现的值�
 
 实际使用时不需要所有数值都严格是 `8px` 的倍数，但对于 `margin`、`padding`、组件高度等布局相关属性，使用统一的间距阶梯能减少随手写数值带来的混乱。
 
+### Flexbox
+
+Flexbox 是 CSS 中常用的一维布局方式，适合处理一行或一列中的元素排列。启用 Flexbox 的方式是在父元素上设置 `display: flex;`，这个父元素称为 flex container，里面的直接子元素称为 flex items。
+
+```html
+<div class="toolbar">
+    <button>Save</button>
+    <button>Cancel</button>
+    <button>Delete</button>
+</div>
+```
+
+```css
+.toolbar {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+}
+```
+
+Flexbox 有两个重要方向：
+
+- 主轴（main axis）：元素主要排列的方向，由 `flex-direction` 决定，默认是从左到右的 `row`。
+- 交叉轴（cross axis）：和主轴垂直的方向。
+
+常用属性：
+
+- `flex-direction`：设置主轴方向，例如 `row`、`column`。
+- `justify-content`：控制元素在主轴上的分布，例如 `flex-start`、`center`、`space-between`。
+- `align-items`：控制元素在交叉轴上的对齐，例如 `stretch`、`center`、`flex-start`。
+- `gap`：设置元素之间的间距，通常比给每个子元素单独写 `margin` 更清晰。
+- `flex-wrap`：控制空间不足时是否换行，例如 `wrap`。
+
+!!! tip "Flexbox 的适用场景"
+
+    Flexbox 适合导航栏、工具栏、按钮组、表单行、卡片内部对齐等一维布局。如果需要同时控制行和列的二维布局，通常优先考虑 CSS Grid。
+
 ### 标签的默认样式
 
 即使没有写 CSS，浏览器也会给一些 HTML 标签添加默认样式。例如，`<h1>` 通常会显示为更大的粗体文字，`<p>` 段落之间会有默认间距，`<a>` 链接通常是蓝色并带有下划线。
