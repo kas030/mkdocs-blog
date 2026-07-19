@@ -90,6 +90,9 @@ plugins:
   - tags
   - glightbox
 
+hooks:
+  - hooks/first_abbr.py
+
 markdown_extensions:
   - abbr
   - tables
