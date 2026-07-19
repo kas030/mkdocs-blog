@@ -21,6 +21,7 @@ nav:
           - HTML 和 CSS: courses/mit-iap-weblab/html-and-css.md
       - GAMES101:
           - 变换: courses/games101/transformations.md
+          - 光栅化: courses/games101/rasterization.md
       - CS61A: courses/cs61a.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
   - 算法竞赛:
