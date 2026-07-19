@@ -11,7 +11,7 @@ tags:
 
 $$\bm{x}' = \bm{M} \bm{x}$$
 
-### 缩放（Scale）
+### 缩放
 
 坐标关系：
 
@@ -27,7 +27,7 @@ $$
 \vctwo{x}{y}
 $$
 
-非均匀（non-uniform）缩放：
+非均匀缩放：
 
 $$
 \vctwo{x'}{y'} =
@@ -35,7 +35,7 @@ $$
 \vctwo{x}{y}
 $$
 
-### 镜像（Reflection）
+### 镜像
 
 水平镜像：
 
@@ -45,7 +45,7 @@ $$
 \vctwo{x}{y}
 $$
 
-### 切变（Shear）
+### 切变
 
 ![shear](games101-assets/img/shear.png){ width="500" }
 {.center-img}
@@ -60,9 +60,9 @@ $$
 
 可以理解为基变换为 $[1, 0]^\top$、$[a, 1]^\top$。
 
-### 旋转（Rotate）
+### 旋转
 
-默认关于原点旋转，逆时针方向（CCW）。
+默认关于原点旋转，方向为逆时针。
 
 ![rotate](games101-assets/img/rotate.png){ width="500" }
 {.center-img}
@@ -88,13 +88,13 @@ $$\bm{R}_{-\theta} = \bm{R} _\theta ^{-1} = \bm{R} _\theta ^\top$$
 
 ## 齐次坐标
 
-平移（translation）变换：
+平移变换：
 
 $$
 \begin{aligned} x' &= x + t_x\\ y' &= y + t_y \end{aligned}
 $$
 
-不是线性变换，无法被表示为矩阵形式。为了避免其特殊性，我们引入齐次坐标（Homogeneous Coordinates）的概念。
+不是线性变换，无法被表示为矩阵形式。为了避免其特殊性，我们引入齐次坐标的概念。
 
 添加第 3 个坐标（W 坐标）：
 
@@ -126,7 +126,7 @@ $[x, y, w] ^ \top$ 表示二维点 $[x / w, y / w, 1] ^ \top$，$w \neq 0$，这
 
 ### 仿射变换
 
-仿射变换（Affine Transformation）可以写成线性变换 + 平移变换的形式：
+仿射变换可以写成线性变换 + 平移变换的形式：
 
 $$
 \vctwo{x'}{y'} =
@@ -249,7 +249,7 @@ $$\bm{R}_{xyz}(\alpha, \beta, \gamma) = \bm{R}_x(\alpha) \bm{R}_y(\beta) \bm{R}_
 
 其中 $\alpha, \beta, \gamma$ 被成为欧拉角。
 
-对于绕轴 $\bm{n}$ 旋转角为 $\alpha$ 的旋转，使用罗德里格斯旋转公式（Rodrigues’ Rotation Formula）处理：
+对于绕轴 $\bm{n}$ 旋转角为 $\alpha$ 的旋转，使用罗德里格斯旋转公式处理：
 
 $$
 \bm{R}(\bm{n},\alpha) = 
@@ -269,11 +269,11 @@ $$
 
 ##  观测变换
 
-观测变换（viewing transformation）是指通过观测获得一张照片的过程：
+观测变换是指通过观测获得一张照片的过程：
 
-- 模型变换（Model transformation）
-- 视图变换（View / Camera transformation）
-- 投影变换（Projection transformation）
+- 模型变换
+- 视图变换
+- 投影变换
 
 简称 MVP 变换。
 
@@ -342,15 +342,15 @@ $$
 
 投影变换分为：
 
-- 正交投影（Orthographic projection）
-- 透视投影（Perspective projection）
+- 正交投影
+- 透视投影
 
 ![p-o-projection](games101-assets/img/p-o-projection.png){ width="550" }
 {.center-img}
 
 #### 正交投影
 
-相机在空间中能看到的范围被称为视景体（view volume），通常用 $[l, r] \times [b, t] \times [f, n]$ 描述，我们需要将这个长方体映射到一个正则立方体（canonical cube）$[-1, 1]^3$ 中。
+相机在空间中能看到的范围被称为视景体，通常用 $[l, r] \times [b, t] \times [f, n]$ 描述，我们需要将这个长方体映射到一个正则立方体 $[-1, 1]^3$ 中。
 
 ![view-volume](games101-assets/img/view-volume.png){ width="600" }
 {.center-img}
@@ -449,3 +449,22 @@ $$
 $$
 \bm{M}_{persp} = \bm{M}_{ortho} \bm{M}_{persp \rightarrow ortho}
 $$
+
+*[缩放]: Scaling
+*[非均匀缩放]: Non-uniform scaling
+*[镜像]: Reflection
+*[切变]: Shear
+*[旋转]: Rotation
+*[逆时针]: Counterclockwise (CCW)
+*[平移变换]: Translation
+*[齐次坐标]: Homogeneous coordinates
+*[仿射变换]: Affine transformation
+*[罗德里格斯旋转公式]: Rodrigues' rotation formula
+*[观测变换]: Viewing transformation
+*[模型变换]: Model transformation
+*[视图变换]: View transformation / Camera transformation
+*[投影变换]: Projection transformation
+*[正交投影]: Orthographic projection
+*[透视投影]: Perspective projection
+*[视景体]: View volume
+*[正则立方体]: Canonical cube
