@@ -450,6 +450,25 @@ $$
 \bm{M}_{persp} = \bm{M}_{ortho} \bm{M}_{persp \rightarrow ortho}
 $$
 
+!!! note "视锥体的另一种参数化定义"
+
+    有时我们用垂直视场角和宽高比定义视锥体：
+
+    ![fovy-and-aspect-ratio](games101-assets/img/fovy-and-aspect-ratio.png){ width="350" }
+    {.center-img}
+
+    两种参数之间可以相互转化：
+
+    $$
+    \begin{aligned}
+    \tan \frac{fovY}{2} &= \frac{t}{|n|}\\
+    aspect &= \frac{r}{t}
+    \end{aligned}
+    $$
+
+    ![convert-to-lrbt](games101-assets/img/convert-to-lrbt.png){ width="400" }
+    {.center-img}
+
 *[缩放]: Scaling
 *[非均匀缩放]: Non-uniform scaling
 *[镜像]: Reflection
@@ -468,3 +487,5 @@ $$
 *[透视投影]: Perspective projection
 *[视景体]: View volume
 *[正则立方体]: Canonical cube
+*[垂直视场角]: Vertical field-of-view (fovY)
+*[宽高比]: Aspect ratio
