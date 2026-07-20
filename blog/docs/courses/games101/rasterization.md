@@ -176,6 +176,58 @@ for (int x = 0; x < xmax; ++x)
     - FXAA（快速近似抗锯齿）是一种屏幕空间后处理方法，通过检测最终图像中的高对比度边缘并进行平滑来减弱锯齿。它速度快、额外开销小，但可能模糊纹理和细小几何特征。
     - TAA（时间抗锯齿）让采样位置在连续帧之间轻微偏移，再结合运动向量对齐并累积历史帧，从时间维度获得更多样本。它通常能提供更稳定的边缘，但历史信息处理不当时会产生重影或拖尾。
 
+## 可见性与深度缓冲
+
+同一个像素可能被多个三角形覆盖。光栅化不仅需要确定哪些像素被三角形覆盖，还需要判断哪个三角形离相机最近，只显示它的颜色。
+
+### 画家算法
+
+画家算法模仿绘画过程，先绘制远处的物体，再绘制近处的物体，让后绘制的颜色覆盖帧缓冲中的原有颜色。
+
+这种方法需要先对三角形按深度排序，时间复杂度为 $O(n\log n)$。更重要的是，三角形之间可能形成循环遮挡关系，无法得到一个满足所有像素的全局绘制顺序。
+
+![Unresolvable Depth Order](games101-assets/img/painter-algorithm-depth-cycle.png){ width="250" }
+{.center-img}
+
+### Z-buffer 算法
+
+Z-buffer 不再对三角形进行全局排序，而是为每个采样点记录当前可见表面的深度：
+
+- 帧缓冲记录最终显示的颜色
+- 深度缓冲记录当前最近的深度值
+
+![Z-Buffer Example](games101-assets/img/z-buffer-example.png){ width="500" }
+{.center-img}
+
+光栅化每个三角形时，只有比已有记录更近的采样点才能同时更新颜色和深度。这里比较的是三角形在当前采样点处的深度，而不是整个三角形或物体的中心深度，因此相交或循环遮挡的三角形也可以在不同像素处得到正确的可见性结果。
+
+我们约定深度 $z$ 始终为正数，并且 $z$ 越小表示距离相机越近。因此，深度缓冲初始化为正无穷。
+
+```cpp linenums="1"
+for (auto& depth : zbuffer)
+    depth = infinity;
+
+for (const auto& triangle : triangles) {
+    for (const auto& sample : covered_samples(triangle)) {
+        auto [x, y, z] = sample;
+        if (z < zbuffer[x][y]) {
+            zbuffer[x][y] = z;
+            framebuffer[x][y] = triangle.color;
+        }
+    }
+}
+```
+
+对于深度互不相同的不透明表面，改变三角形的绘制顺序不会改变最终结果。这个局部、顺序无关的深度测试过程很适合并行执行，因此由 GPU 硬件直接支持。
+
+!!! note "MSAA 中的 Z-buffer"
+
+    启用 MSAA 后，深度缓冲需要为每个像素内的每个子采样点分别保存深度，即由 `zbuffer[x][y]` 扩展为 `zbuffer[x][y][s]`，其中 `s` 是子采样点编号。
+
+    光栅化三角形时，首先生成表示哪些子采样点被覆盖的掩码。每个被覆盖的子采样点会独立计算深度并执行深度测试，只有测试通过的样本才更新对应的深度和颜色。所有三角形处理完毕后，再对像素内保留下来的颜色样本取平均，得到最终像素颜色。
+
+    常规 MSAA 通常逐样本计算覆盖率和深度，但着色器仍可只执行一次，并将结果用于同一图元覆盖且通过测试的多个样本。因此，它能正确处理几何边缘处不同表面的遮挡，同时比对每个子采样点都完整着色的超采样开销更低。
+
 *[光栅化]: Rasterization
 *[视口变换]: Viewport transformation
 *[重心插值]: Barycentric interpolation
@@ -192,3 +244,7 @@ for (int x = 0; x < xmax; ++x)
 *[MSAA]: Multisample antialiasing
 *[FXAA]: Fast approximate antialiasing
 *[TAA]: Temporal antialiasing
+*[画家算法]: Painter's algorithm
+*[帧缓冲]: Frame buffer
+*[深度缓冲]: Depth buffer / Z-buffer
+*[循环遮挡]: Cyclic occlusion
