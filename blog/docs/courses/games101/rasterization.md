@@ -84,9 +84,111 @@ for (int x = 0; x < xmax; ++x)
 ![Incremental Triangle Traversal](games101-assets/img/incremental-triangle-triversal.png){ width="200" }
 {.center-img}
 
+## 走样与抗锯齿
+
+### 走样的来源
+
+光栅化实际上是在规则的像素网格上采样连续的三角形覆盖函数，三角形边界两侧的函数值会从 $0$ 跳变到 $1$，因此边界会呈现出锯齿。
+
+锯齿、摩尔纹和高速旋转物体看似倒转等现象都属于走样。它们的共同原因是：信号变化得太快，而采样频率不足。
+
+!!! note "采样定理与走样"
+
+    设一维连续信号 $f(x)$ 的最高频率为 $f_{max}$，采样频率为 $f_s$。对于带限信号，若
+
+    $$
+    f_s > 2f_{max},
+    $$
+
+    则可以由采样值完整重建原信号，$f_s/2$ 称为奈奎斯特频率。
+
+    周期采样会使原信号的频谱以 $f_s$ 为间隔重复：
+
+    ![Sampling in Spatial and Frequency Domains](games101-assets/img/sampling-in-spatial-and-frequency-domains.png){ width="300" }
+    {.center-img}
+
+    当采样频率过低时，相邻的频谱副本发生重叠，高频成分便可能表现为错误的低频成分。此时，不同的连续信号会产生相同的离散样本，因而无法仅根据采样结果区分，这就是走样：
+
+    ![Aliasing Caused by Frequency Overlap](games101-assets/img/aliasing-frequency-overlap.png){ width="350" }
+    {.center-img}
+
+    如果通过滤波先抑制无法表达的高频成分，再进行采样，就可以防止走样：
+
+    ![Antialiasing in the Frequency Domain](games101-assets/img/antialiasing-frequency-domain.png){ width="350" }
+    {.center-img}
+
+### 傅里叶变换与滤波
+
+傅里叶变换把信号从空间域转换到频率域。低频成分描述缓慢变化的区域，高频成分通常对应快速变化的细节与边缘。滤波就是选择性地保留或削弱某些频率成分，高通滤波会突出边缘，低通滤波则会抑制高频并产生模糊。
+
+!!! note "傅里叶变换与卷积定理"
+
+    采用以每单位长度周期数 $\nu$ 表示频率的约定，一维连续傅里叶变换及其逆变换为
+
+    $$
+    F(\nu)=\int_{-\infty}^{\infty}f(x)e^{-2\pi i\nu x}\,\mathrm{d}x,
+    \qquad
+    f(x)=\int_{-\infty}^{\infty}F(\nu)e^{2\pi i\nu x}\,\mathrm{d}\nu.
+    $$
+
+    用滤波核 $h$ 对信号 $f$ 进行卷积定义为
+
+    $$
+    (f*h)(x)=\int_{-\infty}^{\infty}f(\tau)h(x-\tau)\,\mathrm{d}\tau.
+    $$
+
+    卷积定理给出
+
+    $$
+    \mathcal{F}\{f*h\}=\mathcal{F}\{f\}\,\mathcal{F}\{h\}.
+    $$
+
+    因此，空间域中的局部加权平均等价于频率域中的逐点相乘。盒式滤波器在空间域内取邻域平均，对应一个低通滤波器。盒子的范围越宽，其频域主瓣越窄，保留的高频成分越少，图像也就越模糊。
+
+    ![Convolution Theorem](games101-assets/img/convolution-theorem.png){ width="450" }
+    {.center-img}
+
+### 先滤波再采样
+
+采样一旦造成频谱混叠，原有的高频信息已经无法分离，之后再模糊图像只能让错误的结果变糊，不能消除走样。抗锯齿的关键是先对连续信号做低通滤波，再在像素中心采样。
+
+![Antialiased Sampling](games101-assets/img/antialiased-sampling.png){ width="400" }
+{.center-img}
+
+光栅化三角形时，可以使用宽度为一个像素的盒式滤波器。此时，每个像素的值不再只是 $0$ 或 $1$，而是三角形在该像素内的覆盖比例，这样边界像素会得到介于背景色和三角形颜色之间的值。
+
+![Pixel Coverage Filtering](games101-assets/img/pixel-coverage-filtering.png){ width="450" }
+{.center-img}
+
+
+### MSAA（多重采样抗锯齿）
+
+精确求三角形与每个像素的相交面积代价较高。多重采样抗锯齿在一个像素内放置多个采样点，分别判断它们是否被三角形覆盖，再对结果取平均，以近似像素覆盖率。
+
+例如 $2\times2$ 采样中有三个采样点位于三角形内，就以 $3/4=75\%$ 作为该像素的覆盖率。采样点越多，通常越接近真实的面积积分，但计算与存储开销也会随之增加。
+
+![MSAA Sample Coverage](games101-assets/img/msaa-sample-coverage.png){ width="300" }
+![MSAA Pixel Values](games101-assets/img/msaa-pixel-values.png){ width="300" }
+{.md-img-group}
+
+!!! tip "其他抗锯齿方法"
+
+    - FXAA（快速近似抗锯齿）是一种屏幕空间后处理方法，通过检测最终图像中的高对比度边缘并进行平滑来减弱锯齿。它速度快、额外开销小，但可能模糊纹理和细小几何特征。
+    - TAA（时间抗锯齿）让采样位置在连续帧之间轻微偏移，再结合运动向量对齐并累积历史帧，从时间维度获得更多样本。它通常能提供更稳定的边缘，但历史信息处理不当时会产生重影或拖尾。
+
 *[光栅化]: Rasterization
 *[视口变换]: Viewport transformation
 *[重心插值]: Barycentric interpolation
 *[包围盒]: Bounding box
 *[增量三角形遍历]: Incremental triangle traversal
+*[走样]: Aliasing
 *[抗锯齿]: Antialiasing
+*[奈奎斯特频率]: Nyquist frequency
+*[傅里叶变换]: Fourier transform
+*[空间域]: Spatial domain
+*[频率域]: Frequency domain
+*[卷积]: Convolution
+*[盒式滤波器]: Box filter
+*[MSAA]: Multisample antialiasing
+*[FXAA]: Fast approximate antialiasing
+*[TAA]: Temporal antialiasing
