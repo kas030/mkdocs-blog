@@ -36,6 +36,7 @@ nav:
           - Codeforces 2123E Mex Count: oi/solutions/cf-2123e-mex-count.md
   - 工具:
       - GNU 工具链: tools/gnu-toolchain.md
+      - CMake: tools/cmake.md
       - Conda: tools/conda.md
 
 theme:
