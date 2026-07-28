@@ -47,6 +47,11 @@ details>summary+.highlight>.highlighttable {
     margin: 0 !important;
 }
 
+/* Shell 外部命令高亮：由 javascripts/shell-highlight.js 标记 */
+.highlight .sh-command {
+    color: var(--md-code-hl-function-color);
+}
+
 /* 表格宽度占满容器 */
 .md-typeset__table {
     display: block !important;
