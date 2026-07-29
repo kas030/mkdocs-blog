@@ -247,7 +247,7 @@ $$
 
 $$\bm{R}_{xyz}(\alpha, \beta, \gamma) = \bm{R}_x(\alpha) \bm{R}_y(\beta) \bm{R}_z(\gamma)$$
 
-其中 $\alpha, \beta, \gamma$ 被成为欧拉角。
+其中 $\alpha, \beta, \gamma$ 被称为欧拉角。
 
 对于绕轴 $\bm{n}$ 旋转角为 $\alpha$ 的旋转，使用罗德里格斯旋转公式处理：
 
