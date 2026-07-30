@@ -148,3 +148,15 @@ blockquote {
     max-width: 100%;
     height: auto;
 }
+
+/* Mermaid 图表宽度 */
+.mermaid-sized {
+    width: min(var(--diagram-width, 100%), 100%);
+    margin-inline: auto;
+}
+
+.mermaid-sized .mermaid,
+.mermaid-sized svg {
+    width: 100% !important;
+    height: auto;
+}

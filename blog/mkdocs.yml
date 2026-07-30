@@ -111,7 +111,11 @@ markdown_extensions:
   - tables
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - footnotes
   - md_in_html
   - attr_list
