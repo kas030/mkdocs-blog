@@ -23,7 +23,15 @@ nav:
       - GAMES101:
           - 变换: courses/games101/transformations.md
           - 光栅化: courses/games101/rasterization.md
-      - CS61A: courses/cs61a.md
+      - CS61A:
+          - 函数与控制: courses/cs61a/functions-and-control.md
+          - 高阶函数与函数抽象: courses/cs61a/higher-order-functions.md
+          - 递归: courses/cs61a/recursion.md
+          - 序列与数据抽象: courses/cs61a/sequences-and-data-abstraction.md
+          - 可变性、迭代器与生成器: courses/cs61a/mutability-and-iterators.md
+          - 面向对象编程: courses/cs61a/object-oriented-programming.md
+          - Scheme 与解释器: courses/cs61a/scheme-and-interpreters.md
+          - SQL 与数据库: courses/cs61a/sql-and-databases.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
   - 算法竞赛:
       - 数学:
