@@ -1,7 +1,8 @@
-"""Use exact substring matching for the first occurrence of abbreviations."""
+"""Mark the first occurrence of abbreviations or an explicitly selected one."""
 
 from __future__ import annotations
 
+import re
 import sys
 from xml.etree import ElementTree as etree
 
@@ -70,19 +71,43 @@ class FirstAbbrTreeprocessor(Treeprocessor):
     """Match exact substrings in document order without word boundaries."""
 
     SKIP_TAGS = {"abbr", "code", "pre", "script", "style"}
+    EXPLICIT_RE = re.compile(r"\{\{abbr:(?P<term>[^{}\r\n]+)\}\}")
 
     def __init__(self, md, abbrs: dict[str, str]):
         super().__init__(md)
         self.abbrs = abbrs
         self.used: set[str] = set()
+        self.explicit: set[str] = set()
 
     def run(self, root: etree.Element) -> etree.Element | None:
         if not self.abbrs:
             return None
 
         self.used.clear()
+        self.explicit.clear()
+        self._collect_explicit(root)
+        self.used.update(self.explicit)
         self._walk(root)
         return root
+
+    def _collect_explicit(self, element: etree.Element) -> None:
+        """Reserve terms which have an explicit {{abbr:term}} marker."""
+        if element.tag in self.SKIP_TAGS:
+            return
+
+        self._collect_explicit_from_text(element.text)
+        for child in element:
+            self._collect_explicit(child)
+            self._collect_explicit_from_text(child.tail)
+
+    def _collect_explicit_from_text(self, text: str | None) -> None:
+        if not text or isinstance(text, AtomicString):
+            return
+
+        for match in self.EXPLICIT_RE.finditer(text):
+            term = match.group("term").strip()
+            if term in self.abbrs and self.abbrs[term]:
+                self.explicit.add(term)
 
     def _walk(self, element: etree.Element) -> None:
         if element.tag in self.SKIP_TAGS:
@@ -97,16 +122,32 @@ class FirstAbbrTreeprocessor(Treeprocessor):
 
     def _find_matches(self, text: str) -> list[tuple[int, int, str]]:
         matches: list[tuple[int, int, str]] = []
+        markers = list(self.EXPLICIT_RE.finditer(text))
+        marker_index = 0
         cursor = 0
 
         while cursor < len(text):
+            if marker_index < len(markers) and cursor == markers[marker_index].start():
+                marker = markers[marker_index]
+                term = marker.group("term").strip()
+                if term in self.explicit:
+                    matches.append((marker.start(), marker.end(), term))
+                cursor = marker.end()
+                marker_index += 1
+                continue
+
+            region_end = (
+                markers[marker_index].start()
+                if marker_index < len(markers)
+                else len(text)
+            )
             candidate: tuple[int, int, str] | None = None
 
             for term, title in self.abbrs.items():
                 if term in self.used or not title:
                     continue
 
-                start = text.find(term, cursor)
+                start = text.find(term, cursor, region_end)
                 if start < 0:
                     continue
 
@@ -115,7 +156,8 @@ class FirstAbbrTreeprocessor(Treeprocessor):
                     candidate = current
 
             if candidate is None:
-                break
+                cursor = region_end
+                continue
 
             start, negative_length, term = candidate
             end = start - negative_length
