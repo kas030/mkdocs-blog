@@ -46,6 +46,7 @@ nav:
   - 工具:
       - GNU 工具链: tools/gnu-toolchain.md
       - CMake: tools/cmake.md
+      - GitHub CLI: tools/github-cli.md
       - Conda: tools/conda.md
 
 theme:
