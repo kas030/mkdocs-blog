@@ -239,7 +239,7 @@ Linux 将进程的虚拟地址空间组织成若干区域，每个区域是一�
 
 !!! note "虚拟内存相关的 Unix 接口"
 
-    下列函数分别用于创建或修改映射，以及建立新的进程地址空间：
+    下列函数用于创建、删除或修改映射：
 
     ```c
     #include <sys/mman.h>
@@ -249,9 +249,6 @@ Linux 将进程的虚拟地址空间组织成若干区域，每个区域是一�
     void *mmap(void *addr, size_t length, int prot,int flags, int fd, off_t offset);
     int munmap(void *addr, size_t length);
     int mprotect(void *addr, size_t length, int prot);
-
-    pid_t fork(void);
-    int execve(const char *pathname,char *const argv[], char *const envp[]);
     ```
 
     **mmap**
@@ -272,28 +269,6 @@ Linux 将进程的虚拟地址空间组织成若干区域，每个区域是一�
     **munmap 与 mprotect**
 
     `munmap` 删除从 `addr` 开始、长度为 `length` 的映射。删除后再次访问该区域通常会触发段错误。`mprotect` 不改变映射内容，只修改页面的读、写、执行权限。二者成功时返回 `0`，失败时返回 `-1`；传入的起始地址需要按页面边界对齐。
-
-    **fork**
-
-    `fork` 创建调用进程的子进程。成功时，它在父进程中返回子进程 PID，在子进程中返回 `0`；失败时返回 `-1`。父子进程拥有逻辑上独立的地址空间，但内核最初通过写时复制让它们共享物理页。
-
-    **execve**
-
-    `execve` 不创建新进程，而是用 `pathname` 指定的可执行文件替换当前进程的程序映像，并根据 `argv` 和 `envp` 设置参数与环境。内核通过映射可执行文件的各个段和共享库，建立新的地址空间。调用成功后不会返回；只有失败时才返回 `-1`。程序常在 `fork` 创建的子进程中调用它：
-
-    ```c
-    pid_t pid = fork();
-
-    if (pid == 0) {
-        char *argv[] = {"/bin/ls", "-l", NULL};
-        char *envp[] = {NULL};
-
-        execve(argv[0], argv, envp);
-        _exit(127);  /* 只有 execve 失败时才会执行 */
-    } else if (pid < 0) {
-        /* 处理 fork 失败 */
-    }
-    ```
 
 *[内存管理单元]: Memory Management Unit，MMU
 *[虚拟页]: Virtual Page，VP
