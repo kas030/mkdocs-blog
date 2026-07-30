@@ -17,6 +17,7 @@ nav:
           - 信息的表示和处理: courses/cmu-cs15-213-csapp/representing-information.md
           - 程序的机器级表示: courses/cmu-cs15-213-csapp/machine-level-representation.md
           - 链接: courses/cmu-cs15-213-csapp/linking.md
+          - 存储器层级结构: courses/cmu-cs15-213-csapp/memory-hierarchy.md
       - MIT IAP web.lab:
           - HTML 和 CSS: courses/mit-iap-weblab/html-and-css.md
       - GAMES101:
