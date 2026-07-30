@@ -66,7 +66,7 @@ tags:
 
 举例：4 字节变量 `x` 的值是 `0x01234567`，存放在 `0x100`
 
-![img](cmu-cs15-213-csappp-assets/img/big-little-endian.png){ width="600" }
+![img](representing-information-assets/big-little-endian.png){ width="600" }
 {.center-img}
 
 **字符串表示**
@@ -205,7 +205,7 @@ tags:
 - 实际结果：w + 1 位
 - 舍弃进位：w 位
 
-![UAdd](cmu-cs15-213-csappp-assets/img/uadd.png){ width="400" }
+![UAdd](representing-information-assets/uadd.png){ width="400" }
 { .center-img }
 
 $$x +^u_w y=\begin{cases}x+y,&x+y<2^w\\x+y-2^w,&2^w\leqslant x+y<2^{w+1}\end{cases}$$
@@ -216,7 +216,7 @@ TAdd 和 UAdd 有相同的位级表示。
 
 溢出分为负溢出和正溢出。
 
-![TAdd](cmu-cs15-213-csappp-assets/img/tadd.png){ width="400" }
+![TAdd](representing-information-assets/tadd.png){ width="400" }
 { .center-img }
 
 $$x +^t_w y=\begin{cases}x+y-2^w,&x+y\geqslant2^{w-1}\\x+y,&-2^{w-1}\leqslant x+y<2^{w-1}\\x+y+2^w,&x+y<-2^{w-1}\end{cases}$$
@@ -354,7 +354,7 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 
 **精度类型**
 
-![img](cmu-cs15-213-csappp-assets/img/ieee-precision-options.png){ width="650" }
+![img](representing-information-assets/ieee-precision-options.png){ width="650" }
 {.center-img}
 
 **情况 1：规格化值**
@@ -487,19 +487,19 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 
 一个 8 位浮点数表示示例，有 1 位符号位、4 位阶码（偏置为 7）、3 位尾数。
 
-![img](cmu-cs15-213-csappp-assets/img/ieee-eg.png){ width="700" }
+![img](representing-information-assets/ieee-eg.png){ width="700" }
 {.center-img}
 
 **取值分布**
 
 一个 6 位浮点数表示，有 3 位阶码（偏置为 3）、2 位尾数。
 
-![img](cmu-cs15-213-csappp-assets/img/ieee-distribution.png){ width="720" }
+![img](representing-information-assets/ieee-distribution.png){ width="720" }
 {.center-img}
 
 局部放大：
 
-![img](cmu-cs15-213-csappp-assets/img/ieee-distribution-close-up-view.png){ width="720" }
+![img](representing-information-assets/ieee-distribution-close-up-view.png){ width="720" }
 {.center-img}
 
 可以观察到，可表示的数不是均匀分布的，越靠近原点处越稠密。
@@ -593,7 +593,7 @@ IEEE 浮点标准用 $(-1)^s M 2^E$ 表示一个浮点数：
 3. 结果规格化处理，并判断是否溢出
 4. 进行舍入处理
 
-![img](cmu-cs15-213-csappp-assets/img/ieee-exp-alignment.png){ width="400" }
+![img](representing-information-assets/ieee-exp-alignment.png){ width="400" }
 {.center-img}
 
 !!! note "左规和右规"

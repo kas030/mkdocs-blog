@@ -13,7 +13,7 @@ tags:
 
 **汇编程序员视角**
 
-![img](./cmu-cs15-213-csappp-assets/img/assembly-view.png){ width="500" }
+![img](machine-level-representation-assets/assembly-view.png){ width="500" }
 {.center-img}
 
 程序员可见的状态：
@@ -34,14 +34,14 @@ tags:
 
 **IA32 通用寄存器**
 
-![img](cmu-cs15-213-csappp-assets/img/ia32-regs.png){ width="550" }
+![img](machine-level-representation-assets/ia32-regs.png){ width="550" }
 {.center-img}
 
 寄存器的细粒度访问如图所示。
 
 **x86-64 通用寄存器**
 
-![img](cmu-cs15-213-csappp-assets/img/x86-64-regs.png){ width="500" }
+![img](machine-level-representation-assets/x86-64-regs.png){ width="500" }
 {.center-img}
 
 在 x86-64 中，%rbp 通常已不再作为帧指针，可以当做普通寄存器使用。
@@ -509,7 +509,7 @@ popq %rbp
 
 ### 栈帧
 
-![stack-frame](cmu-cs15-213-csappp-assets/img/stack-frame.png){ align=right width="300" }
+![stack-frame](machine-level-representation-assets/stack-frame.png){ align=right width="300" }
 
 栈帧是一次过程调用在栈上使用的空间。它通常包含：
 

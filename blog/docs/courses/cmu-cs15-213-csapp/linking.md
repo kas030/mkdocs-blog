@@ -22,7 +22,7 @@ ELF（Executable and Linking Format）是 Unix / Linux 中目标文件的统一�
 
 ### ELF 文件结构
 
-![img](cmu-cs15-213-csappp-assets/img/elf-format.png){ width="300", align=right }
+![img](linking-assets/elf-format.png){ width="300", align=right }
 
 - ELF 头
     - 字长、字节顺序、文件类型、机器类型等
@@ -91,7 +91,7 @@ ELF（Executable and Linking Format）是 Unix / Linux 中目标文件的统一�
     
     使用 `readelf -h` 查看的 ELF 文件头示例：
     
-    ![img](cmu-cs15-213-csappp-assets/img/elf-header-example.png){ width="600" }
+    ![img](linking-assets/elf-header-example.png){ width="600" }
     {.center-img}
 
 ### ELF 文件头
@@ -379,7 +379,7 @@ void global_func(void) {}
 
 链接器会先将同类节按照如下的方式合并：
 
-![img](./cmu-cs15-213-csappp-assets/img/section-merge.png){ width="500" }
+![img](linking-assets/section-merge.png){ width="500" }
 {.center-img}
 
 然后将运行时的存储器地址分配给合并后的新节，使每条指令和每个符号定义有唯一的存储地址。
@@ -679,7 +679,7 @@ Disassembly of section .text:
 5. 内核设置初始栈，将 `argc`、`argv`、环境变量等信息放入用户栈
 6. 内核跳转到程序入口地址，程序从 `_start` 开始执行
 
-![img](./cmu-cs15-213-csappp-assets/img/executable-memory-layout.png){ width="400" }
+![img](linking-assets/executable-memory-layout.png){ width="400" }
 {.center-img}
 
 可执行文件中真正需要装入内存执行的内容，主要由程序头表（Program Header Table）描述。节头部表偏向链接器视角，用来描述 `.text`、`.data`、`.symtab` 等节；程序头表偏向加载器视角，用来描述哪些文件区域应该被映射到哪些虚拟内存区域。
