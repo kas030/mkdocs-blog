@@ -92,7 +92,6 @@ theme:
 
 extra_javascript:
   - javascripts/katex.js
-  - javascripts/tooltip.js
   - javascripts/shell-highlight.js
   - https://unpkg.com/katex@0/dist/katex.min.js
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
