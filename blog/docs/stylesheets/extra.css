@@ -78,6 +78,11 @@ blockquote {
     font-weight: initial !important;
 }
 
+/* 隐藏仓库 Star 和 Fork 统计，保留仓库图标与链接 */
+.md-source__facts {
+    display: none;
+}
+
 /* 表格添加列分隔线 */
 .md-typeset table:not(.highlighttable) th,
 .md-typeset table:not(.highlighttable) td {
