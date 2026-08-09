@@ -13,7 +13,7 @@ tags:
 - 像素 $(x,y)$ 的中心为 $(x+0.5,y+0.5)$
 - 整个屏幕覆盖从 $(0,0)$ 到 $(width,height)$ 的范围
 
-![Screen Space](games101-assets/img/screen-space.png){ width="300" }
+![Screen Space](games101-assets/rasterization/screen-space.png){ width="300" }
 {.center-img}
 
 ### 视口变换
@@ -36,8 +36,8 @@ $$
 
 二维和三维中的三角形网格：
 
-![2d Triangle Mesh](games101-assets/img/2d-triangle-mesh.png){ width="200" }
-![3d Triangle Mesh](games101-assets/img/3d-triangle-mesh.png){ width="200" }
+![2d Triangle Mesh](games101-assets/rasterization/2d-triangle-mesh.png){ width="200" }
+![3d Triangle Mesh](games101-assets/rasterization/3d-triangle-mesh.png){ width="200" }
 {.md-img-group}
 
 三角形是最基础的多边形，其他多边形都可以分解为三角形。三角形具有以下性质：
@@ -70,18 +70,18 @@ for (int x = 0; x < xmax; ++x)
         image[x][y] = inside(tri, x + 0.5, y + 0.5);
 ```
 
-![Sampling a Triangle](games101-assets/img/sampling-a-triangle.png){ width="200" }
-![Rasterized Triangle](games101-assets/img/rasterized-triangle.png){ width="210" }
+![Sampling a Triangle](games101-assets/rasterization/sampling-a-triangle.png){ width="200" }
+![Rasterized Triangle](games101-assets/rasterization/rasterized-triangle.png){ width="210" }
 {.md-img-group}
 
 可以使用只遍历包围盒的方法对三角形采样的过程进行加速：
 
-![Bounding box](games101-assets/img/bounding-box.png){ width="200" }
+![Bounding box](games101-assets/rasterization/bounding-box.png){ width="200" }
 {.center-img}
 
 也可以使用增量三角形遍历方法，即对每一行确定一个包围盒，这个方法适用于细长且斜向的三角形：
 
-![Incremental Triangle Traversal](games101-assets/img/incremental-triangle-triversal.png){ width="200" }
+![Incremental Triangle Traversal](games101-assets/rasterization/incremental-triangle-triversal.png){ width="200" }
 {.center-img}
 
 ## 走样与抗锯齿
@@ -104,17 +104,17 @@ for (int x = 0; x < xmax; ++x)
 
     周期采样会使原信号的频谱以 $f_s$ 为间隔重复：
 
-    ![Sampling in Spatial and Frequency Domains](games101-assets/img/sampling-in-spatial-and-frequency-domains.png){ width="300" }
+    ![Sampling in Spatial and Frequency Domains](games101-assets/rasterization/sampling-in-spatial-and-frequency-domains.png){ width="300" }
     {.center-img}
 
     当采样频率过低时，相邻的频谱副本发生重叠，高频成分便可能表现为错误的低频成分。此时，不同的连续信号会产生相同的离散样本，因而无法仅根据采样结果区分，这就是走样：
 
-    ![Aliasing Caused by Frequency Overlap](games101-assets/img/aliasing-frequency-overlap.png){ width="350" }
+    ![Aliasing Caused by Frequency Overlap](games101-assets/rasterization/aliasing-frequency-overlap.png){ width="350" }
     {.center-img}
 
     如果通过滤波先抑制无法表达的高频成分，再进行采样，就可以防止走样：
 
-    ![Antialiasing in the Frequency Domain](games101-assets/img/antialiasing-frequency-domain.png){ width="350" }
+    ![Antialiasing in the Frequency Domain](games101-assets/rasterization/antialiasing-frequency-domain.png){ width="350" }
     {.center-img}
 
 ### 傅里叶变换与滤波
@@ -145,19 +145,19 @@ for (int x = 0; x < xmax; ++x)
 
     因此，空间域中的局部加权平均等价于频率域中的逐点相乘。盒式滤波器在空间域内取邻域平均，对应一个低通滤波器。盒子的范围越宽，其频域主瓣越窄，保留的高频成分越少，图像也就越模糊。
 
-    ![Convolution Theorem](games101-assets/img/convolution-theorem.png){ width="450" }
+    ![Convolution Theorem](games101-assets/rasterization/convolution-theorem.png){ width="450" }
     {.center-img}
 
 ### 先滤波再采样
 
 采样一旦造成频谱混叠，原有的高频信息已经无法分离，之后再模糊图像只能让错误的结果变糊，不能消除走样。抗锯齿的关键是先对连续信号做低通滤波，再在像素中心采样。
 
-![Antialiased Sampling](games101-assets/img/antialiased-sampling.png){ width="400" }
+![Antialiased Sampling](games101-assets/rasterization/antialiased-sampling.png){ width="400" }
 {.center-img}
 
 光栅化三角形时，可以使用宽度为一个像素的盒式滤波器。此时，每个像素的值不再只是 $0$ 或 $1$，而是三角形在该像素内的覆盖比例，这样边界像素会得到介于背景色和三角形颜色之间的值。
 
-![Pixel Coverage Filtering](games101-assets/img/pixel-coverage-filtering.png){ width="450" }
+![Pixel Coverage Filtering](games101-assets/rasterization/pixel-coverage-filtering.png){ width="450" }
 {.center-img}
 
 
@@ -167,8 +167,8 @@ for (int x = 0; x < xmax; ++x)
 
 例如 $2\times2$ 采样中有三个采样点位于三角形内，就以 $3/4=75\%$ 作为该像素的覆盖率。采样点越多，通常越接近真实的面积积分，但计算与存储开销也会随之增加。
 
-![MSAA Sample Coverage](games101-assets/img/msaa-sample-coverage.png){ width="300" }
-![MSAA Pixel Values](games101-assets/img/msaa-pixel-values.png){ width="300" }
+![MSAA Sample Coverage](games101-assets/rasterization/msaa-sample-coverage.png){ width="300" }
+![MSAA Pixel Values](games101-assets/rasterization/msaa-pixel-values.png){ width="300" }
 {.md-img-group}
 
 !!! tip "其他抗锯齿方法"
@@ -186,7 +186,7 @@ for (int x = 0; x < xmax; ++x)
 
 这种方法需要先对三角形按深度排序，时间复杂度为 $O(n\log n)$。更重要的是，三角形之间可能形成循环遮挡关系，无法得到一个满足所有像素的全局绘制顺序。
 
-![Unresolvable Depth Order](games101-assets/img/painter-algorithm-depth-cycle.png){ width="250" }
+![Unresolvable Depth Order](games101-assets/rasterization/painter-algorithm-depth-cycle.png){ width="250" }
 {.center-img}
 
 ### Z-buffer 算法
@@ -196,7 +196,7 @@ Z-buffer 不再对三角形进行全局排序，而是为每个采样点记录�
 - 帧缓冲记录最终显示的颜色
 - 深度缓冲记录当前最近的深度值
 
-![Z-Buffer Example](games101-assets/img/z-buffer-example.png){ width="500" }
+![Z-Buffer Example](games101-assets/rasterization/z-buffer-example.png){ width="500" }
 {.center-img}
 
 光栅化每个三角形时，只有比已有记录更近的采样点才能同时更新颜色和深度。这里比较的是三角形在当前采样点处的深度，而不是整个三角形或物体的中心深度，因此相交或循环遮挡的三角形也可以在不同像素处得到正确的可见性结果。

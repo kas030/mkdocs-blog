@@ -47,7 +47,7 @@ $$
 
 ### 切变
 
-![Shear](games101-assets/img/shear.png){ width="500" }
+![Shear](games101-assets/transformations/shear.png){ width="500" }
 {.center-img}
 
 矩阵形式：
@@ -64,7 +64,7 @@ $$
 
 默认关于原点旋转，方向为逆时针。
 
-![Rotation](games101-assets/img/rotation.png){ width="500" }
+![Rotation](games101-assets/transformations/rotation.png){ width="500" }
 {.center-img}
 
 矩阵形式：
@@ -77,7 +77,7 @@ $$
 
 从基变换的角度理解：
 
-![Rotation Basis](games101-assets/img/rotation-basis.png){ width="500" }
+![Rotation Basis](games101-assets/transformations/rotation-basis.png){ width="500" }
 {.center-img}
 
 基变换为 $[\cos \theta, \sin \theta]^\top$、$[-\sin \theta, \cos \theta]^\top$。
@@ -149,7 +149,7 @@ $\bm{M} ^ {-1}$ 是 $\bm{M}$ 的逆矩阵，其对应变换互为逆变换。
 
 矩阵乘法对应变换的复合：
 
-![Composite Transformation](games101-assets/img/composite-transformation.png){ width="600" }
+![Composite Transformation](games101-assets/transformations/composite-transformation.png){ width="600" }
 {.center-img}
 
 矩阵乘法不具有交换律，对应复合也没有交换律。
@@ -166,7 +166,7 @@ $$
 
 绕着给定点 $\bm{c}$ 旋转可分解为：
 
-![Rotation About a Point](games101-assets/img/rotation-about-a-point.png)
+![Rotation About a Point](games101-assets/transformations/rotation-about-a-point.png)
 {.center-img}
 
 用矩阵表示为 $\bm{T}(\bm{c}) \cdot \bm{R}(\alpha) \cdot \bm{T}(-\bm{c})$。
@@ -287,7 +287,7 @@ $$
 
 当相机和物体同时运动时，得到的照片保持不变，因此我们将相机固定在原点，观测方向为 $-z$，向上方向为 $y$：
 
-![Fixed Camera](games101-assets/img/fixed-camera.png){ width="650" }
+![Fixed Camera](games101-assets/transformations/fixed-camera.png){ width="650" }
 {.center-img}
 
 我们需要一个 $\bm{M}_{view}$ 矩阵，将相机变换到标准位置。
@@ -345,14 +345,14 @@ $$
 - 正交投影
 - 透视投影
 
-![Perspective and Orthographic Projection](games101-assets/img/perspective-and-orthographic-projection.png){ width="550" }
+![Perspective and Orthographic Projection](games101-assets/transformations/perspective-and-orthographic-projection.png){ width="550" }
 {.center-img}
 
 #### 正交投影
 
 相机在空间中能看到的范围被称为视景体，通常用 $[l, r] \times [b, t] \times [f, n]$ 描述，我们需要将这个长方体映射到一个正则立方体 $[-1, 1]^3$ 中。
 
-![View Volume](games101-assets/img/view-volume.png){ width="600" }
+![View Volume](games101-assets/transformations/view-volume.png){ width="600" }
 {.center-img}
 
 注意 $f$ 和 $n$ 的大小关系，这也是 OpenGL 使用左手系的原因。
@@ -380,7 +380,7 @@ $$
 1. 将视椎体变换为一个长方体（$\bm{M}_{persp \rightarrow ortho}$）
 2. 对长方体做正交投影（$\bm{M}_{ortho}$）
 
-![Frustum to Cuboid](games101-assets/img/frustum-to-cuboid.png){ width="500" }
+![Frustum to Cuboid](games101-assets/transformations/frustum-to-cuboid.png){ width="500" }
 {.center-img}
 
 我们首先寻找挤压前后 $x$、$y$ 坐标的变化，根据相似三角形有：
@@ -389,7 +389,7 @@ $$
 x'=\frac{n}{z}x,\quad y'=\frac{n}{z}y
 $$
 
-![Perspective Projection Similar Triangles](games101-assets/img/perspective-projection-similar-triangles.png){ width="500" }
+![Perspective Projection Similar Triangles](games101-assets/transformations/perspective-projection-similar-triangles.png){ width="500" }
 {.center-img}
 
 在齐次坐标下，我们有：
@@ -454,7 +454,7 @@ $$
 
     有时我们用垂直视场角和宽高比定义视锥体：
 
-    ![Field of View and Aspect Ratio](games101-assets/img/fovy-and-aspect-ratio.png){ width="350" }
+    ![Field of View and Aspect Ratio](games101-assets/transformations/fovy-and-aspect-ratio.png){ width="350" }
     {.center-img}
 
     两种参数之间可以相互转化：
@@ -466,7 +466,7 @@ $$
     \end{aligned}
     $$
 
-    ![Frustum Parameter Conversion](games101-assets/img/frustum-parameter-conversion.png){ width="400" }
+    ![Frustum Parameter Conversion](games101-assets/transformations/frustum-parameter-conversion.png){ width="400" }
     {.center-img}
 
 *[缩放]: Scaling
