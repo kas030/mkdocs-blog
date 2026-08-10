@@ -62,6 +62,8 @@ theme:
     logo: simple/materialformkdocs
     annotation: material/plus-circle
   features:
+    - navigation.tabs
+    - navigation.tabs.sticky
     - search.suggest
     - search.highlight
     - content.code.copy
@@ -77,8 +79,8 @@ theme:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: blue
-      accent: blue
+      primary: white
+      accent: indigo
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
@@ -86,8 +88,8 @@ theme:
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: blue grey
-      accent: blue grey
+      primary: black
+      accent: indigo
       toggle:
         icon: material/weather-night
         name: Switch to system preference
@@ -95,12 +97,15 @@ theme:
 extra_javascript:
   - javascripts/katex.js
   - javascripts/shell-highlight.js
+  - https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js
+  - javascripts/knowledge-graph.js
   - https://unpkg.com/katex@0/dist/katex.min.js
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
 
 extra_css:
   - stylesheets/extra.css
   - stylesheets/cs61c.css
+  - stylesheets/knowledge-graph.css
   - https://unpkg.com/katex@0/dist/katex.min.css
 
 plugins:
@@ -110,6 +115,7 @@ plugins:
 
 hooks:
   - hooks/first_abbr.py
+  - hooks/knowledge_graph.py
   - hooks/riscv_format.py
 
 markdown_extensions:

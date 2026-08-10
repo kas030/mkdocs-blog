@@ -1,45 +1,62 @@
-# KAS 的笔记
+---
+title: 首页
+hide:
+  - navigation
+  - toc
+  - footer
+---
 
-这里记录学习、实践和日常整理中积累的笔记，主要用于回顾知识和快速查找。
+<section id="knowledge-graph" class="knowledge-graph" data-source="assets/knowledge-graph.json" aria-label="交互式知识图谱">
+  <div class="knowledge-graph__glow knowledge-graph__glow--primary" aria-hidden="true"></div>
+  <div class="knowledge-graph__glow knowledge-graph__glow--accent" aria-hidden="true"></div>
 
-## 内容导航
+  <header class="knowledge-graph__header">
+    <p class="knowledge-graph__eyebrow">EXPLORE THE NOTES</p>
+    <p id="knowledge-graph-summary" class="knowledge-graph__summary" aria-live="polite">
+      正在整理知识之间的联系…
+    </p>
+  </header>
 
-<div class="grid cards" markdown>
+  <div id="knowledge-graph-viewport" class="knowledge-graph__viewport">
+    <svg
+      id="knowledge-graph-canvas"
+      role="img"
+      aria-label="由文章、栏目和标签组成的可交互知识图谱"
+    ></svg>
+    <div id="knowledge-graph-status" class="knowledge-graph__status" role="status">
+      <span class="knowledge-graph__loader" aria-hidden="true"></span>
+      <span>正在加载图谱…</span>
+    </div>
+  </div>
 
--   :material-language-java: **编程语言**
+  <div class="knowledge-graph__legend" aria-label="节点类型">
+    <span><i class="knowledge-graph__legend-mark knowledge-graph__legend-mark--category"></i>栏目</span>
+    <span><i class="knowledge-graph__legend-mark knowledge-graph__legend-mark--article"></i>文章</span>
+    <span><i class="knowledge-graph__legend-mark knowledge-graph__legend-mark--tag"></i>标签</span>
+  </div>
 
-    ---
+  <div class="knowledge-graph__controls" aria-label="图谱控制">
+    <button type="button" data-graph-action="zoom-in" data-tooltip="放大" aria-label="放大图谱">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="10" cy="10" r="6"></circle>
+        <path d="M14.5 14.5 20 20M10 7v6M7 10h6"></path>
+      </svg>
+    </button>
+    <button type="button" data-graph-action="zoom-out" data-tooltip="缩小" aria-label="缩小图谱">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="10" cy="10" r="6"></circle>
+        <path d="M14.5 14.5 20 20M7 10h6"></path>
+      </svg>
+    </button>
+    <button type="button" data-graph-action="reset" data-tooltip="重置视图" aria-label="重置图谱视图">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4"></path>
+        <circle cx="12" cy="12" r="2.5"></circle>
+      </svg>
+    </button>
+  </div>
 
-    编程语言相关的基础知识、常用机制和实践记录。
-
-    [:octicons-arrow-right-24: 查看语言笔记](languages/java/java-basic.md)
-
--   :material-school: **课程**
-
-    ---
-
-    课程学习过程中的概念梳理、例子整理和阶段性记录。
-
-    [:octicons-arrow-right-24: 查看课程笔记](courses/cmu-cs15-213-csapp/representing-information.md)
-
--   :material-trophy-outline: **算法竞赛**
-
-    ---
-
-    算法、数学专题和题目分析相关的思路记录。
-
-    [:octicons-arrow-right-24: 查看算法笔记](oi/solutions/cf-2123e-mex-count.md)
-
--   :material-tools: **工具**
-
-    ---
-
-    开发环境、工具链和常用流程相关的速查笔记。
-
-    [:octicons-arrow-right-24: 查看工具笔记](tools/gnu-toolchain.md)
-
-</div>
-
-## 阅读提示
-
-可以通过左侧导航按分类浏览，也可以使用顶部搜索直接查找关键词。
+  <noscript>
+    <p class="knowledge-graph__noscript">知识图谱需要启用 JavaScript。你仍可使用顶部导航和搜索浏览笔记。</p>
+  </noscript>
+</section>
