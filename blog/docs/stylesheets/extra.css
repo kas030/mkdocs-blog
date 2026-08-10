@@ -78,6 +78,15 @@ blockquote {
     font-weight: initial !important;
 }
 
+/* 浅色模式下使页脚导航与 white 主色保持一致 */
+[data-md-color-scheme="default"][data-md-color-primary="white"] {
+    --md-footer-bg-color: var(--md-primary-fg-color);
+    --md-footer-bg-color--dark: var(--md-primary-fg-color--dark);
+    --md-footer-fg-color: var(--md-primary-bg-color);
+    --md-footer-fg-color--light: var(--md-primary-bg-color--light);
+    --md-footer-fg-color--lighter: var(--md-default-fg-color--lighter);
+}
+
 /* 隐藏仓库 Star 和 Fork 统计，保留仓库图标与链接 */
 .md-source__facts {
     display: none;
