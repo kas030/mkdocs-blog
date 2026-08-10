@@ -445,6 +445,23 @@ $$
 \bm{M}_{persp} = \bm{M}_{ortho} \bm{M}_{persp \rightarrow ortho}
 $$
 
+#### 深度的非线性映射
+
+透视投影对深度的映射并不是线性的。下图以 $n,f>0$ 表示近平面和远平面到相机的距离，因此两平面在相机空间中的坐标分别为 $z=-n$ 和 $z=-f$。注意，这与上文直接用负数 $n,f$ 表示两平面坐标的记号略有不同。
+
+![Perspective Depth Mapping](games101-assets/transformations/perspective-depth-mapping.png){ width="600" }
+{.center-img}
+
+在图中的记号下，透视除法后的深度为
+
+$$
+z_{NDC}=\frac{f+n}{f-n}+\frac{2fn}{(f-n)z_{camera}}
+$$
+
+它将近平面 $z_{camera}=-n$ 映射到 $z_{NDC}=-1$，将远平面 $z_{camera}=-f$ 映射到 $z_{NDC}=1$。两平面之间的绿色区域正好落在 NDC 的 $[-1,1]$ 内，比近平面更近或比远平面更远的区域会落到这个范围之外，并在裁剪阶段被丢弃。
+
+由于式中含有 $1/z_{camera}$，等距的相机空间深度不会得到等距的 NDC 深度。越靠近近平面，$z_{NDC}$ 变化越快，深度缓冲的精度也越集中；越靠近远平面，深度值则越密集。
+
 !!! note "视锥体的另一种参数化定义"
 
     有时我们用垂直视场角和宽高比定义视锥体：
@@ -484,3 +501,4 @@ $$
 *[正则立方体]: Canonical cube
 *[垂直视场角]: Vertical field-of-view (fovY)
 *[宽高比]: Aspect ratio
+*[NDC]: Normalized Device Coordinates，归一化设备坐标
