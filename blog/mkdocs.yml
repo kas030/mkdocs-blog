@@ -112,6 +112,7 @@ extra_css:
 
 plugins:
   - search
+  - meta
   - tags
   - glightbox
 
