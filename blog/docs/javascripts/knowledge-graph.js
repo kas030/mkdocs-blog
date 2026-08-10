@@ -3,12 +3,14 @@
   const workerUrl = new URL("knowledge-graph-worker.js", scriptUrl)
 
   const TYPE_LABELS = {
+    root: "站点",
     category: "栏目",
     article: "文章",
     tag: "标签"
   }
 
   const TYPE_RADII = {
+    root: 16,
     category: 12,
     article: 8,
     tag: 7
@@ -119,12 +121,14 @@
         const styles = getComputedStyle(root)
         const read = (name, fallback) => styles.getPropertyValue(name).trim() || fallback
         return {
+          root: read("--kg-root", "#3554d1"),
           category: read("--kg-category", "#5577ff"),
           article: read("--kg-article", "#29b8a6"),
           tag: read("--kg-tag", "#a66df2"),
           text: read("--kg-text", "#29313d"),
           outline: read("--kg-label-outline", "#f5f6f8"),
           edge: read("--kg-edge", "rgb(92 102 119 / 24%)"),
+          rootEdge: read("--kg-edge-root", "rgb(53 84 209 / 54%)"),
           hierarchy: read("--kg-edge-hierarchy", "rgb(85 119 255 / 46%)"),
           tagged: read("--kg-edge-tagged", "rgb(166 109 242 / 34%)")
         }
@@ -143,11 +147,20 @@
         spriteContext.strokeStyle = "rgb(255 255 255 / 72%)"
         spriteContext.lineWidth = 1
         spriteContext.shadowColor = colors[type]
-        spriteContext.shadowBlur = type === "category" ? 10 : 8
+        spriteContext.shadowBlur = type === "root" ? 12 : type === "category" ? 10 : 8
         const radius = TYPE_RADII[type]
 
         spriteContext.beginPath()
-        if (type === "category") {
+        if (type === "root") {
+          for (let index = 0; index < 6; index += 1) {
+            const angle = -Math.PI / 2 + index * Math.PI / 3
+            const x = Math.cos(angle) * radius
+            const y = Math.sin(angle) * radius
+            if (index === 0) spriteContext.moveTo(x, y)
+            else spriteContext.lineTo(x, y)
+          }
+          spriteContext.closePath()
+        } else if (type === "category") {
           spriteContext.roundRect(-radius, -radius, radius * 2, radius * 2, 6)
         } else if (type === "tag") {
           spriteContext.moveTo(0, -radius)
@@ -229,12 +242,14 @@
           if (!source || !target) continue
           const dimmed = selected && (!selected.has(source.id) || !selected.has(target.id))
           context.globalAlpha = dimmed ? 0.08 : 1
-          context.strokeStyle = edge.type === "hierarchy"
-            ? colors.hierarchy
-            : edge.type === "tagged"
-              ? colors.tagged
-              : colors.edge
-          context.lineWidth = edge.type === "hierarchy" ? 1.5 : 1
+          context.strokeStyle = edge.type === "root"
+            ? colors.rootEdge
+            : edge.type === "hierarchy"
+              ? colors.hierarchy
+              : edge.type === "tagged"
+                ? colors.tagged
+                : colors.edge
+          context.lineWidth = edge.type === "root" ? 2 : edge.type === "hierarchy" ? 1.5 : 1
           context.setLineDash(edge.type === "tagged" ? [2, 4] : [])
           context.beginPath()
           context.moveTo(source.x, source.y)

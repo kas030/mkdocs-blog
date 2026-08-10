@@ -14,6 +14,7 @@ _nodes: list[dict[str, str]] = []
 _edges: list[dict[str, str]] = []
 _pages: dict[str, str] = {}
 _page_tags: dict[str, list[str]] = {}
+_ROOT_ID = "root:site"
 
 
 def on_pre_build(**kwargs: Any) -> None:
@@ -24,8 +25,12 @@ def on_pre_build(**kwargs: Any) -> None:
     _page_tags.clear()
 
 
-def on_nav(nav: Navigation, **kwargs: Any) -> Navigation:
+def on_nav(nav: Navigation, config: Any, **kwargs: Any) -> Navigation:
     """Collect the visible navigation hierarchy."""
+
+    _nodes.append(
+        {"id": _ROOT_ID, "type": "root", "label": str(config.site_name)}
+    )
 
     def visit(item: Any, position: tuple[int, ...], parent_id: str | None) -> None:
         if isinstance(item, Section):
@@ -33,7 +38,11 @@ def on_nav(nav: Navigation, **kwargs: Any) -> Navigation:
             _nodes.append({"id": node_id, "type": "category", "label": item.title})
             if parent_id:
                 _edges.append(
-                    {"source": parent_id, "target": node_id, "type": "hierarchy"}
+                    {
+                        "source": parent_id,
+                        "target": node_id,
+                        "type": "root" if parent_id == _ROOT_ID else "hierarchy",
+                    }
                 )
             for index, child in enumerate(item.children):
                 visit(child, (*position, index), node_id)
@@ -52,13 +61,13 @@ def on_nav(nav: Navigation, **kwargs: Any) -> Navigation:
             }
         )
         _pages[item.file.src_uri] = node_id
-        if parent_id:
+        if parent_id and parent_id != _ROOT_ID:
             _edges.append(
                 {"source": parent_id, "target": node_id, "type": "contains"}
             )
 
     for index, item in enumerate(nav.items):
-        visit(item, (index,), None)
+        visit(item, (index,), _ROOT_ID)
 
     return nav
 

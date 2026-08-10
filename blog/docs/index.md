@@ -31,6 +31,7 @@ hide:
   </div>
 
   <div class="knowledge-graph__legend" aria-label="节点类型">
+    <span><i class="knowledge-graph__legend-mark knowledge-graph__legend-mark--root"></i>站点</span>
     <span><i class="knowledge-graph__legend-mark knowledge-graph__legend-mark--category"></i>栏目</span>
     <span><i class="knowledge-graph__legend-mark knowledge-graph__legend-mark--article"></i>文章</span>
     <span><i class="knowledge-graph__legend-mark knowledge-graph__legend-mark--tag"></i>标签</span>

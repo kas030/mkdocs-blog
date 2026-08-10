@@ -1,5 +1,6 @@
 :root {
     --kg-topbar-height: 4.8rem;
+    --kg-root: #3554d1;
     --kg-category: #5577ff;
     --kg-article: #29b8a6;
     --kg-tag: #a66df2;
@@ -11,6 +12,7 @@
     --kg-border: rgb(41 49 61 / 14%);
     --kg-label-outline: #f5f6f8;
     --kg-edge: rgb(92 102 119 / 24%);
+    --kg-edge-root: rgb(53 84 209 / 54%);
     --kg-edge-hierarchy: rgb(85 119 255 / 46%);
     --kg-edge-tagged: rgb(166 109 242 / 34%);
     --kg-glass-bg: rgb(255 255 255 / 60%);
@@ -24,6 +26,7 @@
 }
 
 [data-md-color-scheme="slate"] {
+    --kg-root: #8297ff;
     --kg-text: #d3d7de;
     --kg-muted: #9299a4;
     --kg-panel: rgb(40 43 48 / 88%);
@@ -32,6 +35,7 @@
     --kg-border: rgb(211 215 222 / 14%);
     --kg-label-outline: #1e2024;
     --kg-edge: rgb(174 182 196 / 22%);
+    --kg-edge-root: rgb(130 151 255 / 58%);
     --kg-edge-hierarchy: rgb(116 140 255 / 48%);
     --kg-edge-tagged: rgb(180 132 244 / 38%);
     --kg-glass-bg: rgb(35 38 43 / 66%);
@@ -265,6 +269,11 @@ body:has(.knowledge-graph) .md-search__input::placeholder {
 .knowledge-graph__legend-mark--category {
     border-radius: 0.12rem;
     color: var(--kg-category);
+}
+
+.knowledge-graph__legend-mark--root {
+    color: var(--kg-root);
+    clip-path: polygon(25% 7%, 75% 7%, 100% 50%, 75% 93%, 25% 93%, 0 50%);
 }
 
 .knowledge-graph__legend-mark--article {
