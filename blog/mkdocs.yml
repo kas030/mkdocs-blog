@@ -98,6 +98,7 @@ extra_javascript:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/cs61c.css
   - https://unpkg.com/katex@0/dist/katex.min.css
 
 plugins:
@@ -107,6 +108,7 @@ plugins:
 
 hooks:
   - hooks/first_abbr.py
+  - hooks/riscv_format.py
 
 markdown_extensions:
   - abbr
