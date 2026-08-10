@@ -63,12 +63,15 @@ theme:
     annotation: material/plus-circle
   features:
     - navigation.tabs
-    - navigation.tabs.sticky
     - search.suggest
     - search.highlight
     - content.code.copy
     - content.code.annotate
     - content.tooltips
+    - navigation.path
+    - toc.follow
+    - navigation.top
+    - navigation.footer
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
