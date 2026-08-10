@@ -182,9 +182,42 @@ $$
 ![Barycentric Attribute Interpolation](games101-assets/shading/barycentric-attribute-interpolation.png){ width="250" }
 {.md-img-group}
 
-!!! warning "投影后的重心坐标"
+### 透视校正插值
 
-    重心坐标在透视投影前后**不保持**不变。纹理坐标、法线等属性不能直接按照投影前的重心坐标在屏幕空间中插值，需要使用透视校正插值。
+重心坐标在透视投影前后并不保持不变。透视投影需要执行齐次除法，将裁剪空间坐标 $(x,y,z,w)$ 转换为 $(x/w,y/w,z/w)$，这个除法是非线性变换，因此直接使用屏幕空间重心坐标线性插值顶点属性会产生错误。例如，纹理坐标会随深度以错误的速度变化，使纹理看起来发生扭曲。
+
+设点 $P$ 在投影后的三角形中的屏幕空间重心坐标为 $\alpha,\beta,\gamma$，三个顶点的属性分别为 $V_A,V_B,V_C$，裁剪空间齐次分量分别为 $w_A,w_B,w_C$。透视校正后的属性为
+
+$$
+V(P)=
+\frac{
+\alpha V_A/w_A+
+\beta V_B/w_B+
+\gamma V_C/w_C
+}{
+\alpha/w_A+
+\beta/w_B+
+\gamma/w_C
+}
+$$
+
+其中，$w_A,w_B,w_C$ 是执行透视除法前的裁剪空间齐次分量，不是 NDC 深度或写入深度缓冲的值。
+
+计算时，可以先对 $1/w$ 和 $V/w$ 分别进行屏幕空间线性插值：
+
+$$
+\begin{aligned}
+q(P) &= \frac{\alpha}{w_A}+\frac{\beta}{w_B}+\frac{\gamma}{w_C}\\
+R(P) &= \frac{\alpha V_A}{w_A}+\frac{\beta V_B}{w_B}+\frac{\gamma V_C}{w_C}
+\end{aligned}
+$$
+
+再通过 $V(P)=R(P)/q(P)$ 恢复属性。纹理坐标、颜色、空间位置和法线等顶点属性都可以使用这种方法，法线在插值后还需要重新归一化。
+
+这个公式具有两个直观性质：
+
+- 当 $P$ 位于某个顶点时，结果就是该顶点的原始属性；
+- 当三个顶点的 $w$ 相等时，分子和分母中的 $w$ 会相互抵消，公式退化为普通的重心坐标线性插值。
 
 ## 纹理查询与过滤
 
@@ -373,6 +406,7 @@ $$
 *[纹理映射]: Texture mapping
 *[纹理坐标]: Texture coordinates
 *[重心坐标]: Barycentric coordinates
+*[透视校正插值]: Perspective-correct interpolation
 *[纹素]: Texel
 *[双线性插值]: Bilinear interpolation
 *[双三次插值]: Bicubic interpolation
