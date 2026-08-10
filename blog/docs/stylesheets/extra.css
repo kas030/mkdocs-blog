@@ -78,6 +78,11 @@ blockquote {
     font-weight: initial !important;
 }
 
+/* 修正 navigation.path 分隔箭头未与文字垂直居中 */
+.md-path__item:not(:first-child) {
+    align-items: center;
+}
+
 /* 浅色模式下使页脚导航与 white 主色保持一致 */
 [data-md-color-scheme="default"][data-md-color-primary="white"] {
     --md-footer-bg-color: var(--md-primary-fg-color);
