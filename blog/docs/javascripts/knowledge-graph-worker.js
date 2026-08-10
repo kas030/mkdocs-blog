@@ -40,7 +40,7 @@ const createSimulation = data => {
       .distance(edge => edge.type === "root" ? 124 : edge.type === "hierarchy" ? 92 : edge.type === "tagged" ? 72 : 82)
       .strength(edge => edge.type === "root" ? 0.9 : edge.type === "hierarchy" ? 0.8 : 0.55))
     .force("charge", d3.forceManyBody()
-      .strength(node => node.type === "root" ? -480 : node.type === "category" ? -330 : node.type === "tag" ? -120 : -190))
+      .strength(node => node.type === "root" ? -360 : node.type === "category" ? -250 : node.type === "tag" ? -90 : -145))
     .force("collision", d3.forceCollide()
       .radius(node => data.radii[node.type] + 17))
     .force("center", d3.forceCenter(width / 2, height / 2))
