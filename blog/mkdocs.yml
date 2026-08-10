@@ -35,6 +35,8 @@ nav:
           - 面向对象编程: courses/cs61a/object-oriented-programming.md
           - Scheme 与解释器: courses/cs61a/scheme-and-interpreters.md
           - SQL 与数据库: courses/cs61a/sql-and-databases.md
+      - CS61C:
+          - RISC-V: courses/cs61c/riscv.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
   - 算法竞赛:
       - 数学:
