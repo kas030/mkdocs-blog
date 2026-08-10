@@ -151,6 +151,7 @@ body:has(.knowledge-graph) .md-search__input::placeholder {
         linear-gradient(var(--kg-border) 1px, transparent 1px),
         linear-gradient(90deg, var(--kg-border) 1px, transparent 1px);
     background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(circle at center, black, transparent 78%);
     mask-image: radial-gradient(circle at center, black, transparent 78%);
 }
 
