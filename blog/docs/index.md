@@ -18,11 +18,12 @@ hide:
   </header>
 
   <div id="knowledge-graph-viewport" class="knowledge-graph__viewport">
-    <svg
+    <canvas
       id="knowledge-graph-canvas"
       role="img"
+      tabindex="0"
       aria-label="由文章、栏目和标签组成的可交互知识图谱"
-    ></svg>
+    >你的浏览器不支持 Canvas，请使用顶部导航和搜索浏览笔记。</canvas>
     <div id="knowledge-graph-status" class="knowledge-graph__status" role="status">
       <span class="knowledge-graph__loader" aria-hidden="true"></span>
       <span>正在加载图谱…</span>
