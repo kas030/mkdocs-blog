@@ -157,3 +157,8 @@ markdown_extensions:
       slugify: !!python/object/apply:pymdownx.slugs.slugify
         kwds:
           case: lower
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/kas030
