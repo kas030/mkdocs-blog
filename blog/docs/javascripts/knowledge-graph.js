@@ -88,6 +88,9 @@
       let animationFrame = null
       let focusedId = null
       let hoveredId = null
+      let pointerHoveredId = null
+      let hoverAmount = 0
+      let hoverAnimation = null
       let gesture = null
       let draggedNode = null
       let workerSettled = false
@@ -134,6 +137,30 @@
         }
       }
 
+      const traceNodeShape = (targetContext, type, radius) => {
+        targetContext.beginPath()
+        if (type === "root") {
+          for (let index = 0; index < 6; index += 1) {
+            const angle = -Math.PI / 2 + index * Math.PI / 3
+            const x = Math.cos(angle) * radius
+            const y = Math.sin(angle) * radius
+            if (index === 0) targetContext.moveTo(x, y)
+            else targetContext.lineTo(x, y)
+          }
+          targetContext.closePath()
+        } else if (type === "category") {
+          targetContext.roundRect(-radius, -radius, radius * 2, radius * 2, radius / 2)
+        } else if (type === "tag") {
+          targetContext.moveTo(0, -radius)
+          targetContext.lineTo(radius, 0)
+          targetContext.lineTo(0, radius)
+          targetContext.lineTo(-radius, 0)
+          targetContext.closePath()
+        } else {
+          targetContext.arc(0, 0, radius, 0, Math.PI * 2)
+        }
+      }
+
       const createNodeSprite = type => {
         const size = 56
         const renderScale = pixelRatio * MAX_ZOOM
@@ -150,27 +177,7 @@
         spriteContext.shadowBlur = type === "root" ? 12 : type === "category" ? 10 : 8
         const radius = TYPE_RADII[type]
 
-        spriteContext.beginPath()
-        if (type === "root") {
-          for (let index = 0; index < 6; index += 1) {
-            const angle = -Math.PI / 2 + index * Math.PI / 3
-            const x = Math.cos(angle) * radius
-            const y = Math.sin(angle) * radius
-            if (index === 0) spriteContext.moveTo(x, y)
-            else spriteContext.lineTo(x, y)
-          }
-          spriteContext.closePath()
-        } else if (type === "category") {
-          spriteContext.roundRect(-radius, -radius, radius * 2, radius * 2, 6)
-        } else if (type === "tag") {
-          spriteContext.moveTo(0, -radius)
-          spriteContext.lineTo(radius, 0)
-          spriteContext.lineTo(0, radius)
-          spriteContext.lineTo(-radius, 0)
-          spriteContext.closePath()
-        } else {
-          spriteContext.arc(0, 0, radius, 0, Math.PI * 2)
-        }
+        traceNodeShape(spriteContext, type, radius)
         spriteContext.fill()
         spriteContext.shadowBlur = 0
         spriteContext.stroke()
@@ -221,6 +228,22 @@
           : null
       }
 
+      const setHoveredNode = node => {
+        const nextHoveredId = node?.id ?? null
+        if (nextHoveredId === pointerHoveredId) return
+
+        pointerHoveredId = nextHoveredId
+        if (nextHoveredId) hoveredId = nextHoveredId
+        hoverAnimation = {
+          from: hoverAmount,
+          to: nextHoveredId ? 1 : 0,
+          startedAt: performance.now(),
+          duration: nextHoveredId ? 140 : 180
+        }
+        canvas.classList.toggle("knowledge-graph__canvas--interactive", Boolean(node))
+        requestRender()
+      }
+
       const drawGraph = () => {
         context.setTransform(1, 0, 0, 1, 0, 0)
         context.clearRect(0, 0, canvas.width, canvas.height)
@@ -234,14 +257,22 @@
         )
 
         const selected = activeSet()
+        const feedbackId = focusedId ?? hoveredId
+        const feedbackNode = feedbackId ? nodeById.get(feedbackId) : null
+        const feedbackAmount = focusedId ? 1 : hoverAmount
+        const feedbackActive = Boolean(feedbackNode) && feedbackAmount > 0
         context.lineCap = "round"
 
         for (const edge of edges) {
           const source = nodeById.get(edge.source)
           const target = nodeById.get(edge.target)
           if (!source || !target) continue
+          const adjacentToFeedback = feedbackActive
+            && (source.id === feedbackId || target.id === feedbackId)
           const dimmed = selected && (!selected.has(source.id) || !selected.has(target.id))
-          context.globalAlpha = dimmed ? 0.08 : 1
+          context.globalAlpha = feedbackActive
+            ? adjacentToFeedback ? 1 : 1 - feedbackAmount * 0.86
+            : dimmed ? 0.08 : 1
           context.strokeStyle = edge.type === "root"
             ? colors.rootEdge
             : edge.type === "hierarchy"
@@ -256,14 +287,60 @@
           context.stroke()
         }
 
+        if (feedbackActive) {
+          context.save()
+          context.globalAlpha = feedbackAmount * 0.96
+          context.strokeStyle = colors[feedbackNode.type]
+          context.shadowColor = colors[feedbackNode.type]
+          context.shadowBlur = 11 * pixelRatio
+
+          for (const edge of edges) {
+            if (edge.source !== feedbackId && edge.target !== feedbackId) continue
+            const source = nodeById.get(edge.source)
+            const target = nodeById.get(edge.target)
+            if (!source || !target) continue
+
+            const baseWidth = edge.type === "root" ? 2 : edge.type === "hierarchy" ? 1.5 : 1
+            context.lineWidth = baseWidth + 1.35 / transform.k
+            context.beginPath()
+            context.moveTo(source.x, source.y)
+            context.lineTo(target.x, target.y)
+            context.stroke()
+          }
+          context.restore()
+        }
+
         for (const node of nodes) {
           const dimmed = selected && !selected.has(node.id)
           const focused = node.id === focusedId
-          const hovered = node.id === hoveredId
+          const highlighted = node.id === feedbackId
           const sprite = nodeSprites.get(node.type)
           const label = labelSprites.get(node.id)
-          const scale = focused ? 1.18 : hovered ? 1.1 : 1
+          const scale = focused ? 1.18 : highlighted ? 1.1 : 1
           const spriteSize = sprite.size * scale
+          context.globalAlpha = dimmed ? 0.08 : 1
+
+          if (highlighted) {
+            context.save()
+            context.globalAlpha = feedbackAmount * 0.96
+            context.strokeStyle = colors[node.type]
+            context.lineWidth = 1.2 / transform.k
+            context.shadowColor = colors[node.type]
+            context.shadowBlur = 14 * pixelRatio
+            context.translate(node.x, node.y)
+            traceNodeShape(
+              context,
+              node.type,
+              TYPE_RADII[node.type] * scale + 4 / transform.k
+            )
+            context.stroke()
+            context.shadowBlur = 0
+            context.globalAlpha = feedbackAmount
+            context.lineWidth = 0.75 / transform.k
+            context.stroke()
+            context.restore()
+          }
+
           context.globalAlpha = dimmed ? 0.08 : 1
           context.drawImage(
             sprite.canvas,
@@ -318,6 +395,18 @@
           }
           if (progress < 1) moving = true
           else transformAnimation = null
+        }
+
+        if (hoverAnimation) {
+          const progress = clamp((time - hoverAnimation.startedAt) / hoverAnimation.duration, 0, 1)
+          const eased = 1 - Math.pow(1 - progress, 3)
+          hoverAmount = hoverAnimation.from + (hoverAnimation.to - hoverAnimation.from) * eased
+          if (progress < 1) {
+            moving = true
+          } else {
+            if (hoverAnimation.to === 0) hoveredId = null
+            hoverAnimation = null
+          }
         }
 
         drawGraph()
@@ -442,12 +531,7 @@
         const point = localPoint(event)
         if (!gesture) {
           const node = findNode(point)
-          const nextHoveredId = node?.id ?? null
-          if (nextHoveredId !== hoveredId) {
-            hoveredId = nextHoveredId
-            canvas.classList.toggle("knowledge-graph__canvas--interactive", Boolean(node))
-            requestRender()
-          }
+          setHoveredNode(node)
           return
         }
 
@@ -509,15 +593,20 @@
           "knowledge-graph__canvas--dragging",
           "knowledge-graph__canvas--dragging-node"
         )
+
+        const bounds = canvas.getBoundingClientRect()
+        const insideCanvas = event.clientX >= bounds.left
+          && event.clientX <= bounds.right
+          && event.clientY >= bounds.top
+          && event.clientY <= bounds.bottom
+        setHoveredNode(insideCanvas ? findNode(localPoint(event)) : null)
       }
 
       canvas.addEventListener("pointerup", finishPointer)
       canvas.addEventListener("pointercancel", finishPointer)
       canvas.addEventListener("pointerleave", () => {
         if (gesture) return
-        hoveredId = null
-        canvas.classList.remove("knowledge-graph__canvas--interactive")
-        requestRender()
+        setHoveredNode(null)
       })
 
       canvas.addEventListener("wheel", event => {
@@ -561,6 +650,10 @@
       root.querySelector('[data-graph-action="reset"]').addEventListener("click", () => {
         focusedId = null
         hoveredId = null
+        pointerHoveredId = null
+        hoverAmount = 0
+        hoverAnimation = null
+        canvas.classList.remove("knowledge-graph__canvas--interactive")
         animateTransform({ x: 0, y: 0, k: 1 }, 420)
       })
 
