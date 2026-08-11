@@ -250,14 +250,12 @@
                 ? colors.tagged
                 : colors.edge
           context.lineWidth = edge.type === "root" ? 2 : edge.type === "hierarchy" ? 1.5 : 1
-          context.setLineDash(edge.type === "tagged" ? [2, 4] : [])
           context.beginPath()
           context.moveTo(source.x, source.y)
           context.lineTo(target.x, target.y)
           context.stroke()
         }
 
-        context.setLineDash([])
         for (const node of nodes) {
           const dimmed = selected && !selected.has(node.id)
           const focused = node.id === focusedId
@@ -487,7 +485,7 @@
         draggedNode.targetX = graph.x
         draggedNode.targetY = graph.y
         worker.postMessage({ type: "drag", id: draggedNode.id, x: graph.x, y: graph.y })
-        canvas.classList.add("knowledge-graph__canvas--dragging")
+        canvas.classList.add("knowledge-graph__canvas--dragging-node")
         requestRender()
       })
 
@@ -507,7 +505,10 @@
         }
         draggedNode = null
         gesture = null
-        canvas.classList.remove("knowledge-graph__canvas--dragging")
+        canvas.classList.remove(
+          "knowledge-graph__canvas--dragging",
+          "knowledge-graph__canvas--dragging-node"
+        )
       }
 
       canvas.addEventListener("pointerup", finishPointer)

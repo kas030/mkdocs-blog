@@ -215,7 +215,7 @@ body:has(.knowledge-graph) .md-search__input::placeholder {
 
 .knowledge-graph__viewport canvas {
     display: block;
-    cursor: grab;
+    cursor: default;
     touch-action: none;
 }
 
@@ -224,12 +224,16 @@ body:has(.knowledge-graph) .md-search__input::placeholder {
     outline-offset: -2px;
 }
 
-.knowledge-graph__canvas--interactive {
-    cursor: pointer !important;
+.knowledge-graph__viewport canvas.knowledge-graph__canvas--interactive {
+    cursor: pointer;
 }
 
-.knowledge-graph__canvas--dragging {
-    cursor: grabbing;
+.knowledge-graph__viewport canvas.knowledge-graph__canvas--dragging {
+    cursor: move;
+}
+
+.knowledge-graph__viewport canvas.knowledge-graph__canvas--dragging-node {
+    cursor: pointer;
 }
 
 .knowledge-graph__legend,
