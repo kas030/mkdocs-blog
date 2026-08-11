@@ -10,6 +10,7 @@
     --kg-control-surface: #e7e9ed;
     --kg-control-hover: #d9dde3;
     --kg-border: rgb(41 49 61 / 14%);
+    --kg-dot: rgb(57 72 96 / 18%);
     --kg-label-outline: #f5f6f8;
     --kg-edge: rgb(92 102 119 / 24%);
     --kg-edge-root: rgb(53 84 209 / 54%);
@@ -38,6 +39,7 @@
     --kg-control-surface: #34373c;
     --kg-control-hover: #41454c;
     --kg-border: rgb(211 215 222 / 14%);
+    --kg-dot: rgb(184 195 216 / 16%);
     --kg-label-outline: #1e2024;
     --kg-edge: rgb(174 182 196 / 22%);
     --kg-edge-root: rgb(130 151 255 / 58%);
@@ -146,8 +148,8 @@ body:has(.knowledge-graph) .md-search__input::placeholder {
     overflow: hidden;
     color: var(--kg-text);
     background:
-        radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--md-primary-fg-color) 7%, transparent), transparent 42%),
-        linear-gradient(145deg, color-mix(in srgb, var(--md-default-bg-color) 96%, #5577ff 4%), var(--md-default-bg-color));
+        radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--md-primary-fg-color) 4%, transparent), transparent 48%),
+        var(--md-default-bg-color);
 }
 
 .knowledge-graph::before {
@@ -156,13 +158,12 @@ body:has(.knowledge-graph) .md-search__input::placeholder {
     inset: 0;
     content: "";
     pointer-events: none;
-    opacity: 0.34;
     background-image:
-        linear-gradient(var(--kg-border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--kg-border) 1px, transparent 1px);
-    background-size: 48px 48px;
-    -webkit-mask-image: radial-gradient(circle at center, black, transparent 78%);
-    mask-image: radial-gradient(circle at center, black, transparent 78%);
+        radial-gradient(circle, var(--kg-dot) 0.55px, transparent 0.7px),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.055'/%3E%3C/svg%3E");
+    background-size: 16px 16px, 160px 160px;
+    -webkit-mask-image: radial-gradient(ellipse farthest-side at center, black 34%, rgb(0 0 0 / 82%) 62%, transparent 100%);
+    mask-image: radial-gradient(ellipse farthest-side at center, black 34%, rgb(0 0 0 / 82%) 62%, transparent 100%);
 }
 
 .knowledge-graph__glow {
