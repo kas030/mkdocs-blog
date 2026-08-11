@@ -3,6 +3,8 @@
     --kg-dot-size: 16px;
     --kg-dot-x: 0px;
     --kg-dot-y: 0px;
+    --kg-node-glow-blend: source-over;
+    --kg-node-glow-strength: 0.72;
     --kg-root: #3554d1;
     --kg-category: #5577ff;
     --kg-article: #29b8a6;
@@ -35,6 +37,8 @@
 }
 
 [data-md-color-scheme="slate"] {
+    --kg-node-glow-blend: lighter;
+    --kg-node-glow-strength: 1;
     --kg-root: #8297ff;
     --kg-text: #d3d7de;
     --kg-muted: #9299a4;

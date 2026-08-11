@@ -139,7 +139,13 @@
           rootEdgeHighlight: read("--kg-edge-root-highlight", "#3554d1"),
           hierarchyHighlight: read("--kg-edge-hierarchy-highlight", "#5577ff"),
           containsHighlight: read("--kg-edge-contains-highlight", "#29b8a6"),
-          taggedHighlight: read("--kg-edge-tagged-highlight", "#a66df2")
+          taggedHighlight: read("--kg-edge-tagged-highlight", "#a66df2"),
+          nodeGlowBlend: read("--kg-node-glow-blend", "source-over"),
+          nodeGlowStrength: clamp(
+            Number.parseFloat(read("--kg-node-glow-strength", "0.72")),
+            0,
+            1
+          )
         }
       }
 
@@ -336,12 +342,26 @@
 
             const baseWidth = edge.type === "root" ? 2 : edge.type === "hierarchy" ? 1.5 : 1
             const highlightColor = edgeHighlightColor(edge)
+            const feedbackScale = focusedId ? 1.18 : 1.1
+            const feedbackRadius = TYPE_RADII[feedbackNode.type] * feedbackScale
+            const dx = target.x - source.x
+            const dy = target.y - source.y
+            const length = Math.hypot(dx, dy) || 1
+            const offsetX = dx / length * feedbackRadius
+            const offsetY = dy / length * feedbackRadius
+            const sourceIsFeedback = source.id === feedbackId
             context.strokeStyle = highlightColor
             context.shadowColor = highlightColor
             context.lineWidth = baseWidth + 1.35 / transform.k
             context.beginPath()
-            context.moveTo(source.x, source.y)
-            context.lineTo(target.x, target.y)
+            context.moveTo(
+              source.x + (sourceIsFeedback ? offsetX : 0),
+              source.y + (sourceIsFeedback ? offsetY : 0)
+            )
+            context.lineTo(
+              target.x - (sourceIsFeedback ? 0 : offsetX),
+              target.y - (sourceIsFeedback ? 0 : offsetY)
+            )
             context.stroke()
           }
           context.restore()
@@ -364,18 +384,18 @@
 
             context.fillStyle = colors[node.type]
             context.shadowColor = colors[node.type]
-            context.globalCompositeOperation = "lighter"
+            context.globalCompositeOperation = colors.nodeGlowBlend
 
-            context.globalAlpha = feedbackAmount * 0.7
+            context.globalAlpha = feedbackAmount * 0.7 * colors.nodeGlowStrength
             context.shadowBlur = 38 * pixelRatio
             traceNodeShape(context, node.type, TYPE_RADII[node.type] * scale)
             context.fill()
 
-            context.globalAlpha = feedbackAmount * 0.9
+            context.globalAlpha = feedbackAmount * 0.9 * colors.nodeGlowStrength
             context.shadowBlur = 22 * pixelRatio
             context.fill()
 
-            context.globalAlpha = feedbackAmount
+            context.globalAlpha = feedbackAmount * colors.nodeGlowStrength
             context.shadowBlur = 10 * pixelRatio
             context.fill()
 
