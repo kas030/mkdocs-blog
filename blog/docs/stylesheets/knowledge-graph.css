@@ -1,5 +1,8 @@
 :root {
     --kg-topbar-height: 4.8rem;
+    --kg-dot-size: 16px;
+    --kg-dot-x: 0px;
+    --kg-dot-y: 0px;
     --kg-root: #3554d1;
     --kg-category: #5577ff;
     --kg-article: #29b8a6;
@@ -161,7 +164,8 @@ body:has(.knowledge-graph) .md-search__input::placeholder {
     background-image:
         radial-gradient(circle, var(--kg-dot) 0.55px, transparent 0.7px),
         url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.055'/%3E%3C/svg%3E");
-    background-size: 16px 16px, 160px 160px;
+    background-position: var(--kg-dot-x) var(--kg-dot-y), 0 0;
+    background-size: var(--kg-dot-size) var(--kg-dot-size), 160px 160px;
     -webkit-mask-image: radial-gradient(ellipse farthest-side at center, black 34%, rgb(0 0 0 / 82%) 62%, transparent 100%);
     mask-image: radial-gradient(ellipse farthest-side at center, black 34%, rgb(0 0 0 / 82%) 62%, transparent 100%);
 }

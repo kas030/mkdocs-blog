@@ -91,6 +91,7 @@
       let pointerHoveredId = null
       let hoverAmount = 0
       let hoverAnimation = null
+      let backgroundTextureState = ""
       let gesture = null
       let draggedNode = null
       let workerSettled = false
@@ -247,6 +248,21 @@
         canvas.height = Math.max(1, Math.round(height * pixelRatio))
       }
 
+      const updateBackgroundTexture = () => {
+        const dotSize = clamp(16 * Math.sqrt(transform.k), 12, 24)
+        const panX = transform.x - width / 2 * (1 - transform.k)
+        const panY = transform.y - height / 2 * (1 - transform.k)
+        const dotX = width / 2 - dotSize / 2 + panX * 0.25
+        const dotY = height / 2 - dotSize / 2 + panY * 0.25
+        const nextState = `${dotSize.toFixed(2)}:${dotX.toFixed(2)}:${dotY.toFixed(2)}`
+        if (nextState === backgroundTextureState) return
+
+        backgroundTextureState = nextState
+        root.style.setProperty("--kg-dot-size", `${dotSize.toFixed(2)}px`)
+        root.style.setProperty("--kg-dot-x", `${dotX.toFixed(2)}px`)
+        root.style.setProperty("--kg-dot-y", `${dotY.toFixed(2)}px`)
+      }
+
       const activeSet = () => {
         return focusedId
           ? neighbours.get(focusedId) ?? new Set([focusedId])
@@ -270,6 +286,7 @@
       }
 
       const drawGraph = () => {
+        updateBackgroundTexture()
         context.setTransform(1, 0, 0, 1, 0, 0)
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.setTransform(
