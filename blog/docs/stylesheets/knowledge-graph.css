@@ -14,7 +14,12 @@
     --kg-edge: rgb(92 102 119 / 24%);
     --kg-edge-root: rgb(53 84 209 / 54%);
     --kg-edge-hierarchy: rgb(85 119 255 / 46%);
+    --kg-edge-contains: rgb(41 184 166 / 44%);
     --kg-edge-tagged: rgb(166 109 242 / 34%);
+    --kg-edge-root-highlight: #3554d1;
+    --kg-edge-hierarchy-highlight: #5577ff;
+    --kg-edge-contains-highlight: #29b8a6;
+    --kg-edge-tagged-highlight: #a66df2;
     --kg-glass-bg: rgb(255 255 255 / 60%);
     --kg-glass-border: rgb(255 255 255 / 72%);
     --kg-glass-divider: rgb(74 83 98 / 13%);
@@ -37,7 +42,12 @@
     --kg-edge: rgb(174 182 196 / 22%);
     --kg-edge-root: rgb(130 151 255 / 58%);
     --kg-edge-hierarchy: rgb(116 140 255 / 48%);
+    --kg-edge-contains: rgb(66 203 181 / 46%);
     --kg-edge-tagged: rgb(180 132 244 / 38%);
+    --kg-edge-root-highlight: #8297ff;
+    --kg-edge-hierarchy-highlight: #748cff;
+    --kg-edge-contains-highlight: #42cbb5;
+    --kg-edge-tagged-highlight: #b484f4;
     --kg-glass-bg: rgb(35 38 43 / 66%);
     --kg-glass-border: rgb(255 255 255 / 11%);
     --kg-glass-divider: rgb(255 255 255 / 10%);

@@ -133,9 +133,34 @@
           edge: read("--kg-edge", "rgb(92 102 119 / 24%)"),
           rootEdge: read("--kg-edge-root", "rgb(53 84 209 / 54%)"),
           hierarchy: read("--kg-edge-hierarchy", "rgb(85 119 255 / 46%)"),
-          tagged: read("--kg-edge-tagged", "rgb(166 109 242 / 34%)")
+          contains: read("--kg-edge-contains", "rgb(41 184 166 / 44%)"),
+          tagged: read("--kg-edge-tagged", "rgb(166 109 242 / 34%)"),
+          rootEdgeHighlight: read("--kg-edge-root-highlight", "#3554d1"),
+          hierarchyHighlight: read("--kg-edge-hierarchy-highlight", "#5577ff"),
+          containsHighlight: read("--kg-edge-contains-highlight", "#29b8a6"),
+          taggedHighlight: read("--kg-edge-tagged-highlight", "#a66df2")
         }
       }
+
+      const edgeColor = edge => edge.type === "root"
+        ? colors.rootEdge
+        : edge.type === "hierarchy"
+          ? colors.hierarchy
+          : edge.type === "contains"
+            ? colors.contains
+            : edge.type === "tagged"
+              ? colors.tagged
+              : colors.edge
+
+      const edgeHighlightColor = edge => edge.type === "root"
+        ? colors.rootEdgeHighlight
+        : edge.type === "hierarchy"
+          ? colors.hierarchyHighlight
+          : edge.type === "contains"
+            ? colors.containsHighlight
+            : edge.type === "tagged"
+              ? colors.taggedHighlight
+              : colors.edge
 
       const traceNodeShape = (targetContext, type, radius) => {
         targetContext.beginPath()
@@ -273,13 +298,7 @@
           context.globalAlpha = feedbackActive
             ? adjacentToFeedback ? 1 : 1 - feedbackAmount * 0.86
             : dimmed ? 0.08 : 1
-          context.strokeStyle = edge.type === "root"
-            ? colors.rootEdge
-            : edge.type === "hierarchy"
-              ? colors.hierarchy
-              : edge.type === "tagged"
-                ? colors.tagged
-                : colors.edge
+          context.strokeStyle = edgeColor(edge)
           context.lineWidth = edge.type === "root" ? 2 : edge.type === "hierarchy" ? 1.5 : 1
           context.beginPath()
           context.moveTo(source.x, source.y)
@@ -290,8 +309,6 @@
         if (feedbackActive) {
           context.save()
           context.globalAlpha = feedbackAmount * 0.96
-          context.strokeStyle = colors[feedbackNode.type]
-          context.shadowColor = colors[feedbackNode.type]
           context.shadowBlur = 11 * pixelRatio
 
           for (const edge of edges) {
@@ -301,6 +318,9 @@
             if (!source || !target) continue
 
             const baseWidth = edge.type === "root" ? 2 : edge.type === "hierarchy" ? 1.5 : 1
+            const highlightColor = edgeHighlightColor(edge)
+            context.strokeStyle = highlightColor
+            context.shadowColor = highlightColor
             context.lineWidth = baseWidth + 1.35 / transform.k
             context.beginPath()
             context.moveTo(source.x, source.y)
