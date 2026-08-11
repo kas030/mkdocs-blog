@@ -338,25 +338,40 @@
           const label = labelSprites.get(node.id)
           const scale = focused ? 1.18 : highlighted ? 1.1 : 1
           const spriteSize = sprite.size * scale
+          const ringGap = clamp(3.2 * Math.sqrt(transform.k), 2.4, 5.2) / transform.k
           context.globalAlpha = dimmed ? 0.08 : 1
 
           if (highlighted) {
             context.save()
-            context.globalAlpha = feedbackAmount * 0.96
-            context.strokeStyle = colors[node.type]
-            context.lineWidth = 1.2 / transform.k
-            context.shadowColor = colors[node.type]
-            context.shadowBlur = 14 * pixelRatio
             context.translate(node.x, node.y)
+
+            context.fillStyle = colors[node.type]
+            context.shadowColor = colors[node.type]
+            context.globalCompositeOperation = "lighter"
+
+            context.globalAlpha = feedbackAmount * 0.7
+            context.shadowBlur = 38 * pixelRatio
+            traceNodeShape(context, node.type, TYPE_RADII[node.type] * scale)
+            context.fill()
+
+            context.globalAlpha = feedbackAmount * 0.9
+            context.shadowBlur = 22 * pixelRatio
+            context.fill()
+
+            context.globalAlpha = feedbackAmount
+            context.shadowBlur = 10 * pixelRatio
+            context.fill()
+
+            context.globalCompositeOperation = "source-over"
+            context.globalAlpha = feedbackAmount * 0.7
+            context.strokeStyle = colors[node.type]
+            context.lineWidth = 0.75 / transform.k
+            context.shadowBlur = 0
             traceNodeShape(
               context,
               node.type,
-              TYPE_RADII[node.type] * scale + 4 / transform.k
+              TYPE_RADII[node.type] * scale + ringGap
             )
-            context.stroke()
-            context.shadowBlur = 0
-            context.globalAlpha = feedbackAmount
-            context.lineWidth = 0.75 / transform.k
             context.stroke()
             context.restore()
           }
