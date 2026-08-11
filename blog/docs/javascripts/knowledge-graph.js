@@ -17,9 +17,15 @@
   }
 
   const MAX_ZOOM = 3
+  const FOCUS_PROPAGATION_DURATION = 340
 
   const clamp = (value, minimum, maximum) =>
     Math.min(maximum, Math.max(minimum, value))
+
+  const smoothstep = (minimum, maximum, value) => {
+    const progress = clamp((value - minimum) / (maximum - minimum), 0, 1)
+    return progress * progress * (3 - 2 * progress)
+  }
 
   const shortenLabel = label => {
     const limit = window.matchMedia("(max-width: 44.99em)").matches ? 10 : 16
@@ -92,10 +98,13 @@
       let hoverAmount = 0
       let hoverAnimation = null
       let backgroundTextureState = ""
+      let focusPropagation = null
       let gesture = null
       let draggedNode = null
       let workerSettled = false
       let destroyed = false
+      const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)")
+      let reduceMotion = motionPreference.matches
 
       const nodes = data.nodes.map((node, index) => {
         const angle = index * 2.399963229728653
@@ -275,12 +284,37 @@
           : null
       }
 
+      const feedbackEdgeGeometry = (edge, feedbackId, feedbackNode, feedbackScale) => {
+        const source = nodeById.get(edge.source)
+        const target = nodeById.get(edge.target)
+        if (!source || !target) return null
+
+        const sourceIsFeedback = source.id === feedbackId
+        const neighbour = sourceIsFeedback ? target : source
+        const dx = neighbour.x - feedbackNode.x
+        const dy = neighbour.y - feedbackNode.y
+        const length = Math.hypot(dx, dy) || 1
+        const unitX = dx / length
+        const unitY = dy / length
+        const feedbackRadius = TYPE_RADII[feedbackNode.type] * feedbackScale
+        const neighbourRadius = TYPE_RADII[neighbour.type]
+
+        return {
+          fromX: feedbackNode.x + unitX * feedbackRadius,
+          fromY: feedbackNode.y + unitY * feedbackRadius,
+          toX: neighbour.x - unitX * neighbourRadius,
+          toY: neighbour.y - unitY * neighbourRadius
+        }
+      }
+
       const setHoveredNode = node => {
         const nextHoveredId = node?.id ?? null
         if (nextHoveredId === pointerHoveredId) return
 
         pointerHoveredId = nextHoveredId
-        if (nextHoveredId) hoveredId = nextHoveredId
+        if (nextHoveredId) {
+          hoveredId = nextHoveredId
+        }
         hoverAnimation = {
           from: hoverAmount,
           to: nextHoveredId ? 1 : 0,
@@ -291,7 +325,7 @@
         requestRender()
       }
 
-      const drawGraph = () => {
+      const drawGraph = (time = performance.now()) => {
         updateBackgroundTexture()
         context.setTransform(1, 0, 0, 1, 0, 0)
         context.clearRect(0, 0, canvas.width, canvas.height)
@@ -307,8 +341,23 @@
         const selected = activeSet()
         const feedbackId = focusedId ?? hoveredId
         const feedbackNode = feedbackId ? nodeById.get(feedbackId) : null
-        const feedbackAmount = focusedId ? 1 : hoverAmount
+        const propagationProgress = focusedId && focusPropagation?.id === focusedId
+          ? clamp((time - focusPropagation.startedAt) / focusPropagation.duration, 0, 1)
+          : 1
+        const propagationActive = focusedId
+          && !reduceMotion
+          && propagationProgress < 1
+        const feedbackAmount = focusedId
+          ? propagationActive ? smoothstep(0, 0.24, propagationProgress) : 1
+          : hoverAmount
+        const edgeGlowAmount = focusedId && propagationActive
+          ? smoothstep(0.14, 0.42, propagationProgress)
+          : feedbackAmount
+        const edgeReveal = propagationActive
+          ? smoothstep(0.16, 0.7, propagationProgress)
+          : 1
         const feedbackActive = Boolean(feedbackNode) && feedbackAmount > 0
+        const feedbackScale = focusedId ? 1.18 : 1.1
         context.lineCap = "round"
 
         for (const edge of edges) {
@@ -331,36 +380,29 @@
 
         if (feedbackActive) {
           context.save()
-          context.globalAlpha = feedbackAmount * 0.96
+          context.globalAlpha = edgeGlowAmount * 0.96
           context.shadowBlur = 11 * pixelRatio
 
           for (const edge of edges) {
             if (edge.source !== feedbackId && edge.target !== feedbackId) continue
-            const source = nodeById.get(edge.source)
-            const target = nodeById.get(edge.target)
-            if (!source || !target) continue
+            const geometry = feedbackEdgeGeometry(
+              edge,
+              feedbackId,
+              feedbackNode,
+              feedbackScale
+            )
+            if (!geometry) continue
 
             const baseWidth = edge.type === "root" ? 2 : edge.type === "hierarchy" ? 1.5 : 1
             const highlightColor = edgeHighlightColor(edge)
-            const feedbackScale = focusedId ? 1.18 : 1.1
-            const feedbackRadius = TYPE_RADII[feedbackNode.type] * feedbackScale
-            const dx = target.x - source.x
-            const dy = target.y - source.y
-            const length = Math.hypot(dx, dy) || 1
-            const offsetX = dx / length * feedbackRadius
-            const offsetY = dy / length * feedbackRadius
-            const sourceIsFeedback = source.id === feedbackId
             context.strokeStyle = highlightColor
             context.shadowColor = highlightColor
             context.lineWidth = baseWidth + 1.35 / transform.k
             context.beginPath()
-            context.moveTo(
-              source.x + (sourceIsFeedback ? offsetX : 0),
-              source.y + (sourceIsFeedback ? offsetY : 0)
-            )
+            context.moveTo(geometry.fromX, geometry.fromY)
             context.lineTo(
-              target.x - (sourceIsFeedback ? 0 : offsetX),
-              target.y - (sourceIsFeedback ? 0 : offsetY)
+              geometry.fromX + (geometry.toX - geometry.fromX) * edgeReveal,
+              geometry.fromY + (geometry.toY - geometry.fromY) * edgeReveal
             )
             context.stroke()
           }
@@ -481,7 +523,17 @@
           }
         }
 
-        drawGraph()
+        if (focusPropagation) {
+          const propagationFinished = reduceMotion
+            || time - focusPropagation.startedAt >= focusPropagation.duration
+          if (propagationFinished) {
+            focusPropagation = null
+          } else {
+            moving = true
+          }
+        }
+
+        drawGraph(time)
         if (moving) requestRender()
       }
 
@@ -535,6 +587,14 @@
           return
         }
         focusedId = focusedId === node.id ? null : node.id
+        const now = performance.now()
+        focusPropagation = focusedId && !reduceMotion
+          ? {
+              id: focusedId,
+              startedAt: now,
+              duration: FOCUS_PROPAGATION_DURATION
+            }
+          : null
         requestRender()
         if (focusedId) centreNode(node)
       }
@@ -657,6 +717,7 @@
           }
         } else if (!gesture.moved && event.type === "pointerup") {
           focusedId = null
+          focusPropagation = null
           requestRender()
         }
         draggedNode = null
@@ -698,6 +759,7 @@
       canvas.addEventListener("keydown", event => {
         if (event.key === "Escape") {
           focusedId = null
+          focusPropagation = null
           requestRender()
         }
       })
@@ -721,6 +783,7 @@
       })
       root.querySelector('[data-graph-action="reset"]').addEventListener("click", () => {
         focusedId = null
+        focusPropagation = null
         hoveredId = null
         pointerHoveredId = null
         hoverAmount = 0
@@ -752,6 +815,13 @@
         attributeFilter: ["data-md-color-scheme", "data-md-color-primary"]
       })
 
+      const handleMotionPreference = event => {
+        reduceMotion = event.matches
+        focusPropagation = null
+        requestRender()
+      }
+      motionPreference.addEventListener("change", handleMotionPreference)
+
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
       const handleSystemTheme = () => {
         rebuildSprites()
@@ -768,6 +838,7 @@
         destroyed = true
         resizeObserver.disconnect()
         paletteObserver.disconnect()
+        motionPreference.removeEventListener("change", handleMotionPreference)
         systemTheme.removeEventListener("change", handleSystemTheme)
         worker.postMessage({ type: "stop" })
         worker.terminate()
