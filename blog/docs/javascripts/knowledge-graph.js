@@ -296,7 +296,7 @@
             && (source.id === feedbackId || target.id === feedbackId)
           const dimmed = selected && (!selected.has(source.id) || !selected.has(target.id))
           context.globalAlpha = feedbackActive
-            ? adjacentToFeedback ? 1 : 1 - feedbackAmount * 0.86
+            ? adjacentToFeedback ? 1 : 1 - feedbackAmount * 0.55
             : dimmed ? 0.08 : 1
           context.strokeStyle = edgeColor(edge)
           context.lineWidth = edge.type === "root" ? 2 : edge.type === "hierarchy" ? 1.5 : 1
