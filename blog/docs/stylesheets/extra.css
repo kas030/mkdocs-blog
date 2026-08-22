@@ -154,6 +154,45 @@ blockquote {
     height: auto;
 }
 
+/*
+ * 等高图片组：
+ * --img-group-width  控制整组宽度
+ * --img-group-height 控制组内图片的统一高度上限
+ * --img-group-gap    控制图片间距
+ */
+.flex-img-group {
+    display: flex;
+    width: min(var(--img-group-width, 100%), 100%);
+    margin-inline: auto;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--img-group-gap, 1rem);
+}
+
+.flex-img-group > img,
+.flex-img-group > a {
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+/* 兼容 glightbox 为图片生成的链接容器 */
+.flex-img-group > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-img-group > img,
+.flex-img-group > a > img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: var(--img-group-height, 12rem);
+    margin: 0;
+}
+
 /* Mermaid 图表宽度 */
 .mermaid-sized {
     width: min(var(--diagram-width, 100%), 100%);
