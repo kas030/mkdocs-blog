@@ -26,6 +26,7 @@ nav:
           - 变换: courses/games101/transformations.md
           - 光栅化: courses/games101/rasterization.md
           - 着色: courses/games101/shading.md
+          - 几何: courses/games101/geometry.md
       - CS61A:
           - 函数与控制: courses/cs61a/functions-and-control.md
           - 高阶函数与函数抽象: courses/cs61a/higher-order-functions.md
