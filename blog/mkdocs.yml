@@ -52,6 +52,7 @@ nav:
   - 数学:
       - 组合数学:
           - 什么是组合数学: math/introductory-combinatorics/what-is-combinatorics.md
+          - 排列与组合: math/introductory-combinatorics/permutations-and-combinations.md
   - 工具:
       - GNU 工具链: tools/gnu-toolchain.md
       - CMake: tools/cmake.md
