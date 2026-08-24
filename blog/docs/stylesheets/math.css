@@ -1,0 +1,77 @@
+/* 数学环境：定义、定理、引理与推论 */
+:root {
+    --math-def-border: #43a047;
+    --math-def-background: #eef9ee;
+    --math-thm-border: #42a5c6;
+    --math-thm-background: #eaf6fc;
+    --math-lem-border: #b06cba;
+    --math-lem-background: #f6eef8;
+    --math-cor-border: #c99a45;
+    --math-cor-background: #fbf5e9;
+}
+
+[data-md-color-scheme="slate"] {
+    --math-def-border: #66bb6a;
+    --math-def-background: rgba(76, 175, 80, 0.12);
+    --math-thm-border: #4fc3f7;
+    --math-thm-background: rgba(79, 195, 247, 0.12);
+    --math-lem-border: #ce93d8;
+    --math-lem-background: rgba(206, 147, 216, 0.12);
+    --math-cor-border: #e0b76a;
+    --math-cor-background: rgba(224, 183, 106, 0.12);
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) {
+    margin: 1.25em 0;
+    padding: 0.8rem 1rem;
+    border-left: 0.15rem solid;
+    border-radius: 0.1rem;
+    font-size: 0.64rem;
+}
+
+.md-typeset .math-def {
+    border-left-color: var(--math-def-border);
+    background-color: var(--math-def-background);
+}
+
+.md-typeset .math-thm {
+    border-left-color: var(--math-thm-border);
+    background-color: var(--math-thm-background);
+}
+
+.md-typeset .math-lem {
+    border-left-color: var(--math-lem-border);
+    background-color: var(--math-lem-background);
+}
+
+.md-typeset .math-cor {
+    border-left-color: var(--math-cor-border);
+    background-color: var(--math-cor-background);
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > :first-child {
+    margin-top: 0;
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > :last-child {
+    margin-bottom: 0;
+}
+
+/* 移除数学环境中块级公式及其相邻段落的额外间距 */
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > .arithmatex {
+    margin-block: 0;
+    padding-block: 1em;
+    line-height: 0;
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) .katex-display {
+    margin-block: 0;
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > :has(+ .arithmatex) {
+    margin-bottom: 0;
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > .arithmatex + * {
+    margin-top: 0;
+}
