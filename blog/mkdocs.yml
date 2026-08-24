@@ -49,6 +49,9 @@ nav:
           - Codeforces 2074D Counting Points: oi/solutions/cf-2074d-counting-points.md
           - Codeforces 2120C Divine Tree: oi/solutions/cf-2120c-divine-tree.md
           - Codeforces 2123E Mex Count: oi/solutions/cf-2123e-mex-count.md
+  - 数学:
+      - 组合数学:
+          - 什么是组合数学: math/introductory-combinatorics/what-is-combinatorics.md
   - 工具:
       - GNU 工具链: tools/gnu-toolchain.md
       - CMake: tools/cmake.md
