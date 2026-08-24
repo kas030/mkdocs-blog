@@ -1,0 +1,46 @@
+{
+    "math-definition": {
+        "prefix": "mdef",
+        "body": [
+            "<div class=\"math-def\" markdown=\"1\">",
+            "",
+            "$0",
+            "",
+            "</div>"
+        ],
+        "scope": "markdown",
+    },
+    "math-theorem": {
+        "prefix": "mthm",
+        "body": [
+            "<div class=\"math-thm\" markdown=\"1\">",
+            "",
+            "$0",
+            "",
+            "</div>"
+        ],
+        "scope": "markdown",
+    },
+    "math-lemma": {
+        "prefix": "mlem",
+        "body": [
+            "<div class=\"math-lem\" markdown=\"1\">",
+            "",
+            "$0",
+            "",
+            "</div>"
+        ],
+        "scope": "markdown",
+    },
+    "math-corollary": {
+        "prefix": "mcor",
+        "body": [
+            "<div class=\"math-cor\" markdown=\"1\">",
+            "",
+            "$0",
+            "",
+            "</div>"
+        ],
+        "scope": "markdown",
+    },
+}
