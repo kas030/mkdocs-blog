@@ -8,8 +8,8 @@
     --math-lem-background: #f6eef8;
     --math-cor-border: #c99a45;
     --math-cor-background: #fbf5e9;
-    --math-proof-border: #78909c;
-    --math-proof-background: #f3f5f6;
+    --math-proof-border: #4faaa3;
+    --math-proof-background: #e8f6f4;
 }
 
 [data-md-color-scheme="slate"] {
@@ -21,8 +21,8 @@
     --math-lem-background: rgba(206, 147, 216, 0.12);
     --math-cor-border: #e0b76a;
     --math-cor-background: rgba(224, 183, 106, 0.12);
-    --math-proof-border: #90a4ae;
-    --math-proof-background: rgba(144, 164, 174, 0.12);
+    --math-proof-border: #60c2b9;
+    --math-proof-background: rgba(79, 170, 163, 0.16);
 }
 
 .md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-proof) {
