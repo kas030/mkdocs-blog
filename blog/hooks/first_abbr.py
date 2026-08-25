@@ -1,4 +1,7 @@
-"""Mark the first occurrence of abbreviations or an explicitly selected one."""
+"""Mark the first occurrence of abbreviations or an explicitly selected one.
+
+Inline definitions use ``{{abbr:term|title}}``.
+"""
 
 from __future__ import annotations
 
@@ -71,7 +74,9 @@ class FirstAbbrTreeprocessor(Treeprocessor):
     """Match exact substrings in document order without word boundaries."""
 
     SKIP_TAGS = {"abbr", "code", "pre", "script", "style"}
-    EXPLICIT_RE = re.compile(r"\{\{abbr:(?P<term>[^{}\r\n]+)\}\}")
+    EXPLICIT_RE = re.compile(
+        r"\{\{abbr:(?P<term>[^{}|\r\n]+?)(?:\|(?P<title>[^{}\r\n]+))?\}\}"
+    )
 
     def __init__(self, md, abbrs: dict[str, str]):
         super().__init__(md)
@@ -80,12 +85,12 @@ class FirstAbbrTreeprocessor(Treeprocessor):
         self.explicit: set[str] = set()
 
     def run(self, root: etree.Element) -> etree.Element | None:
-        if not self.abbrs:
-            return None
-
         self.used.clear()
         self.explicit.clear()
         self._collect_explicit(root)
+        if not self.abbrs and not self.explicit:
+            return None
+
         self.used.update(self.explicit)
         self._walk(root)
         return root
@@ -106,7 +111,11 @@ class FirstAbbrTreeprocessor(Treeprocessor):
 
         for match in self.EXPLICIT_RE.finditer(text):
             term = match.group("term").strip()
-            if term in self.abbrs and self.abbrs[term]:
+            inline_title = match.group("title")
+            if term and (
+                (inline_title and inline_title.strip())
+                or (term in self.abbrs and self.abbrs[term])
+            ):
                 self.explicit.add(term)
 
     def _walk(self, element: etree.Element) -> None:
@@ -120,8 +129,8 @@ class FirstAbbrTreeprocessor(Treeprocessor):
             self._walk(child)
             self._replace_tail(child, element)
 
-    def _find_matches(self, text: str) -> list[tuple[int, int, str]]:
-        matches: list[tuple[int, int, str]] = []
+    def _find_matches(self, text: str) -> list[tuple[int, int, str, str]]:
+        matches: list[tuple[int, int, str, str]] = []
         markers = list(self.EXPLICIT_RE.finditer(text))
         marker_index = 0
         cursor = 0
@@ -130,8 +139,10 @@ class FirstAbbrTreeprocessor(Treeprocessor):
             if marker_index < len(markers) and cursor == markers[marker_index].start():
                 marker = markers[marker_index]
                 term = marker.group("term").strip()
-                if term in self.explicit:
-                    matches.append((marker.start(), marker.end(), term))
+                inline_title = marker.group("title")
+                title = inline_title.strip() if inline_title else self.abbrs.get(term)
+                if term in self.explicit and title:
+                    matches.append((marker.start(), marker.end(), term, title))
                 cursor = marker.end()
                 marker_index += 1
                 continue
@@ -161,14 +172,14 @@ class FirstAbbrTreeprocessor(Treeprocessor):
 
             start, negative_length, term = candidate
             end = start - negative_length
-            matches.append((start, end, term))
+            matches.append((start, end, term, self.abbrs[term]))
             self.used.add(term)
             cursor = end
 
         return matches
 
-    def _create_element(self, term: str, tail: str) -> etree.Element:
-        abbreviation = etree.Element("abbr", {"title": self.abbrs[term]})
+    def _create_element(self, term: str, title: str, tail: str) -> etree.Element:
+        abbreviation = etree.Element("abbr", {"title": title})
         abbreviation.text = AtomicString(term)
         abbreviation.tail = tail
         return abbreviation
@@ -179,8 +190,8 @@ class FirstAbbrTreeprocessor(Treeprocessor):
             return
 
         matches = self._find_matches(text)
-        for start, end, term in reversed(matches):
-            element.insert(0, self._create_element(term, text[end:]))
+        for start, end, term, title in reversed(matches):
+            element.insert(0, self._create_element(term, title, text[end:]))
             text = text[:start]
         element.text = text
 
@@ -195,8 +206,11 @@ class FirstAbbrTreeprocessor(Treeprocessor):
 
         matches = self._find_matches(tail)
         insertion_index = list(parent).index(element) + 1
-        for start, end, term in reversed(matches):
-            parent.insert(insertion_index, self._create_element(term, tail[end:]))
+        for start, end, term, title in reversed(matches):
+            parent.insert(
+                insertion_index,
+                self._create_element(term, title, tail[end:]),
+            )
             tail = tail[:start]
         element.tail = tail
 
