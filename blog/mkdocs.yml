@@ -103,6 +103,7 @@ theme:
         name: Switch to system preference
 
 extra_javascript:
+  - javascripts/math-environments.js
   - javascripts/katex.js
   - javascripts/shell-highlight.js
   - javascripts/knowledge-graph.js

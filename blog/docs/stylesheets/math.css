@@ -31,6 +31,7 @@
     border-left: 0.15rem solid;
     border-radius: 0.1rem;
     font-size: 0.64rem;
+    scroll-margin-top: 4rem;
 }
 
 .md-typeset .math-def {
@@ -56,6 +57,19 @@
 .md-typeset .math-proof {
     border-left-color: var(--math-proof-border);
     background-color: var(--math-proof-background);
+}
+
+.md-typeset .math-heading {
+    margin: 0 0 0.6em;
+    font-weight: 700;
+}
+
+.md-typeset .math-heading__title {
+    font-weight: 400;
+}
+
+.md-typeset .math-ref--missing {
+    color: var(--md-typeset-del-color);
 }
 
 .md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-proof) > :first-child {

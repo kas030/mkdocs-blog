@@ -2,7 +2,7 @@
     "math-definition": {
         "prefix": "mdef",
         "body": [
-            "<div class=\"math-def\" markdown=\"1\">",
+            "<div class=\"math-def\" id=\"${1:def-label}\" data-title=\"${2:标题}\" markdown=\"1\">",
             "",
             "$0",
             "",
@@ -13,7 +13,7 @@
     "math-theorem": {
         "prefix": "mthm",
         "body": [
-            "<div class=\"math-thm\" markdown=\"1\">",
+            "<div class=\"math-thm\" id=\"${1:thm-label}\" data-title=\"${2:标题}\" markdown=\"1\">",
             "",
             "$0",
             "",
@@ -24,7 +24,7 @@
     "math-lemma": {
         "prefix": "mlem",
         "body": [
-            "<div class=\"math-lem\" markdown=\"1\">",
+            "<div class=\"math-lem\" id=\"${1:lem-label}\" data-title=\"${2:标题}\" markdown=\"1\">",
             "",
             "$0",
             "",
@@ -35,7 +35,7 @@
     "math-corollary": {
         "prefix": "mcor",
         "body": [
-            "<div class=\"math-cor\" markdown=\"1\">",
+            "<div class=\"math-cor\" id=\"${1:cor-label}\" data-title=\"${2:标题}\" markdown=\"1\">",
             "",
             "$0",
             "",
@@ -46,11 +46,18 @@
     "math-proof": {
         "prefix": "mprf",
         "body": [
-            "<div class=\"math-proof\" markdown=\"1\">",
+            "<div class=\"math-proof\" id=\"${1:proof-label}\" data-title=\"${2:标题}\" markdown=\"1\">",
             "",
             "$0",
             "",
             "</div>"
+        ],
+        "scope": "markdown",
+    },
+    "math-reference": {
+        "prefix": "mref",
+        "body": [
+            "<a class=\"math-ref\" href=\"#${1:label}\">${2}</a>$0"
         ],
         "scope": "markdown",
     },
