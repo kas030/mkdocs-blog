@@ -75,3 +75,22 @@
 .md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > .arithmatex + * {
     margin-top: 0;
 }
+
+/* math 目录下全部笔记的块级公式使用紧凑间距 */
+.math-notes-page .md-typeset .arithmatex {
+    margin-block: 0;
+    padding-block: 1em;
+    line-height: 0;
+}
+
+.math-notes-page .md-typeset .katex-display {
+    margin-block: 0;
+}
+
+.math-notes-page .md-typeset :has(+ .arithmatex) {
+    margin-bottom: 0;
+}
+
+.math-notes-page .md-typeset .arithmatex + * {
+    margin-top: 0;
+}

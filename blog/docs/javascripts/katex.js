@@ -12,8 +12,11 @@ const games101Macros = {
 }
 
 const isGames101Page = () => location.pathname.includes("/courses/games101/")
+const isMathNotesPage = () => location.pathname.includes("/math/")
 
-document$.subscribe(({ body }) => { 
+document$.subscribe(({ body }) => {
+  body.classList.toggle("math-notes-page", isMathNotesPage())
+
   renderMathInElement(body, {
     delimiters: [
       { left: "$$",  right: "$$",  display: true },
