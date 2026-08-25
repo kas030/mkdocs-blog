@@ -1,4 +1,4 @@
-/* 数学环境：定义、定理、引理与推论 */
+/* 数学环境：定义、定理、引理、推论与证明 */
 :root {
     --math-def-border: #43a047;
     --math-def-background: #eef9ee;
@@ -8,6 +8,8 @@
     --math-lem-background: #f6eef8;
     --math-cor-border: #c99a45;
     --math-cor-background: #fbf5e9;
+    --math-proof-border: #78909c;
+    --math-proof-background: #f3f5f6;
 }
 
 [data-md-color-scheme="slate"] {
@@ -19,9 +21,11 @@
     --math-lem-background: rgba(206, 147, 216, 0.12);
     --math-cor-border: #e0b76a;
     --math-cor-background: rgba(224, 183, 106, 0.12);
+    --math-proof-border: #90a4ae;
+    --math-proof-background: rgba(144, 164, 174, 0.12);
 }
 
-.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) {
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-proof) {
     margin: 1.25em 0;
     padding: 0.8rem 1rem;
     border-left: 0.15rem solid;
@@ -49,30 +53,35 @@
     background-color: var(--math-cor-background);
 }
 
-.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > :first-child {
+.md-typeset .math-proof {
+    border-left-color: var(--math-proof-border);
+    background-color: var(--math-proof-background);
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-proof) > :first-child {
     margin-top: 0;
 }
 
-.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > :last-child {
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-proof) > :last-child {
     margin-bottom: 0;
 }
 
 /* 移除数学环境中块级公式及其相邻段落的额外间距 */
-.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > .arithmatex {
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-proof) > .arithmatex {
     margin-block: 0;
     padding-block: 1em;
     line-height: 0;
 }
 
-.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) .katex-display {
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-proof) .katex-display {
     margin-block: 0;
 }
 
-.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > :has(+ .arithmatex) {
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-proof) > :has(+ .arithmatex) {
     margin-bottom: 0;
 }
 
-.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor) > .arithmatex + * {
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-proof) > .arithmatex + * {
     margin-top: 0;
 }
 

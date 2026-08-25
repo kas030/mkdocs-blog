@@ -43,4 +43,15 @@
         ],
         "scope": "markdown",
     },
+    "math-proof": {
+        "prefix": "mprf",
+        "body": [
+            "<div class=\"math-proof\" markdown=\"1\">",
+            "",
+            "$0",
+            "",
+            "</div>"
+        ],
+        "scope": "markdown",
+    },
 }
