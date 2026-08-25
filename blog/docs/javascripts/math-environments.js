@@ -3,6 +3,7 @@ const mathEnvironmentTypes = [
   { selector: ".math-thm", name: "定理", numbered: true },
   { selector: ".math-lem", name: "引理", numbered: true },
   { selector: ".math-cor", name: "推论", numbered: true },
+  { selector: ".math-example", name: "例", numbered: true },
   { selector: ".math-proof", name: "证明", numbered: false },
 ]
 

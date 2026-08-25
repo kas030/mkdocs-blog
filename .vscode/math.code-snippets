@@ -43,6 +43,17 @@
         ],
         "scope": "markdown",
     },
+    "math-example": {
+        "prefix": "mex",
+        "body": [
+            "<div class=\"math-example\" id=\"${1:example-label}\" data-title=\"${2:标题}\" markdown=\"1\">",
+            "",
+            "$0",
+            "",
+            "</div>"
+        ],
+        "scope": "markdown",
+    },
     "math-proof": {
         "prefix": "mprf",
         "body": [
