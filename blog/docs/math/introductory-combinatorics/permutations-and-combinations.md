@@ -46,7 +46,7 @@ $$
 令 $A$ 是一个集合，$U$ 是包含 $A$ 的更大集合。设
 
 $$
-\bar{A}=U\backslash A=\{x\in U \colon x\notin A\}
+\bar{A}=U\setminus A=\{x\in U \colon x\notin A\}
 $$
 
 是 $A$ 在 $U$ 中的{{abbr:补|complement}}，那么
