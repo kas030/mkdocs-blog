@@ -12,5 +12,12 @@
             "{.center-img}"
         ],
         "scope": "markdown",
+    },
+    "flex-img-group": {
+        "prefix": "flex",
+        "body": [
+            "{.flex-img-group style=\"--img-group-width: $0px;\"}",
+        ],
+        "scope": "markdown",
     }
 }
