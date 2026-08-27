@@ -1,0 +1,4297 @@
+<!DOCTYPE html><html lang="zh" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../../languages/rust/programming-rust/rust-basic/">
+      
+      
+        <link rel="next" href="../machine-level-representation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>信息的表示和处理 - KAS 的笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M17%2013h-4v4h-2v-4H7v-2h4V7h2v4h4m-5-9A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/math.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/cs61c.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/knowledge-graph.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="KAS 的笔记" class="md-header__button md-logo" aria-label="KAS 的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.029 18.772.777 1.166-5.417 2.709L0 16.451V4.063l5.417-2.709 5.298 7.948 7.867-5.24L24 1.354V16.84l-5.417 2.709zm2.023-13.827v13.253l3.949-1.975V2.97zM5.076 2.642 1.458 4.45 12.73 21.358l3.618-1.809z"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KAS 的笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              信息的表示和处理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo" aria-label="Switch to system preference" type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kas030/mkdocs-blog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    kas030/mkdocs-blog
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../languages/java/java-basic/" class="md-tabs__link">
+          
+  
+  
+  编程语言
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  课程
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../oi/math/lucas-theorem/" class="md-tabs__link">
+          
+  
+  
+  算法竞赛
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../math/introductory-combinatorics/what-is-combinatorics/" class="md-tabs__link">
+          
+  
+  
+  数学
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../tools/gnu-toolchain/" class="md-tabs__link">
+          
+  
+  
+  工具
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="KAS 的笔记" class="md-nav__button md-logo" aria-label="KAS 的笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.029 18.772.777 1.166-5.417 2.709L0 16.451V4.063l5.417-2.709 5.298 7.948 7.867-5.24L24 1.354V16.84l-5.417 2.709zm2.023-13.827v13.253l3.949-1.975V2.97zM5.076 2.642 1.458 4.45 12.73 21.358l3.618-1.809z"></path></svg>
+
+    </a>
+    KAS 的笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kas030/mkdocs-blog" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    kas030/mkdocs-blog
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    编程语言
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    编程语言
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../languages/java/java-basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../languages/java/java-exception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 异常
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../languages/java/java-collection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 集合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../languages/java/java-regex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java 正则表达式
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rust
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1">
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Rust
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Programming Rust
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../languages/rust/programming-rust/rust-basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础与内存模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CMU CS15-213: CSAPP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CMU CS15-213: CSAPP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    信息的表示和处理
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    信息的表示和处理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信息存储
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信息存储">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据大小与字长
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        字节与字符串表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整数表示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="整数表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整数编码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        位移与类型转换
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整数运算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="整数运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        加法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        乘法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        除以 2 的幂
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无符号数的使用
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="浮点数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二进制小数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ieee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEEE 浮点表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        舍入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C 中的浮点数
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../machine-level-representation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    程序的机器级表示
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    链接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    存储器层级结构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processes-and-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    异常控制流与进程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../virtual-memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟内存
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MIT IAP web.lab
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    MIT IAP web.lab
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mit-iap-weblab/html-and-css/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTML 和 CSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GAMES101
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    GAMES101
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../games101/transformations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    变换
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../games101/rasterization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    光栅化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../games101/shading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    着色
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../games101/geometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    几何
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CS61A
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CS61A
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs61a/functions-and-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    函数与控制
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs61a/higher-order-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    高阶函数与函数抽象
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs61a/recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    递归
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs61a/sequences-and-data-abstraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    序列与数据抽象
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs61a/mutability-and-iterators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    可变性、迭代器与生成器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs61a/object-oriented-programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面向对象编程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs61a/scheme-and-interpreters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scheme 与解释器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs61a/sql-and-databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL 与数据库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5">
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CS61C
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CS61C
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cs61c/riscv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RISC-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dive-into-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    动手学深度学习
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7">
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTU 机器学习
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    NTU 机器学习
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ntu-ml/ml-basic-theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    机器学习基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法竞赛
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    算法竞赛
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1">
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oi/math/lucas-theorem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    卢卡斯定理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oi/math/catalan-number/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    卡特兰数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    题解
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    题解
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oi/solutions/2025-icpc-wuhan-invitational-contest-g/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025 ICPC Wuhan - G Path Summing Problem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oi/solutions/lncpc-2025-e-entering-the-unknown/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNCPC 2025 E Entering the unknown
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oi/solutions/cf-2074d-counting-points/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codeforces 2074D Counting Points
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oi/solutions/cf-2120c-divine-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codeforces 2120C Divine Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oi/solutions/cf-2123e-mex-count/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codeforces 2123E Mex Count
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1">
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    组合数学
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    组合数学
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/introductory-combinatorics/what-is-combinatorics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    什么是组合数学
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/introductory-combinatorics/permutations-and-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    排列与组合
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工具
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/gnu-toolchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GNU 工具链
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/cmake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CMake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/github-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tools/conda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        信息存储
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="信息存储">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据大小与字长
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        字节与字符串表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整数表示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="整数表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整数编码
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        位移与类型转换
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整数运算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="整数运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        加法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        乘法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        除以 2 的幂
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        无符号数的使用
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="浮点数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二进制小数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ieee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IEEE 浮点表示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        舍入
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点运算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C 中的浮点数
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏">
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    课程
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    CMU CS15-213: CSAPP
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags">
+    
+      
+      
+      
+      
+        <span class="md-tag">C</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">CSAPP</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">计算机系统</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="_1">信息的表示和处理</h1>
+<h2 id="_2">信息存储</h2>
+<h3 id="_3">数据大小与字长</h3>
+<p><strong>C 数据类型大小</strong></p>
+<table>
+<thead>
+<tr>
+<th>C 数据类型</th>
+<th>典型 32-bit</th>
+<th>IA32</th>
+<th>典型 64-bit</th>
+<th>x86-64</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>long</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>long long</td>
+<td>8</td>
+<td>8</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8</td>
+<td>8</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>long double</td>
+<td>-</td>
+<td>10/12</td>
+<td>-</td>
+<td>10/16</td>
+</tr>
+<tr>
+<td>pointer</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">long double 的表示</p>
+<p>在 x86 体系中，<code>long double</code> 用 10 字节表示，但由于字节对齐的原因，实际会占 12 或 16 字节。</p>
+</div>
+<p><strong>字与字长</strong></p>
+<p>字：计算机中 CPU 自然处理的数据单位，通常和寄存器宽度相同。</p>
+<p>字长：字的大小，通常以 bit 为单位。</p>
+<ul>
+<li>32 位：字大小 4 bytes，字长 32 bits</li>
+<li>64 位：字大小 8 bytes，字长 64 bits</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">x86 架构下的字</p>
+<p>为了保持兼容性，在 Intel 术语中，字始终定义为 16 位。</p>
+<ul>
+<li>Word：2 字节</li>
+<li>DWord（Double Word）：4 字节</li>
+<li>QWord（Quad Word）：8 字节</li>
+</ul>
+</div>
+<p>虚拟地址用一个字来编码，所以字长决定虚拟地址空间的最大大小。</p>
+<p>对于字长为 <span class="arithmatex">\(w\)</span> 的机器，虚拟地址的范围是 <span class="arithmatex">\(0\sim 2^w-1\)</span>，程序最多访问 <span class="arithmatex">\(2^w\)</span> 个字节。</p>
+<h3 id="_4">字节与字符串表示</h3>
+<p><strong>字节顺序</strong></p>
+<p>两大传统模式：</p>
+<div class="annotate">
+<ul>
+<li>大端序(1)：Sun，PPC Mac，Internet</li>
+<li>小端序(2)：x86，运行 Android 的 ARM 处理器，iOS，Windows</li>
+</ul>
+</div>
+<ol>
+<li>大端序：高位字节占据低地址</li>
+<li>小端序：低位字节占据低地址</li>
+</ol>
+<p>举例：4 字节变量 <code>x</code> 的值是 <code>0x01234567</code>，存放在 <code>0x100</code></p>
+<p class="center-img"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../representing-information-assets/big-little-endian.png" data-desc-position="bottom"><img alt="img" src="../representing-information-assets/big-little-endian.png" width="600"></a></p>
+<p><strong>字符串表示</strong></p>
+<ul>
+<li>标准的 7 位字符集编码</li>
+<li>字符串必须以一个空字符表示结尾</li>
+<li>大端或小端存储不会影响字符串存储排列</li>
+</ul>
+<h2 id="_5">整数表示</h2>
+<h3 id="_6">整数编码</h3>
+<p><strong>进制</strong></p>
+<p>4位十六进制、十进制和二进制快速转换：</p>
+<table>
+<thead>
+<tr>
+<th>十六进制</th>
+<th>十进制</th>
+<th>二进制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0000</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0001</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>0010</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3</td>
+<td>0011</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4</td>
+<td>0100</td>
+</tr>
+<tr>
+<td>5</td>
+<td>5</td>
+<td>0101</td>
+</tr>
+<tr>
+<td>6</td>
+<td>6</td>
+<td>0110</td>
+</tr>
+<tr>
+<td>7</td>
+<td>7</td>
+<td>0111</td>
+</tr>
+<tr>
+<td>8</td>
+<td>8</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>9</td>
+<td>9</td>
+<td>1001</td>
+</tr>
+<tr>
+<td>A</td>
+<td>10</td>
+<td>1010</td>
+</tr>
+<tr>
+<td>B</td>
+<td>11</td>
+<td>1011</td>
+</tr>
+<tr>
+<td>C</td>
+<td>12</td>
+<td>1100</td>
+</tr>
+<tr>
+<td>D</td>
+<td>13</td>
+<td>1101</td>
+</tr>
+<tr>
+<td>E</td>
+<td>14</td>
+<td>1110</td>
+</tr>
+<tr>
+<td>F</td>
+<td>15</td>
+<td>1111</td>
+</tr>
+</tbody>
+</table>
+<p><strong>有符号数和无符号数</strong></p>
+<p>无符号数和补码可表示的数据范围：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UMin</td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td>UMax</td>
+<td><span class="arithmatex">\(2^w - 1\)</span></td>
+</tr>
+<tr>
+<td>TMin</td>
+<td><span class="arithmatex">\(-2^{w - 1}\)</span></td>
+</tr>
+<tr>
+<td>TMax</td>
+<td><span class="arithmatex">\(2^{w - 1} - 1\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">性质</p>
+<ul>
+<li><span class="arithmatex">\(|TMin| = TMax + 1\)</span></li>
+<li><span class="arithmatex">\(UMax = 2 \cdot TMax + 1\)</span></li>
+</ul>
+</div>
+<p>无符号和有符号数比较：</p>
+<table>
+<thead>
+<tr>
+<th>X</th>
+<th>B2U(X)</th>
+<th>B2T(X)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0000</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0010</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>0011</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>0100</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>0101</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>0110</td>
+<td>6</td>
+<td>6</td>
+</tr>
+<tr>
+<td>0111</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>8</td>
+<td>-8</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>9</td>
+<td>-7</td>
+</tr>
+<tr>
+<td>1010</td>
+<td>10</td>
+<td>-6</td>
+</tr>
+<tr>
+<td>1011</td>
+<td>11</td>
+<td>-5</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>12</td>
+<td>-4</td>
+</tr>
+<tr>
+<td>1101</td>
+<td>13</td>
+<td>-3</td>
+</tr>
+<tr>
+<td>1110</td>
+<td>14</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>1111</td>
+<td>15</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>唯一性：每一个位模式表达唯一的整数值，每一个整数有唯一的二进制位模式</li>
+<li>满足双射：<span class="arithmatex">\(\operatorname{U2B}(X)=\operatorname{B2U}^{-1}(X)\)</span>，<span class="arithmatex">\(\operatorname{T2B}(X)=\operatorname{B2T}^{-1}(X)\)</span></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">相互映射</p>
+<div class="arithmatex">\[\operatorname{T2U}_w(X)=\begin{cases}X+2^w,&amp;X&lt;0\\X,&amp;X\geqslant0\end{cases}\]</div>
+<div class="arithmatex">\[\operatorname{U2T}_w(U)=\begin{cases}U,&amp;U&lt;2^{w-1}\\U-2^w,&amp;U\geqslant2^{w-1}\end{cases}\]</div>
+</div>
+<h3 id="_7">位移与类型转换</h3>
+<p><strong>移位操作</strong></p>
+<ul>
+<li>左移：在右侧填充 0</li>
+<li>右移：<ul>
+<li>逻辑移位：在左侧填充 0</li>
+<li>算术移位：在左侧填充符号位</li>
+</ul>
+</li>
+</ul>
+<div class="admonition failure">
+<p class="admonition-title">未定义行为</p>
+<p>在 C 语言中，移位量 &lt; 0 或 &gt; 字长，都是未定义行为。</p>
+</div>
+<p><strong>类型转换</strong></p>
+<p>如果一个表达式中既有无符号数又有有符号数， 有符号数会<strong>隐式转换成无符号数</strong>。</p>
+<p>该规则对比较运算符也适用：<code>&lt;</code>、<code>&gt;</code>、<code>==</code>、<code>&lt;=</code>、<code>&gt;=</code>。</p>
+<div class="admonition warning">
+<p class="admonition-title">注意 sizeof 的返回类型</p>
+<p><code>sizeof</code> 运算符的结果是<strong>无符号数</strong>，在参与运算时需特别注意。</p>
+</div>
+<p><strong>符号扩展</strong></p>
+<p>任务：</p>
+<ul>
+<li>给定一个 w 位的有符号数 x</li>
+<li>将其转换为 (w + k) 位的整数，保持值不变</li>
+</ul>
+<p>规则：</p>
+<div class="annotate">
+<ul>
+<li>将符号位复制 k 个</li>
+<li><span class="arithmatex">\(X'=\underset{\text{k copies of MSB}}{\underline{x_{w-1},\ldots,x_{w-1}}},x_{w-1},\ldots,x_0\)</span> (1)</li>
+</ul>
+</div>
+<ol>
+<li>MSB：Most significant bit，最高有效位</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">为什么复制符号位，数值保持不变？</p>
+<p>一个 <span class="arithmatex">\(w\)</span> 位的二进制补码，符号位可看做带有 <span class="arithmatex">\(-2^{w-1}\)</span> 的权值。
+复制一次符号位后，新符号位的权值为 <span class="arithmatex">\(-2^w\)</span>，原符号位的权值变为 <span class="arithmatex">\(2^{w-1}\)</span>，两者之和正好仍然为 <span class="arithmatex">\(-2^{w-1}\)</span>。</p>
+</div>
+<p><strong>截断</strong></p>
+<ul>
+<li>有符号/无符号：二进制位被截取</li>
+<li>结果需重新解释</li>
+<li>无符号：等价于取模运算</li>
+<li>有符号：类似取模运算</li>
+</ul>
+<h2 id="_8">整数运算</h2>
+<h3 id="_9">加法</h3>
+<p><strong>无符号加法</strong></p>
+<ul>
+<li>操作数：w 位</li>
+<li>实际结果：w + 1 位</li>
+<li>舍弃进位：w 位</li>
+</ul>
+<p class="center-img"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../representing-information-assets/uadd.png" data-desc-position="bottom"><img alt="UAdd" src="../representing-information-assets/uadd.png" width="400"></a></p>
+<div class="arithmatex">\[x +^u_w y=\begin{cases}x+y,&amp;x+y&lt;2^w\\x+y-2^w,&amp;2^w\leqslant x+y&lt;2^{w+1}\end{cases}\]</div>
+<p><strong>二进制补码加法</strong></p>
+<p>TAdd 和 UAdd 有相同的位级表示。</p>
+<p>溢出分为负溢出和正溢出。</p>
+<p class="center-img"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../representing-information-assets/tadd.png" data-desc-position="bottom"><img alt="TAdd" src="../representing-information-assets/tadd.png" width="400"></a></p>
+<div class="arithmatex">\[x +^t_w y=\begin{cases}x+y-2^w,&amp;x+y\geqslant2^{w-1}\\x+y,&amp;-2^{w-1}\leqslant x+y&lt;2^{w-1}\\x+y+2^w,&amp;x+y&lt;-2^{w-1}\end{cases}\]</div>
+<h3 id="_10">乘法</h3>
+<p>结果可能多于 w 位：</p>
+<ul>
+<li>无符号数最大可达 <span class="arithmatex">\(2w\)</span> 位：<span class="arithmatex">\(0\leqslant xy \leqslant (2^w-1)^2=2^{2w}-2^{w+1}+1\)</span></li>
+<li>补码负的乘积最大可达 <span class="arithmatex">\(2w-1\)</span> 位：<span class="arithmatex">\(xy\geqslant(-2^{w-1})\cdot(2^{w-1}-1)=-2^{2w-2}+2^{w-1}\)</span></li>
+<li>补码正的乘积最大可达 <span class="arithmatex">\(2w\)</span> 位，仅对 <span class="arithmatex">\((TMin_w)^2\)</span> 成立：<span class="arithmatex">\(xy\leqslant (-2^{w-1})^2=2^{2w-2}\)</span></li>
+</ul>
+<p>对于多于 w 位的结果，高 w 位将被忽略。</p>
+<div class="arithmatex">\[x *^u_w y=(x\cdot y)\bmod 2^w\]</div>
+<p>补码乘法运算的位级表示是一样的。虽然完整乘积的位级表示可能不同，但截断后的乘积位级表示是相同的。</p>
+<div class="arithmatex">\[x *^t_w y=\operatorname{U2T}_w[(x\cdot y)\bmod 2^w]\]</div>
+<p><strong>乘以常数</strong></p>
+<p>与 2 的幂相乘：</p>
+<ul>
+<li>无符号：C 变量 <code>x</code> 和 <code>k</code> 有无符号值 <span class="arithmatex">\(x\)</span> 和 <span class="arithmatex">\(k\)</span>，<span class="arithmatex">\(0\leqslant k &lt; w\)</span>，<code>x&lt;&lt;k</code> 产生数值 <span class="arithmatex">\(x *^u_w 2^k\)</span></li>
+<li>补码：C 变量 <code>x</code> 和 <code>k</code> 有补码值 <span class="arithmatex">\(x\)</span> 和无符号值 <span class="arithmatex">\(k\)</span>，<span class="arithmatex">\(0\leqslant k &lt; w\)</span>，<code>x&lt;&lt;k</code> 产生数值 <span class="arithmatex">\(x *^t_w 2^k\)</span></li>
+</ul>
+<p>整数乘法比移位和加法的代价大得多，乘以常数的行为通常被编译器优化为移位和加减法的组合。</p>
+<p>举例：</p>
+<ul>
+<li><code>u * 8 == u &lt;&lt; 3</code></li>
+<li><code>u * 24 == u &lt;&lt; 5 - u &lt;&lt; 3</code></li>
+</ul>
+<h3 id="2">除以 2 的幂</h3>
+<p>无符号：</p>
+<ul>
+<li>C 变量 <code>x</code> 和 <code>k</code> 有无符号值 <span class="arithmatex">\(x\)</span> 和 <span class="arithmatex">\(k\)</span>，<span class="arithmatex">\(0\leqslant k &lt; w\)</span>，<code>x&gt;&gt;k</code> 产生数值 <span class="arithmatex">\(\lfloor x/2^k\rfloor\)</span></li>
+<li>使用逻辑右移</li>
+</ul>
+<p>有符号：</p>
+<ul>
+<li>C 变量 <code>x</code> 和 <code>k</code> 有补码值 <span class="arithmatex">\(x\)</span> 和无符号值 <span class="arithmatex">\(k\)</span>，<span class="arithmatex">\(0\leqslant k &lt; w\)</span>，<code>x&gt;&gt;k</code> 产生数值 <span class="arithmatex">\(\lfloor x/2^k\rfloor\)</span></li>
+<li>使用算术右移</li>
+</ul>
+<p>希望向零取整，需要对除法进行修正。
+当被除数为正数时，无需额外处理。
+当被除数为负时，将被除数向 0 偏置，使用 <code>(x+(1&lt;&lt;k)-1)&gt;&gt;k</code> 产生数值 <span class="arithmatex">\(\lceil x/2^k \rceil\)</span></p>
+<h2 id="_11">无符号数的使用</h2>
+<p><strong>常见错误</strong></p>
+<p>错误的逆序循环：</p>
+<div class="language-c highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kt">unsigned</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
+</span></code></pre></div></td></tr></tbody></table></div>
+<p>不易察觉的隐式转换：</p>
+<div class="language-c highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cp">#define DELTA sizeof(int)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CNT</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">DELTA</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">DELTA</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span><span class="p">...</span>
+</span></code></pre></div></td></tr></tbody></table></div>
+<p><strong>什么时候该使用无符号数？</strong></p>
+<ul>
+<li>当需要执行取模运算时：高精度、密码学……</li>
+<li>使用二进制位表示集合时：逻辑右移，没有符号扩展</li>
+</ul>
+<p><strong>使用无符号数进行逆序循环</strong></p>
+<p>通过无符号数下溢绕回的良定义行为控制循环结束：</p>
+<div class="language-c highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cnt</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></tbody></table></div>
+<p>可读性更好的写法：</p>
+<div class="language-c highlight"><table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></tbody></table></div>
+<h2 id="_12">浮点数</h2>
+<h3 id="_13">二进制小数</h3>
+<p>表示方法：二进制小数点右侧的位表示 2 的分数幂（负幂）。</p>
+<p><span class="arithmatex">\(b_m b_{m-1}\cdots b_1 b_0 . b_{-1} b{-2} \cdots b_{-n-1} b_{-n}\)</span> 表示数</p>
+<div class="arithmatex">\[b=\sum_{i=-n}^m 2^i\times b_i\]</div>
+<p>性质：</p>
+<ul>
+<li>小数点右移一位等价于乘 2</li>
+<li>小数点左移一位等价于除以 2</li>
+<li>形如 <span class="arithmatex">\((0.111111\dots)_2\)</span> 表示 <span class="arithmatex">\(1.0-\varepsilon\)</span> 的数，其中 <span class="arithmatex">\(\varepsilon=1/2^k\)</span></li>
+</ul>
+<p>局限：</p>
+<ul>
+<li>只能精确表示诸如 <span class="arithmatex">\(x/2^k\)</span> 的数，其他的值只能近似表示</li>
+<li>在一个 <span class="arithmatex">\(w\)</span> 位的数中，小数点位置固定导致表数范围有限</li>
+</ul>
+<h3 id="ieee">IEEE 浮点表示</h3>
+<p><strong>数学形式</strong></p>
+<p>IEEE 浮点标准用 <span class="arithmatex">\((-1)^s M 2^E\)</span> 表示一个浮点数：</p>
+<ul>
+<li>符号（sign） <span class="arithmatex">\(s\)</span> 确定了这个数是负数（<span class="arithmatex">\(s=1\)</span>）还是正数（<span class="arithmatex">\(s=0\)</span>），数值 <span class="arithmatex">\(0\)</span> 的符号位特殊处理</li>
+<li>尾数（significand）<span class="arithmatex">\(M\)</span> 是一个二进制小数，范围是 <span class="arithmatex">\(1\sim 2-\varepsilon\)</span> 或 <span class="arithmatex">\(0\sim 1-\varepsilon\)</span></li>
+<li>阶码（exponent）<span class="arithmatex">\(E\)</span> 表示 <span class="arithmatex">\(2\)</span> 的幂，是一个二进制整数</li>
+</ul>
+<p><strong>编码</strong></p>
+<p>浮点数的位表示分为三个字段：</p>
+<ul>
+<li>一个单独的符号位 <span class="arithmatex">\(\text{s}\)</span> 编码符号 <span class="arithmatex">\(s\)</span></li>
+<li><span class="arithmatex">\(k\)</span> 位的阶码字段 <span class="arithmatex">\(\text{exp}=e_{k-1}\cdots e_1e_0\)</span> 编码阶码 <span class="arithmatex">\(E\)</span>，采用移码</li>
+<li><span class="arithmatex">\(n\)</span> 位的小数字段 <span class="arithmatex">\(\text{frac}=f_{n-1}\cdots f_1f_0\)</span> 编码尾数 <span class="arithmatex">\(M\)</span>，编码值依赖阶码</li>
+</ul>
+<p><strong>精度类型</strong></p>
+<p class="center-img"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../representing-information-assets/ieee-precision-options.png" data-desc-position="bottom"><img alt="img" src="../representing-information-assets/ieee-precision-options.png" width="650"></a></p>
+<p><strong>情况 1：规格化值</strong></p>
+<p>条件：exp 的位模式不为全 0 也不为全 1（单精度 255，双精度 2047）</p>
+<div class="admonition note">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="阶码" name="__tabbed_1" type="radio"><input id="尾数" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="阶码">阶码</label><label for="尾数">尾数</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>阶码字段被解释为以偏置形式表示的有符号整数。</p>
+<p>阶码的值是 <span class="arithmatex">\(E=e-Bias\)</span>，其中 <span class="arithmatex">\(e\)</span> 是无符号数，位表示为 <span class="arithmatex">\(e_{k-1}\cdots e_1e_0\)</span>，而 <span class="arithmatex">\(Bias=2^{k-1}-1\)</span>。由此产生指数的取值范围：单精度为 <span class="arithmatex">\(-126\sim 127\)</span>，双精度为 <span class="arithmatex">\(-1022\sim 1023\)</span>。</p>
+</div>
+<div class="tabbed-block">
+<p>小数字段 frac 被解释为描述小数值 <span class="arithmatex">\(f\)</span>，其中 <span class="arithmatex">\(0\leqslant f&lt;1\)</span>，<span class="arithmatex">\(f=(0.f_{n-1}\cdots f_1f_0)_2\)</span>。</p>
+<p>尾数定义为 <span class="arithmatex">\(M=1+f\)</span>，这种隐含的以 1 开头的表示可以获得一个额外的精度位。</p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>情况 2：非规格化值</strong></p>
+<p>用于表示 <span class="arithmatex">\(+0.0\)</span> 和 <span class="arithmatex">\(-0.0\)</span> ，以及非常接近 <span class="arithmatex">\(0.0\)</span> 的值。其中，可能的数值分布均匀地接近于 <span class="arithmatex">\(0.0\)</span>，因为阶码值是一样大的。</p>
+<p>判断条件：阶码全为 <span class="arithmatex">\(0\)</span>。</p>
+<div class="admonition note">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="阶码_1" name="__tabbed_2" type="radio"><input id="尾数_1" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="阶码_1">阶码</label><label for="尾数_1">尾数</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>阶码的值是 <span class="arithmatex">\(E=1-Bias\)</span>，而不是简单的 <span class="arithmatex">\(-Bias\)</span>，这种方式提供了一种从非规格化值平滑转换到规格化值的方法。</p>
+</div>
+<div class="tabbed-block">
+<p>尾数的值是 <span class="arithmatex">\(M=f\)</span>，也就是小数字段的值，不包含隐含的开头的 <span class="arithmatex">\(1\)</span>。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">为什么非规格化数要这样设置偏置？</p>
+<p>将 <span class="arithmatex">\(E\)</span> 定义为 <span class="arithmatex">\(1-Bias\)</span> 而不是 <span class="arithmatex">\(-Bias\)</span>，这样最大非规格化数和最小规格化数的指数是一样的，可以补偿非规格化数的尾数没有隐含的开头的 1，实现两者之间的平滑转变。</p>
+</div>
+<p><strong>情况 3：特殊值</strong></p>
+<p>判断条件：阶码全为 <span class="arithmatex">\(1\)</span>。</p>
+<div class="admonition note">
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="无穷大" name="__tabbed_3" type="radio"><input id="nan" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="无穷大">无穷大</label><label for="nan">NaN</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>小数域全为 <span class="arithmatex">\(0\)</span> 时，表示无穷大，由符号位决定是 <span class="arithmatex">\(+\infty\)</span> 还是 <span class="arithmatex">\(-\infty\)</span>。</p>
+<p>无穷大可用来表示溢出结果。</p>
+<p>无穷大的来源：</p>
+<ul>
+<li>数值溢出</li>
+<li>有限非零数除以 <span class="arithmatex">\(0\)</span></li>
+<li><span class="arithmatex">\(\infty\)</span> 参与运算的传播</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>小数域不全为 <span class="arithmatex">\(0\)</span> 时，表示 NaN（Not a Number）。</p>
+<p>NaN 的来源：</p>
+<ul>
+<li>不定型算术运算，如：<span class="arithmatex">\(0/0\)</span>、<span class="arithmatex">\(\infty-\infty\)</span>、<span class="arithmatex">\(\infty/\infty\)</span>、<span class="arithmatex">\(0\times\infty\)</span></li>
+<li>函数输入超出定义域：如 <code>sqrt(-1)</code>、<code>log(-1)</code></li>
+<li>NaN 参与运算的传播</li>
+</ul>
+<p>比较：</p>
+<ul>
+<li>任何与 NaN 的有序比较（<code>&lt;, &lt;=, &gt;, &gt;=, ==</code>）结果都为 <code>false</code>，NaN 不等于任何值，<strong>包括它自身</strong></li>
+<li>不等比较的结果始终是 <code>true</code>。如果 <code>x != x</code> 成立，则 <code>x</code> 一定是 NaN</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition question">
+<p class="admonition-title">IEEE 浮点数 Q&amp;A</p>
+<p><strong>1. 浮点数的尾数为什么采用原码而不是补码？</strong></p>
+<ul>
+<li>符号位的解耦：判定正负只需检查最高位，无需对整个数值进行补码转换。</li>
+<li>乘除法运算的简化：如果尾数是原码，直接进行无符号乘法即可；若是补码，处理负数乘法的硬件逻辑会复杂得多。</li>
+<li>规格化的便利：负数的规格化形式会因为补码的特性变得极不直观，增加硬件开销，降低性能。</li>
+</ul>
+<p><strong>2. 阶码为什么采用移码？</strong></p>
+<ul>
+<li>二进制排序与实际大小一致</li>
+<li>正负指数处理简单</li>
+<li>与特殊值编码兼容，天然保留了 <span class="arithmatex">\(0\)</span> 和全 <span class="arithmatex">\(1\)</span> 作为特殊值的空间</li>
+</ul>
+<p><strong>3. <span class="arithmatex">\(\boldsymbol{Bias}\)</span> 为什么采用 <span class="arithmatex">\(\boldsymbol{2^{k-1}-1}\)</span> 而不是 <span class="arithmatex">\(\boldsymbol{2^{k-1}}\)</span>？</strong></p>
+<p>如果使用后者作为偏置，浮点数最小范围会整体向下移动一倍，而最大范围减少一倍。IEEE 754 的设计选择是：优先扩大可表示的最大数范围（更不容易溢出），而不是继续扩大最小数范围。</p>
+<p><strong>4. 浮点数为什么不怕 <span class="arithmatex">\(\boldsymbol{+0}\)</span> 与 <span class="arithmatex">\(\boldsymbol{-0}\)</span> 编码不一致的问题？</strong></p>
+<p>浮点数 <span class="arithmatex">\(+0\)</span> 与 <span class="arithmatex">\(-0\)</span> 是有意义的，在某些运算中会有不同表现，如：<span class="arithmatex">\(1/+0=+\infty,\ 1/-0=-\infty\)</span>。</p>
+<p>硬件层面也有专门的电路解决 <span class="arithmatex">\(0\)</span> 的比较问题。</p>
+</div>
+<p><strong>取值范围</strong></p>
+<p>单精度：</p>
+<table>
+<thead>
+<tr>
+<th>描述</th>
+<th>数值</th>
+<th>近似值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最小的非规格化正数</td>
+<td><span class="arithmatex">\(2^{-149}\)</span></td>
+<td><span class="arithmatex">\(1.401 \times 10^{-45}\)</span></td>
+</tr>
+<tr>
+<td>最大的非规格化正数</td>
+<td><span class="arithmatex">\((1 - 2^{-23}) \cdot 2^{-126}\)</span></td>
+<td><span class="arithmatex">\(1.175 \times 10^{-38}\)</span></td>
+</tr>
+<tr>
+<td>最小的规格化正数</td>
+<td><span class="arithmatex">\(2^{-126}\)</span></td>
+<td><span class="arithmatex">\(1.175 \times 10^{-38}\)</span></td>
+</tr>
+<tr>
+<td>最大的规格化正数</td>
+<td><span class="arithmatex">\((2 - 2^{-23}) \cdot 2^{127}\)</span></td>
+<td><span class="arithmatex">\(3.403 \times 10^{38}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>双精度：</p>
+<table>
+<thead>
+<tr>
+<th>描述</th>
+<th>数值</th>
+<th>近似值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最小的非规格化正数</td>
+<td><span class="arithmatex">\(2^{-1074}\)</span></td>
+<td><span class="arithmatex">\(4.940 \times 10^{-324}\)</span></td>
+</tr>
+<tr>
+<td>最大的非规格化正数</td>
+<td><span class="arithmatex">\((1 - 2^{-52}) \cdot 2^{-1022}\)</span></td>
+<td><span class="arithmatex">\(2.225 \times 10^{-308}\)</span></td>
+</tr>
+<tr>
+<td>最小的规格化正数</td>
+<td><span class="arithmatex">\(2^{-1022}\)</span></td>
+<td><span class="arithmatex">\(2.225 \times 10^{-308}\)</span></td>
+</tr>
+<tr>
+<td>最大的规格化正数</td>
+<td><span class="arithmatex">\((2 - 2^{-52}) \cdot 2^{1023}\)</span></td>
+<td><span class="arithmatex">\(1.798 \times 10^{308}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>扩展精度：</p>
+<table>
+<thead>
+<tr>
+<th>描述</th>
+<th>数值</th>
+<th>近似值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最小的非规格化正数</td>
+<td><span class="arithmatex">\(2^{-16494}\)</span></td>
+<td><span class="arithmatex">\(3.645 \times 10^{-4951}\)</span></td>
+</tr>
+<tr>
+<td>最大的非规格化正数</td>
+<td><span class="arithmatex">\((1 - 2^{-63}) \cdot 2^{-16382}\)</span></td>
+<td><span class="arithmatex">\(3.362 \times 10^{-4932}\)</span></td>
+</tr>
+<tr>
+<td>最小的规格化正数</td>
+<td><span class="arithmatex">\(2^{-16382}\)</span></td>
+<td><span class="arithmatex">\(3.362 \times 10^{-4932}\)</span></td>
+</tr>
+<tr>
+<td>最大的规格化正数</td>
+<td><span class="arithmatex">\((2 - 2^{-63}) \cdot 2^{16384}\)</span></td>
+<td><span class="arithmatex">\(1.190 \times 10^{4932}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_14">浮点数示例</h3>
+<p><strong>编码示例</strong></p>
+<p>一个 8 位浮点数表示示例，有 1 位符号位、4 位阶码（偏置为 7）、3 位尾数。</p>
+<p class="center-img"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../representing-information-assets/ieee-eg.png" data-desc-position="bottom"><img alt="img" src="../representing-information-assets/ieee-eg.png" width="700"></a></p>
+<p><strong>取值分布</strong></p>
+<p>一个 6 位浮点数表示，有 3 位阶码（偏置为 3）、2 位尾数。</p>
+<p class="center-img"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../representing-information-assets/ieee-distribution.png" data-desc-position="bottom"><img alt="img" src="../representing-information-assets/ieee-distribution.png" width="720"></a></p>
+<p>局部放大：</p>
+<p class="center-img"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../representing-information-assets/ieee-distribution-close-up-view.png" data-desc-position="bottom"><img alt="img" src="../representing-information-assets/ieee-distribution-close-up-view.png" width="720"></a></p>
+<p>可以观察到，可表示的数不是均匀分布的，越靠近原点处越稠密。</p>
+<p><strong>特殊性质</strong></p>
+<ul>
+<li>浮点数 <span class="arithmatex">\(0\)</span> 和整数 <span class="arithmatex">\(0\)</span> 的编码是相同的，所有位均为 <span class="arithmatex">\(0\)</span></li>
+<li>几乎可以使用与无符号数相同的比较方法，但：<ul>
+<li>需要比较符号位</li>
+<li>需要考虑 <span class="arithmatex">\(-0.0=+0.0\)</span></li>
+<li>需要考虑 NaN</li>
+</ul>
+</li>
+</ul>
+<h3 id="_15">舍入</h3>
+<p><strong>舍入方式</strong></p>
+<ul>
+<li>向 0 舍入（Towards zero）</li>
+<li>向下舍入（Round down）</li>
+<li>向上舍入（Round up）</li>
+<li>向偶数舍入（Nearest Even）（默认）</li>
+</ul>
+<p><strong>向偶数舍入</strong></p>
+<p>向偶数舍入是 IEEE 754 默认的舍入方案，其他的方案都会产生统计偏差。</p>
+<p>恰好在中间的值会被舍入到最近的偶数。</p>
+<div class="admonition example">
+<p class="admonition-title">示例：舍入到百分位</p>
+<div class="no-border-table">
+<table>
+<thead>
+<tr>
+<th>数值</th>
+<th>舍入结果</th>
+<th>情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.2349999</td>
+<td>1.23</td>
+<td>Less than half way</td>
+</tr>
+<tr>
+<td>1.2350001</td>
+<td>1.24</td>
+<td>Greater than half way</td>
+</tr>
+<tr>
+<td>1.2350000</td>
+<td>1.24</td>
+<td>Half way - round up</td>
+</tr>
+<tr>
+<td>1.2450000</td>
+<td>1.24</td>
+<td>Half way - round down</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>二进制数舍入</strong></p>
+<p>对于二进制小数：</p>
+<div class="annotate">
+<ul>
+<li>「偶数」指的是 LSB 为 0 (1)</li>
+<li>「中间值」指的是舍入位的右边恰好为 100…<sub>2</sub></li>
+</ul>
+</div>
+<ol>
+<li>LSB：Least significant bit，最低有效位</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">示例：舍入到最近的 <span class="arithmatex">\(\boldsymbol{1/4}\)</span>（小数点后两位）</p>
+<div class="no-border-table">
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Binary</th>
+<th>Rounded</th>
+<th>Action</th>
+<th>Rounded Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(2\dfrac{3}{32}\)</span></td>
+<td><span class="arithmatex">\(10.00011_2\)</span></td>
+<td><span class="arithmatex">\(10.00_2\)</span></td>
+<td><span class="arithmatex">\(&lt;\dfrac{1}{2}\)</span>（down）</td>
+<td><span class="arithmatex">\(2\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(2\dfrac{3}{16}\)</span></td>
+<td><span class="arithmatex">\(10.00110_2\)</span></td>
+<td><span class="arithmatex">\(10.01_2\)</span></td>
+<td><span class="arithmatex">\(&gt;\dfrac{1}{2}\)</span>（up）</td>
+<td><span class="arithmatex">\(2\dfrac{1}{4}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(2\dfrac{7}{8}\)</span></td>
+<td><span class="arithmatex">\(10.11100_2\)</span></td>
+<td><span class="arithmatex">\(11.00_2\)</span></td>
+<td><span class="arithmatex">\(\dfrac{1}{2}\)</span>（up）</td>
+<td><span class="arithmatex">\(3\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(2\dfrac{5}{8}\)</span></td>
+<td><span class="arithmatex">\(10.10100_2\)</span></td>
+<td><span class="arithmatex">\(10.10_2\)</span></td>
+<td><span class="arithmatex">\(\dfrac{1}{2}\)</span>（down）</td>
+<td><span class="arithmatex">\(2\dfrac{1}{2}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">IEEE 754 「向偶数舍入」判定条件</p>
+<p>在进行浮点数加减法（对阶）或乘法运算时，结果往往会超出原有的尾数长度。为了保证正确舍入，计算机会在内部多保留这三位附加位（Extra bits）：</p>
+<ul>
+<li>Guard bit (G)：保护位，紧跟在 LSB 后的第一位</li>
+<li>Round bit (R)：舍入位，位于保护位之后</li>
+<li>Sticky bit (S)：粘滞位（粘性位），舍入位的后一位到尾数最低位 OR 的结果</li>
+</ul>
+<p>当 G、R、S 分别等于 1、0、0 时，说明刚好处于中间值（Tie）。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">关于舍入位</p>
+<p>注意，舍入位在不同语境中可能有不同含义。</p>
+<p>在讨论小数舍入操作时，舍入位（rouding positon）指的是保留后小数有效位的最后一位。</p>
+<p>在 IEEE 754 舍入术语中，舍入位（round bit）指的是小数舍入后被截断部分的第二位。</p>
+</div>
+<h3 id="_16">浮点运算</h3>
+<p><strong>浮点数加法</strong></p>
+<ol>
+<li>对阶，小阶向大阶对齐</li>
+<li>尾数进行加法运算</li>
+<li>结果规格化处理，并判断是否溢出</li>
+<li>进行舍入处理</li>
+</ol>
+<p class="center-img"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../representing-information-assets/ieee-exp-alignment.png" data-desc-position="bottom"><img alt="img" src="../representing-information-assets/ieee-exp-alignment.png" width="400"></a></p>
+<div class="admonition note">
+<p class="admonition-title">左规和右规</p>
+<ul>
+<li>左规（Left Normalization）：当运算结果的尾数绝对值小于 <span class="arithmatex">\(1\)</span> 时进行，尾数向左移，阶码减小。</li>
+<li>右规（Right Normalization）：当运算结果发生尾数溢出时进行，尾数向右移，阶码增大。右规时，移出的末位通常会进入 G、R、S位，以便后续进行精确的舍入处理。</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">后规格化（postnormalize）</p>
+<p>在浮点数运算中，当对尾数进行舍入处理时，可能会让原本已经规格化的数字发生进位，需要将尾数右移一位，同时将指数加 1。</p>
+</div>
+<p><strong>浮点数加法的数学特性</strong></p>
+<p>与阿贝尔群特性的比较：</p>
+<ul>
+<li>封闭性：会产生无穷大或 NaN，但在 IEEE 754 标准下封闭</li>
+<li>可交换性：是</li>
+<li>可结合性：由于溢出和舍入的存在，否</li>
+<li>0 是加法单位元：是</li>
+<li>每个元素都有加法逆元：几乎是，但无穷大和 NaN 除外</li>
+</ul>
+<p>单调性：</p>
+<ul>
+<li><span class="arithmatex">\(a\geqslant b \Rightarrow a+c \geqslant b+c\)</span>：几乎成立，无穷大和 NaN 除外</li>
+</ul>
+<p><strong>浮点数乘法</strong></p>
+<p>对于浮点数乘法 <span class="arithmatex">\((–1)^{s_1} M_1 2^{E_1} \times (–1)^{s_2} M_2 2^{E_2}\)</span>：</p>
+<p>精确结果：<span class="arithmatex">\((–1)^s M 2^E\)</span></p>
+<ul>
+<li>符号位 s：<span class="arithmatex">\(s_1 \oplus&nbsp;s_2\)</span></li>
+<li>尾数 M：<span class="arithmatex">\(M_1 \times&nbsp;M_2\)</span></li>
+<li>指数 E：<span class="arithmatex">\(E_1 +&nbsp;E_2\)</span></li>
+</ul>
+<p>调整：</p>
+<ul>
+<li>如果 <span class="arithmatex">\(M \geqslant 2\)</span>，<span class="arithmatex">\(M\)</span> 右移一位，<span class="arithmatex">\(E\)</span> 自加一</li>
+<li>如果 <span class="arithmatex">\(E\)</span> 超出表示范围，则发生溢出</li>
+<li>将 <span class="arithmatex">\(M\)</span> 舍入到合适的位数范围</li>
+</ul>
+<p><strong>浮点数乘法的数学特性</strong></p>
+<p>与交换环特性的比较：</p>
+<ul>
+<li>封闭性：会产生无穷大或 NaN，但在 IEEE 754 标准下封闭</li>
+<li>可交换性：是</li>
+<li>可结合性：由于溢出和舍入的存在，否</li>
+<li>1 是乘法单位元：是</li>
+<li>乘法对加法满足分配律：由于溢出和舍入的存在，否</li>
+</ul>
+<p>单调性：</p>
+<ul>
+<li><span class="arithmatex">\(a \geqslant b \land c \geqslant 0 \Rightarrow a \times c \geqslant b \times c\)</span>：几乎成立，无穷大和 NaN 除外</li>
+</ul>
+<h3 id="c">C 中的浮点数</h3>
+<p><strong>类型转换</strong></p>
+<p>在 <code>int</code>、<code>float</code> 和 <code>double</code> 之间进行强制转换会改变位的表示方式。</p>
+<ul>
+<li><code>double</code> / <code>float</code> <span class="arithmatex">\(\rightarrow\)</span> <code>int</code>：<ul>
+<li>截断小数部分，类似于向零取整</li>
+<li>当数值超出范围或为 NaN 时未定义，通常会被设置为 <span class="arithmatex">\(TMin\)</span></li>
+</ul>
+</li>
+<li><code>int</code> <span class="arithmatex">\(\rightarrow\)</span> <code>double</code>：<ul>
+<li>只要 <code>int</code> 的字长 <span class="arithmatex">\(\leqslant53\)</span> 位，就是精确转换</li>
+</ul>
+</li>
+<li><code>int</code> <span class="arithmatex">\(\rightarrow\)</span> <code>float</code><ul>
+<li>可能会发生舍入</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚">
+        
+          
+          <a href="../../../languages/rust/programming-rust/rust-basic/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 基础与内存模型">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                基础与内存模型
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../machine-level-representation/" class="md-footer__link md-footer__link--next" aria-label="下一页: 程序的机器级表示">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                程序的机器级表示
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/kas030" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tooltips", "navigation.path", "toc.follow", "navigation.top", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/math-environments.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="../../../javascripts/shell-highlight.js"></script>
+      
+        <script src="../../../javascripts/knowledge-graph.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

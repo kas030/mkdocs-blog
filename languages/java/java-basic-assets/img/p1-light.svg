@@ -1,0 +1,25 @@
+<svg width="450" height="300" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    :root {
+      --fg-color: #000000de;
+      --bg-color: #ffffff;
+    }
+  </style>
+  <rect width="100%" height="100%" fill="var(--bg-color)"/>
+  
+  <ellipse stroke="var(--fg-color)" ry="120" rx="175" cy="150" cx="225" fill="none"/>
+  <text transform="matrix(0.654917 0 0 0.654917 15.1837 15.3562)" stroke="var(--fg-color)" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="24" y="105.25589" x="402.53777" stroke-width="0" fill="var(--fg-color)">JDK</text>
+
+  <ellipse stroke="var(--fg-color)" ry="80" rx="105" cy="150" cx="165" fill="none"/>
+  <text transform="matrix(0.654917 0 0 0.654917 15.1837 15.3562)" stroke="var(--fg-color)" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="24" stroke-width="0" y="216.25591" x="86.53776" fill="var(--fg-color)">JRE</text>
+
+  <ellipse stroke="var(--fg-color)" ry="22.92208" rx="60.25231" cy="123.14842" cx="178.71922" fill="none"/>
+  <text transform="matrix(0.654917 0 0 0.654917 15.1837 15.3562)" stroke="var(--fg-color)" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="24" y="175.25587" x="176.12106" stroke-width="0" fill="var(--fg-color)">JVM（跨平台）</text>
+
+  <ellipse stroke="var(--fg-color)" ry="22.92208" rx="60.25231" cy="176.85158" cx="178.71923" fill="none"/>
+  <text transform="matrix(0.654917 0 0 0.654917 15.1837 15.3562)" stroke="var(--fg-color)" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="24" y="257.25586" x="201.70438" stroke-width="0" fill="var(--fg-color)">核心类库</text>
+
+  <ellipse stroke="var(--fg-color)" ry="35.03803" rx="47.80891" cy="150" cx="341.6843" fill="none"/>
+  <text transform="matrix(0.654917 0 0 0.654917 15.1837 15.3562)" stroke="var(--fg-color)" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="24" y="216.2559" x="450.53782" stroke-width="0" fill="var(--fg-color)">开发工具</text>
+</svg>
+  

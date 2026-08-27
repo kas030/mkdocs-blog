@@ -1,0 +1,128 @@
+/* 数学环境：定义、定理、引理、推论、例子与证明 */
+:root {
+    --math-def-border: #43a047;
+    --math-def-background: #eef9ee;
+    --math-thm-border: #42a5c6;
+    --math-thm-background: #eaf6fc;
+    --math-lem-border: #b06cba;
+    --math-lem-background: #f6eef8;
+    --math-cor-border: #c99a45;
+    --math-cor-background: #fbf5e9;
+    --math-example-border: #e5a400;
+    --math-example-background: #fae3d6;
+    --math-proof-border: #4faaa3;
+    --math-proof-background: #e8f6f4;
+}
+
+[data-md-color-scheme="slate"] {
+    --math-def-border: #66bb6a;
+    --math-def-background: rgba(76, 175, 80, 0.12);
+    --math-thm-border: #4fc3f7;
+    --math-thm-background: rgba(79, 195, 247, 0.12);
+    --math-lem-border: #ce93d8;
+    --math-lem-background: rgba(206, 147, 216, 0.12);
+    --math-cor-border: #e0b76a;
+    --math-cor-background: rgba(224, 183, 106, 0.12);
+    --math-example-border: #f0b323;
+    --math-example-background: rgba(218, 159, 113, 0.16);
+    --math-proof-border: #60c2b9;
+    --math-proof-background: rgba(79, 170, 163, 0.16);
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-example, .math-proof) {
+    margin: 1.25em 0;
+    padding: 0.8rem 1rem;
+    border-left: 0.15rem solid;
+    border-radius: 0.1rem;
+    font-size: 0.64rem;
+    scroll-margin-top: 4rem;
+}
+
+.md-typeset .math-def {
+    border-left-color: var(--math-def-border);
+    background-color: var(--math-def-background);
+}
+
+.md-typeset .math-thm {
+    border-left-color: var(--math-thm-border);
+    background-color: var(--math-thm-background);
+}
+
+.md-typeset .math-lem {
+    border-left-color: var(--math-lem-border);
+    background-color: var(--math-lem-background);
+}
+
+.md-typeset .math-cor {
+    border-left-color: var(--math-cor-border);
+    background-color: var(--math-cor-background);
+}
+
+.md-typeset .math-example {
+    border-left-color: var(--math-example-border);
+    background-color: var(--math-example-background);
+}
+
+.md-typeset .math-proof {
+    border-left-color: var(--math-proof-border);
+    background-color: var(--math-proof-background);
+}
+
+.md-typeset .math-heading {
+    margin: 0 0 0.6em;
+    font-weight: 700;
+}
+
+.md-typeset .math-heading__title {
+    font-weight: 400;
+}
+
+.md-typeset .math-ref--missing {
+    color: var(--md-typeset-del-color);
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-example, .math-proof) > :first-child {
+    margin-top: 0;
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-example, .math-proof) > :last-child {
+    margin-bottom: 0;
+}
+
+/* 移除数学环境中块级公式及其相邻段落的额外间距 */
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-example, .math-proof) > .arithmatex {
+    margin-block: 0;
+    padding-block: 1em;
+    line-height: 0;
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-example, .math-proof) .katex-display {
+    margin-block: 0;
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-example, .math-proof) > :has(+ .arithmatex) {
+    margin-bottom: 0;
+}
+
+.md-typeset :is(.math-def, .math-thm, .math-lem, .math-cor, .math-example, .math-proof) > .arithmatex + * {
+    margin-top: 0;
+}
+
+/* math 目录下全部笔记的块级公式使用紧凑间距 */
+.math-notes-page .md-typeset .arithmatex {
+    margin-block: 0;
+    padding-block: 1em;
+    line-height: 0;
+}
+
+.math-notes-page .md-typeset .katex-display {
+    margin-block: 0;
+}
+
+.math-notes-page .md-typeset :has(+ .arithmatex) {
+    margin-bottom: 0;
+}
+
+.math-notes-page .md-typeset .arithmatex + * {
+    margin-top: 0;
+}

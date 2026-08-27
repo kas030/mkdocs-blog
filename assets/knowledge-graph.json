@@ -1,0 +1,1109 @@
+{
+  "meta": {
+    "generatedAt": "2026-08-27T12:49:46.174828+00:00",
+    "counts": {
+      "category": 17,
+      "article": 40,
+      "tag": 30
+    }
+  },
+  "nodes": [
+    {
+      "id": "root:site",
+      "type": "root",
+      "label": "KAS 的笔记"
+    },
+    {
+      "id": "category:1",
+      "type": "category",
+      "label": "编程语言"
+    },
+    {
+      "id": "category:1.0",
+      "type": "category",
+      "label": "Java"
+    },
+    {
+      "id": "article:languages/java/java-basic.md",
+      "type": "article",
+      "label": "Java 基础",
+      "url": "languages/java/java-basic/"
+    },
+    {
+      "id": "article:languages/java/java-exception.md",
+      "type": "article",
+      "label": "Java 异常",
+      "url": "languages/java/java-exception/"
+    },
+    {
+      "id": "article:languages/java/java-collection.md",
+      "type": "article",
+      "label": "Java 集合",
+      "url": "languages/java/java-collection/"
+    },
+    {
+      "id": "article:languages/java/java-regex.md",
+      "type": "article",
+      "label": "Java 正则表达式",
+      "url": "languages/java/java-regex/"
+    },
+    {
+      "id": "category:1.1",
+      "type": "category",
+      "label": "Rust"
+    },
+    {
+      "id": "category:1.1.0",
+      "type": "category",
+      "label": "Programming Rust"
+    },
+    {
+      "id": "article:languages/rust/programming-rust/rust-basic.md",
+      "type": "article",
+      "label": "基础与内存模型",
+      "url": "languages/rust/programming-rust/rust-basic/"
+    },
+    {
+      "id": "category:2",
+      "type": "category",
+      "label": "课程"
+    },
+    {
+      "id": "category:2.0",
+      "type": "category",
+      "label": "CMU CS15-213: CSAPP"
+    },
+    {
+      "id": "article:courses/cmu-cs15-213-csapp/representing-information.md",
+      "type": "article",
+      "label": "信息的表示和处理",
+      "url": "courses/cmu-cs15-213-csapp/representing-information/"
+    },
+    {
+      "id": "article:courses/cmu-cs15-213-csapp/machine-level-representation.md",
+      "type": "article",
+      "label": "程序的机器级表示",
+      "url": "courses/cmu-cs15-213-csapp/machine-level-representation/"
+    },
+    {
+      "id": "article:courses/cmu-cs15-213-csapp/linking.md",
+      "type": "article",
+      "label": "链接",
+      "url": "courses/cmu-cs15-213-csapp/linking/"
+    },
+    {
+      "id": "article:courses/cmu-cs15-213-csapp/memory-hierarchy.md",
+      "type": "article",
+      "label": "存储器层级结构",
+      "url": "courses/cmu-cs15-213-csapp/memory-hierarchy/"
+    },
+    {
+      "id": "article:courses/cmu-cs15-213-csapp/processes-and-exceptions.md",
+      "type": "article",
+      "label": "异常控制流与进程",
+      "url": "courses/cmu-cs15-213-csapp/processes-and-exceptions/"
+    },
+    {
+      "id": "article:courses/cmu-cs15-213-csapp/virtual-memory.md",
+      "type": "article",
+      "label": "虚拟内存",
+      "url": "courses/cmu-cs15-213-csapp/virtual-memory/"
+    },
+    {
+      "id": "category:2.1",
+      "type": "category",
+      "label": "MIT IAP web.lab"
+    },
+    {
+      "id": "article:courses/mit-iap-weblab/html-and-css.md",
+      "type": "article",
+      "label": "HTML 和 CSS",
+      "url": "courses/mit-iap-weblab/html-and-css/"
+    },
+    {
+      "id": "category:2.2",
+      "type": "category",
+      "label": "GAMES101"
+    },
+    {
+      "id": "article:courses/games101/transformations.md",
+      "type": "article",
+      "label": "变换",
+      "url": "courses/games101/transformations/"
+    },
+    {
+      "id": "article:courses/games101/rasterization.md",
+      "type": "article",
+      "label": "光栅化",
+      "url": "courses/games101/rasterization/"
+    },
+    {
+      "id": "article:courses/games101/shading.md",
+      "type": "article",
+      "label": "着色",
+      "url": "courses/games101/shading/"
+    },
+    {
+      "id": "article:courses/games101/geometry.md",
+      "type": "article",
+      "label": "几何",
+      "url": "courses/games101/geometry/"
+    },
+    {
+      "id": "category:2.3",
+      "type": "category",
+      "label": "CS61A"
+    },
+    {
+      "id": "article:courses/cs61a/functions-and-control.md",
+      "type": "article",
+      "label": "函数与控制",
+      "url": "courses/cs61a/functions-and-control/"
+    },
+    {
+      "id": "article:courses/cs61a/higher-order-functions.md",
+      "type": "article",
+      "label": "高阶函数与函数抽象",
+      "url": "courses/cs61a/higher-order-functions/"
+    },
+    {
+      "id": "article:courses/cs61a/recursion.md",
+      "type": "article",
+      "label": "递归",
+      "url": "courses/cs61a/recursion/"
+    },
+    {
+      "id": "article:courses/cs61a/sequences-and-data-abstraction.md",
+      "type": "article",
+      "label": "序列与数据抽象",
+      "url": "courses/cs61a/sequences-and-data-abstraction/"
+    },
+    {
+      "id": "article:courses/cs61a/mutability-and-iterators.md",
+      "type": "article",
+      "label": "可变性、迭代器与生成器",
+      "url": "courses/cs61a/mutability-and-iterators/"
+    },
+    {
+      "id": "article:courses/cs61a/object-oriented-programming.md",
+      "type": "article",
+      "label": "面向对象编程",
+      "url": "courses/cs61a/object-oriented-programming/"
+    },
+    {
+      "id": "article:courses/cs61a/scheme-and-interpreters.md",
+      "type": "article",
+      "label": "Scheme 与解释器",
+      "url": "courses/cs61a/scheme-and-interpreters/"
+    },
+    {
+      "id": "article:courses/cs61a/sql-and-databases.md",
+      "type": "article",
+      "label": "SQL 与数据库",
+      "url": "courses/cs61a/sql-and-databases/"
+    },
+    {
+      "id": "category:2.4",
+      "type": "category",
+      "label": "CS61C"
+    },
+    {
+      "id": "article:courses/cs61c/riscv.md",
+      "type": "article",
+      "label": "RISC-V",
+      "url": "courses/cs61c/riscv/"
+    },
+    {
+      "id": "article:courses/dive-into-deep-learning.md",
+      "type": "article",
+      "label": "动手学深度学习",
+      "url": "courses/dive-into-deep-learning/"
+    },
+    {
+      "id": "category:2.6",
+      "type": "category",
+      "label": "NTU 机器学习"
+    },
+    {
+      "id": "article:courses/ntu-ml/ml-basic-theory.md",
+      "type": "article",
+      "label": "机器学习基础",
+      "url": "courses/ntu-ml/ml-basic-theory/"
+    },
+    {
+      "id": "category:3",
+      "type": "category",
+      "label": "算法竞赛"
+    },
+    {
+      "id": "category:3.0",
+      "type": "category",
+      "label": "数学"
+    },
+    {
+      "id": "article:oi/math/lucas-theorem.md",
+      "type": "article",
+      "label": "卢卡斯定理",
+      "url": "oi/math/lucas-theorem/"
+    },
+    {
+      "id": "article:oi/math/catalan-number.md",
+      "type": "article",
+      "label": "卡特兰数",
+      "url": "oi/math/catalan-number/"
+    },
+    {
+      "id": "category:3.1",
+      "type": "category",
+      "label": "题解"
+    },
+    {
+      "id": "article:oi/solutions/2025-icpc-wuhan-invitational-contest-g.md",
+      "type": "article",
+      "label": "2025 ICPC Wuhan - G Path Summing Problem",
+      "url": "oi/solutions/2025-icpc-wuhan-invitational-contest-g/"
+    },
+    {
+      "id": "article:oi/solutions/lncpc-2025-e-entering-the-unknown.md",
+      "type": "article",
+      "label": "LNCPC 2025 E Entering the unknown",
+      "url": "oi/solutions/lncpc-2025-e-entering-the-unknown/"
+    },
+    {
+      "id": "article:oi/solutions/cf-2074d-counting-points.md",
+      "type": "article",
+      "label": "Codeforces 2074D Counting Points",
+      "url": "oi/solutions/cf-2074d-counting-points/"
+    },
+    {
+      "id": "article:oi/solutions/cf-2120c-divine-tree.md",
+      "type": "article",
+      "label": "Codeforces 2120C Divine Tree",
+      "url": "oi/solutions/cf-2120c-divine-tree/"
+    },
+    {
+      "id": "article:oi/solutions/cf-2123e-mex-count.md",
+      "type": "article",
+      "label": "Codeforces 2123E Mex Count",
+      "url": "oi/solutions/cf-2123e-mex-count/"
+    },
+    {
+      "id": "category:4",
+      "type": "category",
+      "label": "数学"
+    },
+    {
+      "id": "category:4.0",
+      "type": "category",
+      "label": "组合数学"
+    },
+    {
+      "id": "article:math/introductory-combinatorics/what-is-combinatorics.md",
+      "type": "article",
+      "label": "什么是组合数学",
+      "url": "math/introductory-combinatorics/what-is-combinatorics/"
+    },
+    {
+      "id": "article:math/introductory-combinatorics/permutations-and-combinations.md",
+      "type": "article",
+      "label": "排列与组合",
+      "url": "math/introductory-combinatorics/permutations-and-combinations/"
+    },
+    {
+      "id": "category:5",
+      "type": "category",
+      "label": "工具"
+    },
+    {
+      "id": "article:tools/gnu-toolchain.md",
+      "type": "article",
+      "label": "GNU 工具链",
+      "url": "tools/gnu-toolchain/"
+    },
+    {
+      "id": "article:tools/cmake.md",
+      "type": "article",
+      "label": "CMake",
+      "url": "tools/cmake/"
+    },
+    {
+      "id": "article:tools/github-cli.md",
+      "type": "article",
+      "label": "GitHub CLI",
+      "url": "tools/github-cli/"
+    },
+    {
+      "id": "article:tools/conda.md",
+      "type": "article",
+      "label": "Conda",
+      "url": "tools/conda/"
+    },
+    {
+      "id": "tag:C",
+      "type": "tag",
+      "label": "C"
+    },
+    {
+      "id": "tag:C++",
+      "type": "tag",
+      "label": "C++"
+    },
+    {
+      "id": "tag:C++20",
+      "type": "tag",
+      "label": "C++20"
+    },
+    {
+      "id": "tag:Codeforces",
+      "type": "tag",
+      "label": "Codeforces"
+    },
+    {
+      "id": "tag:CSAPP",
+      "type": "tag",
+      "label": "CSAPP"
+    },
+    {
+      "id": "tag:GitHub",
+      "type": "tag",
+      "label": "GitHub"
+    },
+    {
+      "id": "tag:ICPC",
+      "type": "tag",
+      "label": "ICPC"
+    },
+    {
+      "id": "tag:LNCPC",
+      "type": "tag",
+      "label": "LNCPC"
+    },
+    {
+      "id": "tag:Python",
+      "type": "tag",
+      "label": "Python"
+    },
+    {
+      "id": "tag:PyTorch",
+      "type": "tag",
+      "label": "PyTorch"
+    },
+    {
+      "id": "tag:RISC-V",
+      "type": "tag",
+      "label": "RISC-V"
+    },
+    {
+      "id": "tag:Rust",
+      "type": "tag",
+      "label": "Rust"
+    },
+    {
+      "id": "tag:RustRover",
+      "type": "tag",
+      "label": "RustRover"
+    },
+    {
+      "id": "tag:Scheme",
+      "type": "tag",
+      "label": "Scheme"
+    },
+    {
+      "id": "tag:SQL",
+      "type": "tag",
+      "label": "SQL"
+    },
+    {
+      "id": "tag:人工智能",
+      "type": "tag",
+      "label": "人工智能"
+    },
+    {
+      "id": "tag:前缀和",
+      "type": "tag",
+      "label": "前缀和"
+    },
+    {
+      "id": "tag:数学",
+      "type": "tag",
+      "label": "数学"
+    },
+    {
+      "id": "tag:机器学习",
+      "type": "tag",
+      "label": "机器学习"
+    },
+    {
+      "id": "tag:构造",
+      "type": "tag",
+      "label": "构造"
+    },
+    {
+      "id": "tag:树",
+      "type": "tag",
+      "label": "树"
+    },
+    {
+      "id": "tag:根号分治",
+      "type": "tag",
+      "label": "根号分治"
+    },
+    {
+      "id": "tag:深度学习",
+      "type": "tag",
+      "label": "深度学习"
+    },
+    {
+      "id": "tag:算法",
+      "type": "tag",
+      "label": "算法"
+    },
+    {
+      "id": "tag:组合数学",
+      "type": "tag",
+      "label": "组合数学"
+    },
+    {
+      "id": "tag:计算几何",
+      "type": "tag",
+      "label": "计算几何"
+    },
+    {
+      "id": "tag:计算机体系结构",
+      "type": "tag",
+      "label": "计算机体系结构"
+    },
+    {
+      "id": "tag:计算机图形学",
+      "type": "tag",
+      "label": "计算机图形学"
+    },
+    {
+      "id": "tag:计算机系统",
+      "type": "tag",
+      "label": "计算机系统"
+    },
+    {
+      "id": "tag:贪心",
+      "type": "tag",
+      "label": "贪心"
+    }
+  ],
+  "edges": [
+    {
+      "source": "root:site",
+      "target": "category:1",
+      "type": "root"
+    },
+    {
+      "source": "category:1",
+      "target": "category:1.0",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:1.0",
+      "target": "article:languages/java/java-basic.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:1.0",
+      "target": "article:languages/java/java-exception.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:1.0",
+      "target": "article:languages/java/java-collection.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:1.0",
+      "target": "article:languages/java/java-regex.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:1",
+      "target": "category:1.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:1.1",
+      "target": "category:1.1.0",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:1.1.0",
+      "target": "article:languages/rust/programming-rust/rust-basic.md",
+      "type": "contains"
+    },
+    {
+      "source": "root:site",
+      "target": "category:2",
+      "type": "root"
+    },
+    {
+      "source": "category:2",
+      "target": "category:2.0",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:2.0",
+      "target": "article:courses/cmu-cs15-213-csapp/representing-information.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.0",
+      "target": "article:courses/cmu-cs15-213-csapp/machine-level-representation.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.0",
+      "target": "article:courses/cmu-cs15-213-csapp/linking.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.0",
+      "target": "article:courses/cmu-cs15-213-csapp/memory-hierarchy.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.0",
+      "target": "article:courses/cmu-cs15-213-csapp/processes-and-exceptions.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.0",
+      "target": "article:courses/cmu-cs15-213-csapp/virtual-memory.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2",
+      "target": "category:2.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:2.1",
+      "target": "article:courses/mit-iap-weblab/html-and-css.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2",
+      "target": "category:2.2",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:2.2",
+      "target": "article:courses/games101/transformations.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.2",
+      "target": "article:courses/games101/rasterization.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.2",
+      "target": "article:courses/games101/shading.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.2",
+      "target": "article:courses/games101/geometry.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2",
+      "target": "category:2.3",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:2.3",
+      "target": "article:courses/cs61a/functions-and-control.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.3",
+      "target": "article:courses/cs61a/higher-order-functions.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.3",
+      "target": "article:courses/cs61a/recursion.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.3",
+      "target": "article:courses/cs61a/sequences-and-data-abstraction.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.3",
+      "target": "article:courses/cs61a/mutability-and-iterators.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.3",
+      "target": "article:courses/cs61a/object-oriented-programming.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.3",
+      "target": "article:courses/cs61a/scheme-and-interpreters.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2.3",
+      "target": "article:courses/cs61a/sql-and-databases.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2",
+      "target": "category:2.4",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:2.4",
+      "target": "article:courses/cs61c/riscv.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2",
+      "target": "article:courses/dive-into-deep-learning.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:2",
+      "target": "category:2.6",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:2.6",
+      "target": "article:courses/ntu-ml/ml-basic-theory.md",
+      "type": "contains"
+    },
+    {
+      "source": "root:site",
+      "target": "category:3",
+      "type": "root"
+    },
+    {
+      "source": "category:3",
+      "target": "category:3.0",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:3.0",
+      "target": "article:oi/math/lucas-theorem.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:3.0",
+      "target": "article:oi/math/catalan-number.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:3",
+      "target": "category:3.1",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:3.1",
+      "target": "article:oi/solutions/2025-icpc-wuhan-invitational-contest-g.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:3.1",
+      "target": "article:oi/solutions/lncpc-2025-e-entering-the-unknown.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:3.1",
+      "target": "article:oi/solutions/cf-2074d-counting-points.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:3.1",
+      "target": "article:oi/solutions/cf-2120c-divine-tree.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:3.1",
+      "target": "article:oi/solutions/cf-2123e-mex-count.md",
+      "type": "contains"
+    },
+    {
+      "source": "root:site",
+      "target": "category:4",
+      "type": "root"
+    },
+    {
+      "source": "category:4",
+      "target": "category:4.0",
+      "type": "hierarchy"
+    },
+    {
+      "source": "category:4.0",
+      "target": "article:math/introductory-combinatorics/what-is-combinatorics.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:4.0",
+      "target": "article:math/introductory-combinatorics/permutations-and-combinations.md",
+      "type": "contains"
+    },
+    {
+      "source": "root:site",
+      "target": "category:5",
+      "type": "root"
+    },
+    {
+      "source": "category:5",
+      "target": "article:tools/gnu-toolchain.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:5",
+      "target": "article:tools/cmake.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:5",
+      "target": "article:tools/github-cli.md",
+      "type": "contains"
+    },
+    {
+      "source": "category:5",
+      "target": "article:tools/conda.md",
+      "type": "contains"
+    },
+    {
+      "source": "tag:人工智能",
+      "target": "article:courses/dive-into-deep-learning.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:深度学习",
+      "target": "article:courses/dive-into-deep-learning.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:PyTorch",
+      "target": "article:courses/dive-into-deep-learning.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机系统",
+      "target": "article:courses/cmu-cs15-213-csapp/linking.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:CSAPP",
+      "target": "article:courses/cmu-cs15-213-csapp/linking.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C",
+      "target": "article:courses/cmu-cs15-213-csapp/linking.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机系统",
+      "target": "article:courses/cmu-cs15-213-csapp/machine-level-representation.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:CSAPP",
+      "target": "article:courses/cmu-cs15-213-csapp/machine-level-representation.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C",
+      "target": "article:courses/cmu-cs15-213-csapp/machine-level-representation.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机系统",
+      "target": "article:courses/cmu-cs15-213-csapp/memory-hierarchy.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:CSAPP",
+      "target": "article:courses/cmu-cs15-213-csapp/memory-hierarchy.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C",
+      "target": "article:courses/cmu-cs15-213-csapp/memory-hierarchy.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机系统",
+      "target": "article:courses/cmu-cs15-213-csapp/processes-and-exceptions.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:CSAPP",
+      "target": "article:courses/cmu-cs15-213-csapp/processes-and-exceptions.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C",
+      "target": "article:courses/cmu-cs15-213-csapp/processes-and-exceptions.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机系统",
+      "target": "article:courses/cmu-cs15-213-csapp/representing-information.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:CSAPP",
+      "target": "article:courses/cmu-cs15-213-csapp/representing-information.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C",
+      "target": "article:courses/cmu-cs15-213-csapp/representing-information.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机系统",
+      "target": "article:courses/cmu-cs15-213-csapp/virtual-memory.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:CSAPP",
+      "target": "article:courses/cmu-cs15-213-csapp/virtual-memory.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C",
+      "target": "article:courses/cmu-cs15-213-csapp/virtual-memory.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Python",
+      "target": "article:courses/cs61a/functions-and-control.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Python",
+      "target": "article:courses/cs61a/higher-order-functions.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Python",
+      "target": "article:courses/cs61a/mutability-and-iterators.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Python",
+      "target": "article:courses/cs61a/object-oriented-programming.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Python",
+      "target": "article:courses/cs61a/recursion.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Scheme",
+      "target": "article:courses/cs61a/scheme-and-interpreters.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Python",
+      "target": "article:courses/cs61a/sequences-and-data-abstraction.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:SQL",
+      "target": "article:courses/cs61a/sql-and-databases.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机体系结构",
+      "target": "article:courses/cs61c/riscv.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:RISC-V",
+      "target": "article:courses/cs61c/riscv.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机图形学",
+      "target": "article:courses/games101/geometry.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机图形学",
+      "target": "article:courses/games101/rasterization.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机图形学",
+      "target": "article:courses/games101/shading.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算机图形学",
+      "target": "article:courses/games101/transformations.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:机器学习",
+      "target": "article:courses/ntu-ml/ml-basic-theory.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:深度学习",
+      "target": "article:courses/ntu-ml/ml-basic-theory.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Rust",
+      "target": "article:languages/rust/programming-rust/rust-basic.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:RustRover",
+      "target": "article:languages/rust/programming-rust/rust-basic.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:组合数学",
+      "target": "article:math/introductory-combinatorics/permutations-and-combinations.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:组合数学",
+      "target": "article:math/introductory-combinatorics/what-is-combinatorics.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:算法",
+      "target": "article:oi/math/catalan-number.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:数学",
+      "target": "article:oi/math/catalan-number.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:组合数学",
+      "target": "article:oi/math/catalan-number.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:算法",
+      "target": "article:oi/math/lucas-theorem.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:数学",
+      "target": "article:oi/math/lucas-theorem.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:组合数学",
+      "target": "article:oi/math/lucas-theorem.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:ICPC",
+      "target": "article:oi/solutions/2025-icpc-wuhan-invitational-contest-g.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:根号分治",
+      "target": "article:oi/solutions/2025-icpc-wuhan-invitational-contest-g.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:算法",
+      "target": "article:oi/solutions/cf-2074d-counting-points.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C++",
+      "target": "article:oi/solutions/cf-2074d-counting-points.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Codeforces",
+      "target": "article:oi/solutions/cf-2074d-counting-points.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C++20",
+      "target": "article:oi/solutions/cf-2074d-counting-points.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:计算几何",
+      "target": "article:oi/solutions/cf-2074d-counting-points.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:算法",
+      "target": "article:oi/solutions/cf-2120c-divine-tree.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C++",
+      "target": "article:oi/solutions/cf-2120c-divine-tree.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Codeforces",
+      "target": "article:oi/solutions/cf-2120c-divine-tree.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:树",
+      "target": "article:oi/solutions/cf-2120c-divine-tree.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:构造",
+      "target": "article:oi/solutions/cf-2120c-divine-tree.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:贪心",
+      "target": "article:oi/solutions/cf-2120c-divine-tree.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:算法",
+      "target": "article:oi/solutions/cf-2123e-mex-count.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:C++",
+      "target": "article:oi/solutions/cf-2123e-mex-count.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:Codeforces",
+      "target": "article:oi/solutions/cf-2123e-mex-count.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:LNCPC",
+      "target": "article:oi/solutions/lncpc-2025-e-entering-the-unknown.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:前缀和",
+      "target": "article:oi/solutions/lncpc-2025-e-entering-the-unknown.md",
+      "type": "tagged"
+    },
+    {
+      "source": "tag:GitHub",
+      "target": "article:tools/github-cli.md",
+      "type": "tagged"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+/* CS61C：RISC-V 指令位域图 */
+.md-typeset figure.cs61c-instruction-format {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 1.5rem 0 1rem;
+}
+
+.cs61c-instruction-format__scroll {
+    width: 100%;
+    padding: 0.9rem 0 0.15rem;
+}
+
+.cs61c-instruction-format__diagram {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    color: var(--md-typeset-color);
+    font-family: var(--md-code-font-family);
+}
+
+.cs61c-instruction-format__field {
+    position: relative;
+    flex: var(--cs61c-field-width) 0 0;
+    min-width: 0;
+    border: 0.05rem solid var(--md-typeset-color);
+    background-color: var(--md-default-bg-color);
+}
+
+.cs61c-instruction-format__field + .cs61c-instruction-format__field {
+    border-left: 0;
+}
+
+.cs61c-instruction-format__bits {
+    position: absolute;
+    right: 0.08rem;
+    bottom: calc(100% + 0.22rem);
+    left: 0.08rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: clamp(0.42rem, 1.2vw, 0.52rem);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.cs61c-instruction-format__label {
+    display: flex;
+    min-width: 0;
+    min-height: 1.85rem;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0.25rem 0.06rem;
+    font-size: clamp(0.48rem, 1.5vw, 0.72rem);
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.cs61c-instruction-format__field--narrow .cs61c-instruction-format__label {
+    min-height: 2.5rem;
+    font-size: 0.52rem;
+    writing-mode: vertical-rl;
+}
+
+.cs61c-instruction-format__field--single .cs61c-instruction-format__bits {
+    justify-content: center;
+}

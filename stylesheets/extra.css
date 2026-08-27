@@ -1,0 +1,206 @@
+/* code 警告框样式 */
+:root {
+    --md-admonition-icon--code: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>');
+    --md-admonition-icon--code-color: #7f50ff;
+    --md-admonition-icon--code-background: rgba(127, 80, 255, 0.1);
+}
+
+.md-typeset .admonition.code,
+.md-typeset details.code {
+    border-color: var(--md-admonition-icon--code-color);
+}
+
+.md-typeset .admonition.code:focus-within,
+.md-typeset details.code:focus-within {
+    box-shadow: 0 0 0 0.2rem var(--md-admonition-icon--code-background);
+}
+
+.md-typeset .code>.admonition-title,
+.md-typeset .code>summary {
+    background-color: var(--md-admonition-icon--code-background);
+}
+
+.md-typeset .code>.admonition-title::before,
+.md-typeset .code>summary::before {
+    background-color: var(--md-admonition-icon--code-color);
+    -webkit-mask-image: var(--md-admonition-icon--code);
+    mask-image: var(--md-admonition-icon--code);
+}
+
+.md-typeset .code>summary::after {
+    background-color: var(--md-admonition-icon--code-color);
+}
+
+/* 恢复 details 内部具有行号的代码字体大小 */
+details .linenos,
+details code {
+    font-size: inherit !important;
+}
+
+/* 移除 details 内部代码块和 tab 框边距 */
+details>summary+.highlight,
+details>summary+.tabbed-set {
+    margin: 0 -0.6rem !important;
+}
+
+details>summary+.highlight>.highlighttable {
+    margin: 0 !important;
+}
+
+/* Shell 外部命令高亮：由 javascripts/shell-highlight.js 标记 */
+.highlight .sh-command {
+    color: var(--md-code-hl-function-color);
+}
+
+/* 表格宽度占满容器 */
+.md-typeset__table {
+    display: block !important;
+}
+
+/* 确保非代码块样式的普通表格保持表格布局 */
+.md-typeset table:not(.highlighttable) {
+    display: table !important;
+}
+
+/* 取消普通表头的最小宽度限制，允许列宽根据内容自动收缩 */
+.md-typeset table:not([class]) th {
+    min-width: 0rem;
+}
+
+/* 引用块样式：增加上下间距，并将左侧边框颜色设为主题色 */
+blockquote {
+    margin: 20px 0 !important;
+    border-left-color: var(--md-primary-fg-color) !important;
+}
+
+/* 站点标题取消加粗 */
+.md-header__topic:first-child {
+    font-weight: initial !important;
+}
+
+/* 修正 navigation.path 分隔箭头未与文字垂直居中 */
+.md-path__item:not(:first-child) {
+    align-items: center;
+}
+
+/* 浅色模式下使页脚导航与 white 主色保持一致 */
+[data-md-color-scheme="default"][data-md-color-primary="white"] {
+    --md-footer-bg-color: var(--md-primary-fg-color);
+    --md-footer-bg-color--dark: var(--md-primary-fg-color--dark);
+    --md-footer-fg-color: var(--md-primary-bg-color);
+    --md-footer-fg-color--light: var(--md-primary-bg-color--light);
+    --md-footer-fg-color--lighter: var(--md-default-fg-color--lighter);
+}
+
+/* 隐藏仓库 Star 和 Fork 统计，保留仓库图标与链接 */
+.md-source__facts {
+    display: none;
+}
+
+/* 表格添加列分隔线 */
+.md-typeset table:not(.highlighttable) th,
+.md-typeset table:not(.highlighttable) td {
+    border-right: 0.05rem solid var(--md-typeset-table-color);
+}
+
+/* 移除表格最后一列的右侧边框 */
+.md-typeset table:not(.highlighttable) th:last-child,
+.md-typeset table:not(.highlighttable) td:last-child {
+    border-right: none;
+}
+
+/* 图片居中 */
+.center-img {
+    text-align: center;
+}
+
+/* 定位在 admonition 内部，且被 .no-border-table 包裹的表格 */
+.admonition .no-border-table table,
+[class^="admonition"] .no-border-table table {
+    border: none !important;
+    box-shadow: none !important;
+    /* 移除某些主题可能存在的阴影边框 */
+}
+
+/* 移除表头和单元格的所有边线 */
+.admonition .no-border-table th,
+.admonition .no-border-table td,
+.admonition .no-border-table tr {
+    border: none !important;
+}
+
+/* 术语提示使用普通光标，Tooltip 由 Material 锚定在术语文字旁 */
+.md-typeset abbr {
+    cursor: default;
+}
+
+.md-typeset abbr+.md-tooltip,
+.md-tooltip2[role="tooltip"]>.md-tooltip2__inner {
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+/* 图片组 Flex 布局 */
+.md-img-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.md-img-group img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*
+ * 等高图片组：
+ * --img-group-width  控制整组宽度
+ * --img-group-height 控制组内图片的统一高度上限
+ * --img-group-gap    控制图片间距
+ */
+.flex-img-group {
+    display: flex;
+    width: min(var(--img-group-width, 100%), 100%);
+    margin-inline: auto;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--img-group-gap, 1rem);
+}
+
+.flex-img-group > img,
+.flex-img-group > a {
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+/* 兼容 glightbox 为图片生成的链接容器 */
+.flex-img-group > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-img-group > img,
+.flex-img-group > a > img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: var(--img-group-height, 12rem);
+    margin: 0;
+}
+
+/* Mermaid 图表宽度 */
+.mermaid-sized {
+    width: min(var(--diagram-width, 100%), 100%);
+    margin-inline: auto;
+}
+
+.mermaid-sized .mermaid,
+.mermaid-sized svg {
+    width: 100% !important;
+    height: auto;
+}
