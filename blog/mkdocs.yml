@@ -39,6 +39,8 @@ nav:
       - CS61C:
           - RISC-V: courses/cs61c/riscv.md
       - 动手学深度学习: courses/dive-into-deep-learning.md
+      - NTU 机器学习:
+          - 机器学习基础: courses/ntu-ml/ml-basic-theory.md
   - 算法竞赛:
       - 数学:
           - 卢卡斯定理: oi/math/lucas-theorem.md
