@@ -1,0 +1,10 @@
+{
+    "Chinese corner brackets": {
+        "prefix": "kh",
+        "body": [
+            "「$1」$0"
+        ],
+        "description": "插入中文直角引号",
+        "scope": "markdown"
+    }
+}
