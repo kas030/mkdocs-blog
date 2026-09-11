@@ -8,6 +8,7 @@ nav:
           - C++ 特性:
               - 总览: languages/cpp/features/index.md
               - C++11: languages/cpp/features/cpp11.md
+              - C++14: languages/cpp/features/cpp14.md
       - Java:
           - Java 基础: languages/java/java-basic.md
           - Java 异常: languages/java/java-exception.md
