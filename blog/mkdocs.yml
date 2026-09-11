@@ -4,6 +4,10 @@ repo_name: kas030/mkdocs-blog
 nav:
   - 首页: index.md
   - 编程语言:
+      - C++:
+          - C++ 特性:
+              - 总览: languages/cpp/features/index.md
+              - C++11: languages/cpp/features/cpp11.md
       - Java:
           - Java 基础: languages/java/java-basic.md
           - Java 异常: languages/java/java-exception.md
