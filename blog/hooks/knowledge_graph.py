@@ -12,7 +12,7 @@ from mkdocs.structure.nav import Navigation, Page, Section
 
 _nodes: list[dict[str, str]] = []
 _edges: list[dict[str, str]] = []
-_pages: dict[str, str] = {}
+_pages: dict[str, Page] = {}
 _page_tags: dict[str, list[str]] = {}
 _ROOT_ID = "root:site"
 
@@ -56,11 +56,10 @@ def on_nav(nav: Navigation, config: Any, **kwargs: Any) -> Navigation:
             {
                 "id": node_id,
                 "type": "article",
-                "label": item.title,
                 "url": item.url,
             }
         )
-        _pages[item.file.src_uri] = node_id
+        _pages[node_id] = item
         if parent_id and parent_id != _ROOT_ID:
             _edges.append(
                 {"source": parent_id, "target": node_id, "type": "contains"}
@@ -74,8 +73,8 @@ def on_nav(nav: Navigation, config: Any, **kwargs: Any) -> Navigation:
 
 def on_page_markdown(markdown: str, page: Page, **kwargs: Any) -> str:
     """Record tags after MkDocs has parsed each page's front matter."""
-    page_id = _pages.get(page.file.src_uri)
-    if not page_id:
+    page_id = f"article:{page.file.src_uri}"
+    if page_id not in _pages:
         return markdown
 
     raw_tags = page.meta.get("tags", [])
@@ -89,6 +88,12 @@ def on_page_markdown(markdown: str, page: Page, **kwargs: Any) -> str:
 
 def on_post_build(config: Any, **kwargs: Any) -> None:
     """Write graph JSON into the built site without touching source content."""
+    # Untitled navigation entries resolve their titles only after page rendering.
+    for node in _nodes:
+        if node["id"] in _pages:
+            page = _pages[node["id"]]
+            node["label"] = str(page.title or page.file.name)
+
     tag_names = sorted(
         {tag for tags in _page_tags.values() for tag in tags}, key=str.casefold
     )
